@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Solution1To10 {
 
+    //Time Complexity: O(n), Space Complexity: O(n)
     class Solution1 {
         public int[] twoSum(int[] nums, int target) {
             Map<Integer, Integer> remember = new HashMap<Integer, Integer>();
@@ -19,6 +20,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(Max(m, n)), Space Complexity: O(1), m, n = l1, l2's length
     class Solution2 {
         public class ListNode {
             int val;
@@ -27,6 +29,7 @@ public class Solution1To10 {
             ListNode(int val) { this.val = val; }
             ListNode(int val, ListNode next) { this.val = val; this.next = next; }
         }
+
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             ListNode root = new ListNode();
             ListNode temp = root;
@@ -56,6 +59,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(n), Space Complexity: O(z), z表示所有s的character可能
     class Solution3 {
         public int lengthOfLongestSubstring(String s) {
             Set<Character> readed = new HashSet<Character>();
@@ -79,6 +83,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(log(min(m, n))), Space Complexity: O(1), m, n = num1, num2's length
     class Solution4 {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
             int len = nums1.length + nums2.length;
@@ -113,6 +118,7 @@ public class Solution1To10 {
 
     }
 
+    //Time Complexity: O(n^2), Space Complexity: O(n^2)
     class Solution5 {
         public String longestPalindrome(String s) {
             int len = s.length();
@@ -149,6 +155,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(n), Space Complexity: O(n)
     class Solution6 {
         public String convert(String s, int numRows) {
             //設定例外
@@ -191,6 +198,7 @@ public class Solution1To10 {
         */
     }
 
+    //Time Complexity: O(n), Space Complexity: O(n)
     class Solution7 {
         public int reverse(int x) {
             int result = 0;
@@ -209,6 +217,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(n), Space Complexity: O(1)
     class Solution8 {
         public int myAtoi(String s) {
             int result = 0;
@@ -249,6 +258,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(logn), Space Complexity: O(1)
     class Solution9 {
         public boolean isPalindrome(int x) {
             int reverse = 0;
@@ -261,6 +271,7 @@ public class Solution1To10 {
         }
     }
 
+    //Time Complexity: O(n), Space Complexity: O(1)
     class Solution10 {
         public boolean isMatch(String s, String p) {
             //如果檢核結束, 如果檢核完判斷是否有剩下未判斷的s
