@@ -119,4 +119,139 @@ public class Blind75_Array {
         }
     }
 
+    //Time Complexity: O(logn), Space Complexity: O(1)
+    class Solution153 {
+        public int findMin(int[] nums) {
+            //使用二分法
+            //分成兩翼, 左翼是由中到最大, 右翼是由最小到中, 要找的是左翼的最大+1
+            int left = 0;
+            int right = nums.length - 1;
+
+            while(left < right){
+                int mid = (left + right) / 2;
+
+                if(nums[mid] < nums[right]){
+                    //最右的比指標大, 代表指標在右翼
+                    //[4, 5, 6, 7, 0, 1, 2]
+                    //             ^mid  ^right
+                    right = mid;//捨棄不包含自己的右側, 要保留自己因為可能是最小
+                }else{
+                    //最右的比指標小, 代表指標在左翼
+                    //[4, 5, 6, 7, 0, 1, 2]
+                    //    ^mid           ^right
+                    left = mid + 1;//捨棄包含自己的左側
+                }
+            }
+
+            return nums[right];
+        }
+    }
+
+    //Time Complexity: O(logn), Space Complexity: O(1)
+    class Solution33 {
+        public int search(int[] nums, int target) {
+            //二分法, 左右指標
+
+            int left = 0;
+            int right = nums.length - 1;
+
+            //有可能會相等，因為是直接 + 1 或 - 1
+            while(left <= right){
+                int mid = (left + right) / 2;
+
+                if(target == nums[mid])
+                    return mid;
+
+                if(nums[mid] < nums[right]){
+                    //mid在右翼的情況
+                    if(nums[mid] < target && target <= nums[right]){
+                        left = mid + 1;//left - mid - target - right
+                    }else{
+                        right = mid - 1;//left - target - mid - right
+                    }
+                }else{
+                    //mid在左翼的情況
+                    if(nums[left] <= target && target < nums[mid]){
+                        right = mid - 1;//left - target - mid - right
+                    }else{
+                        left = mid + 1;//left - mid - target - right
+                    }
+                }
+            }
+
+            return -1;
+        }
+    }
+
+    //Time Complexity: O(n^2), Space Complexity: O(logn), 空間複雜度主要是排序, 可能為O(logn)
+    class Solution15 {
+        public List<List<Integer>> threeSum(int[] nums) {
+            List<List<Integer>> res = new ArrayList<List<Integer>>();
+
+            //!!記得要sort
+            Arrays.sort(nums);
+
+            for(int i = 0; i < nums.length - 2; i++){
+                //重複的skip
+                if(i > 0 && nums[i] == nums[i - 1])
+                    continue;
+
+                int left = i + 1;
+                int right = nums.length - 1;
+
+                while(left < right){
+                    //重複的skip
+                    if(left > i + 1 && nums[left] == nums[left - 1]){
+                        left++;
+                        continue;
+                    }
+                    if(right < nums.length - 1 && nums[right] == nums[right + 1]){
+                        right--;
+                        continue;
+                    }
+
+                    int sum = nums[i] + nums[left] + nums[right];
+                    if(sum == 0){
+                        List<Integer> temp = new ArrayList<Integer>();
+                        temp.add(nums[i]);
+                        temp.add(nums[left]);
+                        temp.add(nums[right]);
+                        res.add(temp);
+                    }
+
+                    if(sum > 0){
+                        right--;//too big
+                    }else{
+                        left++;//too small
+                    }
+                }
+            }
+
+            return res;
+        }
+    }
+
+    //Time Complexity: O(n), Space Complexity: O(1)
+    class Solution11 {
+        public int maxArea(int[] height) {
+            int left = 0;
+            int right = height.length - 1;
+            int max = 0;
+
+            while(left < right){
+                //高度為左右兩側最小的
+                int volume = (right - left) * Math.min(height[left], height[right]);
+                max = Math.max(max, volume);
+
+                if(height[left] < height[right]){
+                    left++;
+                }else{
+                    right--;
+                }
+            }
+
+            return max;
+        }
+    }
+
 }
