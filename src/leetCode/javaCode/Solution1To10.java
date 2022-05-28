@@ -22,7 +22,7 @@ public class Solution1To10 {
 
     //Time Complexity: O(Max(m, n)), Space Complexity: O(1), m, n = l1, l2's length
     class Solution2 {
-        public class ListNode {
+        class ListNode {
             int val;
             ListNode next;
             ListNode() {}
