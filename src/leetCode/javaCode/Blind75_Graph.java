@@ -467,7 +467,7 @@ public class Blind75_Graph {
                 int a = find(edge[0], parent);
                 int b = find(edge[1], parent);
 
-                if(a != b){
+                if(a != b){//若 a == b, 則代表這個edge造成環, 還是同一個所以count不減1
                     parent[a] = b;//把兩個點union一起
                     count--;//兩個合一起就相當於數量-1
                 }
