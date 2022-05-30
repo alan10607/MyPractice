@@ -309,7 +309,7 @@ public class Solution11To20 {
 
     //Time Complexity: O(n), Space Complexity: O(1), n為鏈表長度
     class Solution19 {
-        public class ListNode {
+        class ListNode {
             int val;
             ListNode next;
             ListNode() {}
