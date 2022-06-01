@@ -131,7 +131,7 @@ public class Blind75_Binary {
         public int reverseBits(int n) {
             int res = 0;
             for(int i = 0; i< 32 && n != 0; i++){
-                res |= (n & 1) << (31 - i);//獲得n最右邊的值ㄝ, 丟到res最左邊
+                res |= (n & 1) << (31 - i);//獲得n最右邊的值, 丟到res最左邊
                 n >>>= 1;//原本的往右滑1
             }
             //int temp = n & 1;
@@ -140,19 +140,19 @@ public class Blind75_Binary {
             return res;
         }
 
-        /*  位運算分治, Time Complexity: O(1), Space Complexity: O(1)
-            public int reverseBits(int n) {
-                int M1 = 0x55555555; // 01010101010101010101010101010101
-                int M2 = 0x33333333; // 00110011001100110011001100110011
-                int M4 = 0x0f0f0f0f; // 00001111000011110000111100001111
-                int M8 = 0x00ff00ff; // 00000000111111110000000011111111
-                n = n >>> 1 & M1 | (n & M1) << 1;
-                n = n >>> 2 & M2 | (n & M2) << 2;
-                n = n >>> 4 & M4 | (n & M4) << 4;
-                n = n >>> 8 & M8 | (n & M8) << 8;
-                return n >>> 16 | n << 16;
-            }
-         */
+        //Time Complexity: O(1), Space Complexity: O(1)
+        public int reverseBits2(int n) {
+            //位運算分治
+            int M1 = 0x55555555; // 01010101010101010101010101010101
+            int M2 = 0x33333333; // 00110011001100110011001100110011
+            int M4 = 0x0f0f0f0f; // 00001111000011110000111100001111
+            int M8 = 0x00ff00ff; // 00000000111111110000000011111111
+            n = n >>> 1 & M1 | (n & M1) << 1;
+            n = n >>> 2 & M2 | (n & M2) << 2;
+            n = n >>> 4 & M4 | (n & M4) << 4;
+            n = n >>> 8 & M8 | (n & M8) << 8;
+            return n >>> 16 | n << 16;
+        }
     }
 
 }

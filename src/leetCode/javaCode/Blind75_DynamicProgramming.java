@@ -93,14 +93,14 @@ public class Blind75_DynamicProgramming {
 
             return res;
 
-		/*
-		[1, 2, 4, 3], 計算到達的最多Increasing Subsequence
-		dp[0] = 1 (自己本身)
-		dp[1] = max(1, 1 + dp[0]) = 2
-		dp[2] = max(1, 1 + dp[0], 1 + dp[1]) = 3
-		dp[3] = max(1, 1 + dp[0], 1 + dp[1]) = 3, nums[2] > nums[3]所以不能用dp[2]
-		LIS = max(all dp[]) = 3
-		*/
+            /*
+            [1, 2, 4, 3], 計算到達的最多Increasing Subsequence
+            dp[0] = 1 (自己本身)
+            dp[1] = max(1, 1 + dp[0]) = 2
+            dp[2] = max(1, 1 + dp[0], 1 + dp[1]) = 3
+            dp[3] = max(1, 1 + dp[0], 1 + dp[1]) = 3, nums[2] > nums[3]所以不能用dp[2]
+            LIS = max(all dp[]) = 3
+            */
         }
     }
 
@@ -125,15 +125,15 @@ public class Blind75_DynamicProgramming {
 
             return dp[text1.length()][text2.length()];
 
-		/* 一層層跑完右下就會獲得最大值
-				a   c   e
-			0	0	0	0
-		a   0	1	1	1
-		b	0	1	1	1
-		c	0	1	2	2
-		d	0	1	2	2
-		e	0	1	2	3
-		*/
+            /* 一層層跑完右下就會獲得最大值
+                    a   c   e
+                0	0	0	0
+            a   0	1	1	1
+            b	0	1	1	1
+            c	0	1	2	2
+            d	0	1	2	2
+            e	0	1	2	3
+            */
         }
     }
 
@@ -158,18 +158,18 @@ public class Blind75_DynamicProgramming {
 
             return dp[s.length()];
 
-		/*
-		"leetcode", ["leet", "code"]
-		dp[0] = true, 空字串也符合
-		dp[1] = (dp[0] && s.substring(0, 1)) = false
-		dp[2] = (dp[0] && s.substring(0, 2)) || (dp[1] && s.substring(1, 2)) = false
-		dp[3] = (dp[0] && s.substring(0, 3)) || (dp[1] && s.substring(1, 3))
-			 || (dp[2] && s.substring(2, 3)) = false
-		dp[4] = (dp[0] && s.substring(0, 4)) || (dp[1] && s.substring(1, 4))
-			 || (dp[2] && s.substring(2, 4)) || (dp[3] && s.substring(2, 4)) = true
-		...
-		dp[n] = (dp[0] && s.substring(0, n)) || ... (dp[n - 1] && s.substring(n - 1, n))
-		*/
+            /*
+            "leetcode", ["leet", "code"]
+            dp[0] = true, 空字串也符合
+            dp[1] = (dp[0] && s.substring(0, 1)) = false
+            dp[2] = (dp[0] && s.substring(0, 2)) || (dp[1] && s.substring(1, 2)) = false
+            dp[3] = (dp[0] && s.substring(0, 3)) || (dp[1] && s.substring(1, 3))
+                 || (dp[2] && s.substring(2, 3)) = false
+            dp[4] = (dp[0] && s.substring(0, 4)) || (dp[1] && s.substring(1, 4))
+                 || (dp[2] && s.substring(2, 4)) || (dp[3] && s.substring(2, 4)) = true
+            ...
+            dp[n] = (dp[0] && s.substring(0, n)) || ... (dp[n - 1] && s.substring(n - 1, n))
+            */
         }
     }
 
@@ -188,22 +188,22 @@ public class Blind75_DynamicProgramming {
 
             return dp[target];
 
-		/*
-		nums = [1,2,3], 每次增加target數字都會有更多可能
-		dp[0] = () = 1, 目標為0只有一種方法就是為空
-		dp[1] = (1 + dp[0]) = (1) = 1
-		dp[2] = (1 + dp[1], 2 + dp[0]) = (11, 2) = 2
-		sp[3] = (1 + dp[2], 2 + dp[1], 3 + dp[0])
-				= (111, 12, 21, 3) = 4
-		dp[4] = (1 + dp[3], 2 + dp[2], 3 + dp[1])
-			  = (1111, 112, 121, 13, 211, 22, 31) = 7
-		dp[5] = (1 + dp[4], 2 + dp[3], 3 + dp[2], 4 + dp[1])
-			  = (11111, 1112, 1121, 113, 1211, 122, 131
-				 2111, 212, 221, 23, 311, 32, 41 ) = 14
-			 ...
-        dp[n] = (nums[0] + dp[n - nums[0]], nums[1] + dp[n - nums[1]], ...)
+            /*
+            nums = [1,2,3], 每次增加target數字都會有更多可能
+            dp[0] = () = 1, 目標為0只有一種方法就是為空
+            dp[1] = (1 + dp[0]) = (1) = 1
+            dp[2] = (1 + dp[1], 2 + dp[0]) = (11, 2) = 2
+            sp[3] = (1 + dp[2], 2 + dp[1], 3 + dp[0])
+                    = (111, 12, 21, 3) = 4
+            dp[4] = (1 + dp[3], 2 + dp[2], 3 + dp[1])
+                  = (1111, 112, 121, 13, 211, 22, 31) = 7
+            dp[5] = (1 + dp[4], 2 + dp[3], 3 + dp[2], 4 + dp[1])
+                  = (11111, 1112, 1121, 113, 1211, 122, 131
+                     2111, 212, 221, 23, 311, 32, 41 ) = 14
+                 ...
+            dp[n] = (nums[0] + dp[n - nums[0]], nums[1] + dp[n - nums[1]], ...)
 
-		*/
+            */
         }
     }
 
@@ -222,17 +222,17 @@ public class Blind75_DynamicProgramming {
 
             return one;
 
-		/*
-		nums = [2,7,9,3,1]
-		dp[0] = 2
-		dp[1] = max(dp[0], nums[1]) = 7
-		dp[2] = max(dp[1], nums[2] + dp[0]) = 11
-		dp[3] = max(dp[2], nums[3] + dp[1]) = 11
-		dp[4] = max(dp[3], nums[4] + dp[2]) = 12
-		...
-		dp[n] = dp[n - 1], nums[n] + dp[n-2]
-		始終只需要n - 1, n - 2就夠了
-		*/
+            /*
+            nums = [2,7,9,3,1]
+            dp[0] = 2
+            dp[1] = max(dp[0], nums[1]) = 7
+            dp[2] = max(dp[1], nums[2] + dp[0]) = 11
+            dp[3] = max(dp[2], nums[3] + dp[1]) = 11
+            dp[4] = max(dp[3], nums[4] + dp[2]) = 12
+            ...
+            dp[n] = dp[n - 1], nums[n] + dp[n-2]
+            始終只需要n - 1, n - 2就夠了
+            */
         }
     }
 
@@ -294,18 +294,18 @@ public class Blind75_DynamicProgramming {
 
             return one;
 
-        /*
-		s = "2262"
-		dp[0] = () = 1 way //題目設定查無回0
-		dp[1] = (dp[0] + s.substring(0, 1)) = (B) = (2) = 1
-		dp[2] = (dp[1] + s.substring(1, 2), dp[0] + s.substring(0, 2)) = ((2)(2), (22)) = (BB, V)= 2
-		dp[3] = (dp[2] + s.substring(2, 3), dp[1] + s.substring(1, 3))
-			  = ((2)(2)(6), (22)(6), (2)(26)) = (BBF, VF, BZ) = 3
-		dp[4] = (dp[3] + s.substring(3, 4), dp[2] + s.substring(2, 4))
-			  = ((2)(2)(6)(2}, (22)(6)(2}, (2)(26)(2), (2)(2)<62>, (22)<62>) = (BBFB, VFB, BZB) = 3, 62不可行
-		...
-		dp[n] = (dp[n - 1] + s.substring(n - 1, n), dp[n - 2] + s.substring(n - 2, n))
-		*/
+            /*
+            s = "2262"
+            dp[0] = () = 1 way //題目設定查無回0
+            dp[1] = (dp[0] + s.substring(0, 1)) = (B) = (2) = 1
+            dp[2] = (dp[1] + s.substring(1, 2), dp[0] + s.substring(0, 2)) = ((2)(2), (22)) = (BB, V)= 2
+            dp[3] = (dp[2] + s.substring(2, 3), dp[1] + s.substring(1, 3))
+                  = ((2)(2)(6), (22)(6), (2)(26)) = (BBF, VF, BZ) = 3
+            dp[4] = (dp[3] + s.substring(3, 4), dp[2] + s.substring(2, 4))
+                  = ((2)(2)(6)(2}, (22)(6)(2}, (2)(26)(2), (2)(2)<62>, (22)<62>) = (BBFB, VFB, BZB) = 3, 62不可行
+            ...
+            dp[n] = (dp[n - 1] + s.substring(n - 1, n), dp[n - 2] + s.substring(n - 2, n))
+            */
         }
     }
 
@@ -330,15 +330,15 @@ public class Blind75_DynamicProgramming {
 
             return dp[m][n];
 
-		/*
-		m = 3, n = 7, 找一下到那一格有幾種可能
+            /*
+            m = 3, n = 7, 找一下到那一格有幾種可能
 
-			1	2	3	4	5	6	7
-		1	1	1	1	1	1	1	1
-		2	1	2	3	4	5	6	7
-		3	1	3	6	10	15	21	28
-		4	1	4	10	20	35	56	84
-		*/
+                1	2	3	4	5	6	7
+            1	1	1	1	1	1	1	1
+            2	1	2	3	4	5	6	7
+            3	1	3	6	10	15	21	28
+            4	1	4	10	20	35	56	84
+            */
         }
     }
 
