@@ -134,7 +134,7 @@ public class Solution1To10 {
             for(int j=0; j<len; j++){
                 dp[j][j] = true;
 
-                //i在左邊部會超過j
+                //i在左邊不會超過j
                 for(int i=0; i<j; i++){
                     if(s.charAt(i) == s.charAt(j)
                             && ((j - i) <= 2 || dp[i + 1][j - 1] == true)){
