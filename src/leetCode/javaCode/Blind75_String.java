@@ -233,8 +233,8 @@ public class Blind75_String {
                     vpeek
              [head] 0 1 2 3 4 [bot]
              *push=>         <=add*
-              pop =>         <=offer*
-             *poll=>         =>pollLast
+               pop<=         <=offer*
+             *poll<=         =>pollLast
             remove<=
 
         Deque 方法:
