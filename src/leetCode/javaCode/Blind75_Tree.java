@@ -209,7 +209,7 @@ public class Blind75_Tree {
     }
 
     //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
-    public class Solution297 {
+    class Solution297 {
         class TreeNode {
             int val;
             TreeNode left;
@@ -241,7 +241,7 @@ public class Blind75_Tree {
         }
 
         public TreeNode deserialize(String data) {
-            //先將String Array轉為LindedList quene
+            //先將String Array轉為LinkedList quene
             String[] datas = data.split(",");
             Deque<String> quene = new LinkedList<String>(Arrays.asList(datas));
             return deDFS(quene);
@@ -258,6 +258,205 @@ public class Blind75_Tree {
             root.right = deDFS(quene);
             return root;
         }
+    }
+
+    //Time Complexity: O(st), Space Complexity: O(h), s為root節點數, t為subTree節點數, h為root深度即要記憶大樹的深度
+    class Solution572 {
+        class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+            TreeNode() {}
+            TreeNode(int val) { this.val = val; }
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+            if(subRoot == null) return true;//設定例外, 任何tree都一定有null
+            if(root == null) return false;//設定跳出點, 已經走到底部
+
+            if(isSameTree(root, subRoot))
+                return true;
+
+            //root接續尋找可能
+            return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+        }
+
+        //透過DFS判定s, t是否為相同的tree
+        public boolean isSameTree(TreeNode s, TreeNode t){
+            //設定例外
+            if(s == null && t == null) return true;
+            if(s == null || t == null || s.val != t.val) return false;//其中一個null, 為另一個不為null
+
+            //s.val == t.val, 繼續左右兩邊DFS
+            return isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
+        }
+    }
+
+    //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+    class Solution105 {
+        class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+            TreeNode() {}
+            TreeNode(int val) { this.val = val; }
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();//用來記錄inorder位置, 方便遞迴
+            for(int i=0; i<inorder.length; i++)
+                inMap.put(inorder[i], i);
+
+            return build(preorder, inMap, 0, inorder.length - 1);
+        }
+
+        public int preIndex = 0;//一個巧妙的做法, 用來記錄preorder的起始位置(相當於pre的root)
+        public TreeNode build(int[] pre, Map<Integer, Integer> inMap, int left, int right){
+            //設定例外
+            if(left > right) return null;
+
+            int val = pre[preIndex++];//!!因為遍歷方式其實就是DFS preorder, 所以其實每次都+1就好了
+            int inRoot = inMap.get(val);//應對的inorder位置
+            TreeNode root = new TreeNode(val);
+            root.left = build(pre, inMap, left, inRoot - 1);
+            root.right = build(pre, inMap, inRoot + 1, right);
+            return root;
+        }
+
+        //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+        public TreeNode buildTree2(int[] preorder, int[] inorder) {
+            Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();//用來記錄inorder位置, 方便遞迴
+            for(int i=0; i<inorder.length; i++)
+                inMap.put(inorder[i], i);
+
+            return build(preorder, inMap, 0, preorder.length - 1, 0, inorder.length - 1);
+        }
+
+        public TreeNode build(int[] pre, Map<Integer, Integer> inMap, int preStart, int preEnd, int inStart, int inEnd){
+            //設定例外
+            if(preStart > preEnd) return null;
+
+            int val = pre[preStart];//取preorder第一個, 即root
+            int inRoot = inMap.get(val);//應對的inorder位置
+            int toLeft = inRoot - inStart;//inorder左邊的長度
+
+            //開始建立
+            TreeNode root = new TreeNode(val);
+            root.left = build(pre, inMap, preStart + 1, preStart + toLeft, inStart, inRoot - 1);
+            root.right = build(pre, inMap, preStart + toLeft + 1, preEnd, inRoot + 1, inEnd);
+
+            return root;
+        }
+        /*
+                1
+            2       3
+                  4   5
+
+        preorder = [1, 2, 3, 4, 5]
+        inorder  = [2, 1, 4, 3, 5]
+
+        先取preorder[0](= 1), 拆開inorder, 依照inorder左右數量拆開preorder
+        preorder = (1) [2] [3, 4, 5]
+        inorder  = [2] (1) [4, 3, 5]
+
+        取2, 3
+        preorder = (2) (3) [4] [5]
+        inorder  = (2) [4] (3) [5]
+
+        取4, 5
+        preorder = (4) (5)
+        inorder  = (4) (5)
+
+        DFS:
+            Pre-order Traversal  前序遍歷 root -> left -> right
+            In-order Traversal   中序遍歷 left -> root -> right
+            Post-order Traversal 後序遍歷 left -> right-> root
+        BFS
+        */
+    }
+
+
+    //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+    class Solution98 {
+        class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+            TreeNode() {}
+            TreeNode(int val) { this.val = val; }
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public boolean isValidBST(TreeNode root) {
+            //題目的root.val有可能給到Integer.MAX_VALUE, 直接改用Long
+            return dfs(root, Long.MIN_VALUE, Long.MAX_VALUE);//-2^63 ~ 2^63-1
+        }
+
+        public boolean dfs(TreeNode root, long left, long right) {
+            //設定例外
+            if (root == null) return true;//驗證到底部了
+
+            //如果在範圍內, 繼續遍歷左右分支
+            if (left < root.val && root.val < right)
+                return dfs(root.left, left, root.val) && dfs(root.right, root.val, right);
+
+            return false;
+        }
+        /*  以下驗證會失敗, 因為4 < 5
+                5
+            3       7
+                  4   8
+        依照DFS驗證:
+        MIN_VALUE < 5 < MAX_VALUE
+        MIN_VALUE < 3 < 5
+        5 < 7 < MAX_VALUE
+        5 < 4 < 7 => return false
+
+        */
+
+        //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+        public boolean isValidBST2(TreeNode root) {
+            //透過In-order Traversal
+            Deque<TreeNode> quene = new LinkedList<TreeNode>();
+            long last = Long.MIN_VALUE;
+
+            //開一個入口給子while, 第一次加入quene放在子while
+            while(!quene.isEmpty() || root != null){
+                while(root != null){
+                    quene.push(root);//紀錄root
+                    root = root.left;//往左下去到底
+                }
+
+                //開始掃描, 從底層拿出來
+                root = quene.poll();
+                if(last >= root.val)//現在的node應該要比前一個的大
+                    return false;
+
+                last = root.val;//更新到上一個的大小
+                root = root.right;//掃描完root後往右
+            }
+            return true;
+        }
+        /* 如果是In-order Traversal, 則left -> root -> right一定會照大小排列
+                2
+            1       4
+                  3   5
+        inorder = [1, 2, 3, 4, 5]
+        */
     }
 
 }
