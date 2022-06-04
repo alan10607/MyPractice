@@ -32,26 +32,26 @@ public class Blind75_Tree {
             return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
         }
 
-        //Time Complexity: O(n), Space Complexity: O(n), n為節點個數, h為quene的儲存量, 最多為n
+        //Time Complexity: O(n), Space Complexity: O(n), n為節點個數, h為queue的儲存量, 最多為n
         public int maxDepth2(TreeNode root) {
             //試試看BFS, 設定例外
             if(root == null) return 0;
 
             int count = 0;
-            Deque<TreeNode> quene = new LinkedList<TreeNode>();
-            quene.offer(root);
-            while(!quene.isEmpty()){
+            Deque<TreeNode> queue = new LinkedList<TreeNode>();
+            queue.offer(root);
+            while(!queue.isEmpty()){
                 count++;
 
                 //開始跑層, 只需要跑目前層的數量
-                int size = quene.size();
+                int size = queue.size();
                 for(int i=0; i<size; i++){
-                    TreeNode temp = quene.poll();
+                    TreeNode temp = queue.poll();
                     if(temp.left != null)
-                        quene.offer(temp.left);
+                        queue.offer(temp.left);
 
                     if(temp.right != null)
-                        quene.offer(temp.right);
+                        queue.offer(temp.right);
                 }
             }
             return count;
@@ -188,18 +188,18 @@ public class Blind75_Tree {
             //設定例外條件
             if(root == null) return res;
 
-            Deque<TreeNode> quene = new LinkedList<TreeNode>();
-            quene.offer(root);
+            Deque<TreeNode> queue = new LinkedList<TreeNode>();
+            queue.offer(root);
 
-            while(!quene.isEmpty()){
+            while(!queue.isEmpty()){
                 List<Integer> level = new ArrayList<Integer>();//用來存這一層的node
 
-                int size = quene.size();//這一層的數量
+                int size = queue.size();//這一層的數量
                 for(int i=0; i<size; i++){
-                    TreeNode temp = quene.poll();
+                    TreeNode temp = queue.poll();
                     level.add(temp.val);
-                    if(temp.left != null) quene.offer(temp.left);
-                    if(temp.right != null) quene.offer(temp.right);
+                    if(temp.left != null) queue.offer(temp.left);
+                    if(temp.right != null) queue.offer(temp.right);
                 }
 
                 res.add(level);
@@ -241,21 +241,21 @@ public class Blind75_Tree {
         }
 
         public TreeNode deserialize(String data) {
-            //先將String Array轉為LinkedList quene
+            //先將String Array轉為LinkedList queue
             String[] datas = data.split(",");
-            Deque<String> quene = new LinkedList<String>(Arrays.asList(datas));
-            return deDFS(quene);
+            Deque<String> queue = new LinkedList<String>(Arrays.asList(datas));
+            return deDFS(queue);
         }
 
-        public TreeNode deDFS(Deque<String> quene){
-            String val = quene.poll();
+        public TreeNode deDFS(Deque<String> queue){
+            String val = queue.poll();
             //設定返回條件
             if("N".equals(val)) return null;
 
             //若不為null, 依照DFS順序建立新的TreeNode
             TreeNode root = new TreeNode(Integer.parseInt(val));//要轉為數字
-            root.left = deDFS(quene);
-            root.right = deDFS(quene);
+            root.left = deDFS(queue);
+            root.right = deDFS(queue);
             return root;
         }
     }
@@ -431,18 +431,18 @@ public class Blind75_Tree {
         //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
         public boolean isValidBST2(TreeNode root) {
             //透過In-order Traversal
-            Deque<TreeNode> quene = new LinkedList<TreeNode>();
+            Deque<TreeNode> queue = new LinkedList<TreeNode>();
             long last = Long.MIN_VALUE;
 
-            //開一個入口給子while, 第一次加入quene放在子while
-            while(!quene.isEmpty() || root != null){
+            //開一個入口給子while, 第一次加入queue放在子while
+            while(!queue.isEmpty() || root != null){
                 while(root != null){
-                    quene.push(root);//紀錄root
+                    queue.push(root);//紀錄root
                     root = root.left;//往左下去到底
                 }
 
                 //開始掃描, 從底層拿出來
-                root = quene.poll();
+                root = queue.poll();
                 if(last >= root.val)//現在的node應該要比前一個的大
                     return false;
 
@@ -482,18 +482,18 @@ public class Blind75_Tree {
 
         public int kthSmallest(TreeNode root, int k) {
             //BST, 二元搜尋樹Binary Search Tree, 節點排列相當於In-order Traversal, left -> root -> right
-            Deque<TreeNode> quene = new LinkedList<TreeNode>();
+            Deque<TreeNode> queue = new LinkedList<TreeNode>();
 
             //直接用In-order Traversal
-            while (!quene.isEmpty() || root != null) {
-                //往左下找node到quene
+            while (!queue.isEmpty() || root != null) {
+                //往左下找node到queue
                 while (root != null) {
-                    quene.push(root);
+                    queue.push(root);
                     root = root.left;
                 }
 
                 //開始向上
-                root = quene.poll();
+                root = queue.poll();
                 if (--k == 0) return root.val;//回傳第k小的
 
                 root = root.right;

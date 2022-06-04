@@ -241,7 +241,7 @@ public class Blind75_Graph {
             Map<Character, List<Character>> edge = new HashMap<Character, List<Character>>();//<父, [子...]>
             Set<Character> letters = new HashSet<Character>();
             int[] count = new int[26];//用來紀錄子節點出現次數, 為0則代表是最父的點
-            PriorityQueue<Character> quene = new PriorityQueue<Character>();
+            PriorityQueue<Character> queue = new PriorityQueue<Character>();
             StringBuffer res = new StringBuffer();
 
             //1. 先找出有出現的所有的字母Set, 即所有node
@@ -280,12 +280,12 @@ public class Blind75_Graph {
             for(Character letter : letters){
                 //如果子節點出現次數為0, 代表是父節點
                 if(count[letter - 'a'] == 0)
-                    quene.offer(letter);
+                    queue.offer(letter);
             }
 
             //開始排序, 並找出下一個父節點
-            while(!quene.isEmpty()){
-                Character parent = quene.poll();//要注意是包裝後的Character
+            while(!queue.isEmpty()){
+                Character parent = queue.poll();//要注意是包裝後的Character
                 res.append(parent);//加到輸出字串
 
                 List<Character> childs = edge.get(parent);
@@ -294,7 +294,7 @@ public class Blind75_Graph {
                     for(Character child : childs){
                         count[child - 'a']--;
                         if(count[child - 'a'] == 0)
-                            quene.offer(child);//若減到為0, 則它就是下一個父節點
+                            queue.offer(child);//若減到為0, 則它就是下一個父節點
                     }
                 }
             }

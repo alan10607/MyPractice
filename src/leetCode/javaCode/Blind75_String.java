@@ -209,24 +209,24 @@ public class Blind75_String {
     //Time Complexity: O(n), Space Complexity: O(n + z), n = s.length(), z為括號字符集共6
     class Solution19 {
         public boolean isValid(String s) {
-            //使用quene, dequeue是指double-ended queue(雙向佇列)
+            //使用queue, dequeue是指double-ended queue(雙向佇列)
             //使用Deque比Stack更好, 除了提供更多進出方法, Deque是interface比Stack是class有更多彈性
             //Stack<Character> stack = new Stack<Character>();
-            Deque<Character> quene = new LinkedList<Character>();
+            Deque<Character> queue = new LinkedList<Character>();
             Map<Character, Character> bar = new HashMap<Character, Character>();
             bar.put(')', '(');
             bar.put('}', '{');
             bar.put(']', '[');
 
             for(int i=0; i<s.length(); i++){
-                if(bar.containsKey(s.charAt(i)) && quene.peek() == bar.get(s.charAt(i))){
-                    quene.poll();
+                if(bar.containsKey(s.charAt(i)) && queue.peek() == bar.get(s.charAt(i))){
+                    queue.poll();
                 }else{
-                    quene.push(s.charAt(i));//從頭放進來
+                    queue.push(s.charAt(i));//從頭放進來
                 }
             }
 
-            return quene.size() == 0;
+            return queue.size() == 0;
         }
 
         /*

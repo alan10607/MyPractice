@@ -175,7 +175,7 @@ public class Blind75_LinkedList {
             while(a != null && b != null){
                 if(a.val < b.val){
                     tail.next = a;
-                    a= a.next;
+                    a = a.next;
                 }else{
                     tail.next = b;
                     b = b.next;
