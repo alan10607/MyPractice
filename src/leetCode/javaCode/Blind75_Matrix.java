@@ -141,7 +141,7 @@ public class Blind75_Matrix {
     }
 
     //Time Complexity: O(mn 3^L), Space Complexity: O(mn)
-    //L = word.length(), 每次進入dfs有3種(不含自己)的方向, 最多需要進mn次dfs, 故為mn3^L
+    //m, n為board長寬, L = word.length(), 每次進入dfs有3種(不含自己)的方向, 最多需要進mn次dfs, 故為mn3^L
     class Solution79 {
         public boolean exist(char[][] board, String word) {
             int m = board.length;

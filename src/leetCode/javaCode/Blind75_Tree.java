@@ -320,12 +320,12 @@ public class Blind75_Tree {
             return build(preorder, inMap, 0, inorder.length - 1);
         }
 
-        public int preIndex = 0;//一個巧妙的做法, 用來記錄preorder的起始位置(相當於pre的root)
-        public TreeNode build(int[] pre, Map<Integer, Integer> inMap, int left, int right){
+        public int preRoot = 0;//一個巧妙的做法, 用來記錄preorder的起始位置(相當於pre的root)
+        public TreeNode build(int[] pre, Map<Integer, Integer> inMap, int left, int right) {
             //設定例外
             if(left > right) return null;
 
-            int val = pre[preIndex++];//!!因為遍歷方式其實就是DFS preorder, 所以其實每次都+1就好了
+            int val = pre[preRoot++];//!!因為遍歷方式其實就是DFS preorder, 所以其實每次都+1就好了
             int inRoot = inMap.get(val);//應對的inorder位置
             TreeNode root = new TreeNode(val);
             root.left = build(pre, inMap, left, inRoot - 1);
@@ -457,6 +457,286 @@ public class Blind75_Tree {
                   3   5
         inorder = [1, 2, 3, 4, 5]
         */
+    }
+
+    //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+    class Solution230 {
+        class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+
+            TreeNode() {
+            }
+
+            TreeNode(int val) {
+                this.val = val;
+            }
+
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public int kthSmallest(TreeNode root, int k) {
+            //BST, 二元搜尋樹Binary Search Tree, 節點排列相當於In-order Traversal, left -> root -> right
+            Deque<TreeNode> quene = new LinkedList<TreeNode>();
+
+            //直接用In-order Traversal
+            while (!quene.isEmpty() || root != null) {
+                //往左下找node到quene
+                while (root != null) {
+                    quene.push(root);
+                    root = root.left;
+                }
+
+                //開始向上
+                root = quene.poll();
+                if (--k == 0) return root.val;//回傳第k小的
+
+                root = root.right;
+            }
+            return -1;//表示找不到, 依照題目應該不會有這種情況
+        }
+    }
+
+    //Time Complexity: O(logn), Space Complexity: O(1), n為tree之節點數, 每次搜尋範圍都會減半, 故為logn
+    class Solution235 {
+        class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+
+            TreeNode() {
+            }
+
+            TreeNode(int val) {
+                this.val = val;
+            }
+
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            //最近公共祖先lowest common ancestor(LCA), 祖先也可能是一個node自己本身
+            //因為是BST, 可以直接看位置比大小
+            if (p.val < root.val && q.val < root.val) {
+                return lowestCommonAncestor(root.left, p, q);//代表root太大, 往左
+            } else if (p.val > root.val && q.val > root.val) {
+                return lowestCommonAncestor(root.right, p, q);//代表root太小, 往右
+            } else {
+                return root;//p.val < root.val && root.val < q.val
+            }
+        }
+        /* p = 2, q = 4
+                    6
+                2       8
+              0   4   7   9
+                 3 5
+
+        2 <  6, 6 > 4, 往左
+        2 <= 2, 2 < 4, 得LCA = 2
+
+        */
+    }
+
+    //Time Complexity: 初始化為O(1)其餘為O(L), L = word.length() or prefix.length(),
+    //Space Complexity: O(nz), n為節點數量, z為字符集即26
+    class Solution208 {
+        class Trie {
+            public Trie[] children;
+            public boolean endFlag;
+
+            public Trie() {
+                children = new Trie[26];//26個英文小寫
+                endFlag = false;//用來設定是否為一個單字的結尾
+            }
+
+            //插入word到Trie
+            public void insert(String word) {
+                //題目設定only lowercase English letters
+                Trie root = this;
+                for (int i = 0; i < word.length(); i++) {
+                    int index = word.charAt(i) - 'a';
+                    if (root.children[index] == null)
+                        root.children[index] = new Trie();
+
+                    root = root.children[index];
+                }
+                root.endFlag = true;
+            }
+
+            //查看word是否存在於Trie
+            public boolean search(String word) {
+                Trie root = this;
+                for (int i = 0; i < word.length(); i++) {
+                    int index = word.charAt(i) - 'a';
+                    if (root.children[index] == null)
+                        return false;
+
+                    root = root.children[index];
+                }
+                return root.endFlag;//確定為該單字結尾, 否則insert("apple")後, search("app")會return true
+            }
+
+            //查看前綴prefix是否存在於Trie
+            public boolean startsWith(String prefix) {
+                Trie root = this;
+                for (int i = 0; i < prefix.length(); i++) {
+                    int index = prefix.charAt(i) - 'a';
+                    if (root.children[index] == null)
+                        return false;
+
+                    root = root.children[index];
+                }
+                return true;
+            }
+            /*
+            insert("apple")
+            insert("ape")
+                      root
+                    a
+                  p
+                p   e
+              l
+            e
+            */
+        }
+    }
+
+    //Time Complexity: 初始化為O(1), addWord為O(L), search為O(nz), L = word.length(), n為節點數量, z為字符集即26,
+    //search如果是'.'要多跑z次迴圈, 最多跑nz
+    //Space Complexity: O(nz)
+    class Solution211 {
+        class WordDictionary {
+            public WordDictionary[] children;
+            public boolean endFlag;
+
+            public WordDictionary() {
+                children = new WordDictionary[26];
+                endFlag = false;
+            }
+
+            public void addWord(String word) {
+                WordDictionary wd = this;
+                for (int i = 0; i < word.length(); i++) {
+                    int index = word.charAt(i) - 'a';
+                    if (wd.children[index] == null)
+                        wd.children[index] = new WordDictionary();
+
+                    wd = wd.children[index];
+                }
+                wd.endFlag = true;
+            }
+
+            public boolean search(String word) {
+                //這裡的'.'必須要有字母, 不可為空字串
+                WordDictionary wd = this;
+                for (int i = 0; i < word.length(); i++) {
+                    //兩種情況, char為'.'或其他
+                    if (word.charAt(i) == '.') {
+                        for (WordDictionary child : wd.children) {
+                            //透過DFS向下尋找, 有任何一條路通就可以回true
+                            if (child != null && child.search(word.substring(i + 1)))
+                                return true;
+                        }
+
+                        //表示底下沒有一個分支可以匹配
+                        //不用考慮是否為endFlag, 因為已經在FS判斷過, 如果是endFlag就會在上面返回true了
+                        return false;
+                    } else {
+                        int index = word.charAt(i) - 'a';
+                        if (wd.children[index] == null)
+                            return false;//表示不存在該路線
+
+                        wd = wd.children[index];
+                    }
+                }
+
+                //掃瞄完所有word才會到這裡
+                return wd.endFlag;
+            }
+
+        }
+    }
+
+    //Time Complexity: O(mn 3^L), Space Complexity: O(kL)
+    //m, n為board長寬, L為最長word.length(), 每次進入dfs有3種(不含自己)的方向, 最多需要進mn次dfs, 故為mn3^L
+    //k為words.length, 最多需要kL儲存Trie, 即節點數量
+    class Solution212 {
+        public List<String> findWords(char[][] board, String[] words) {
+            //本題為DFS + Trie應用, Solution 79 + 208
+            int m = board.length;
+            int n = board[0].length;
+            boolean[][] visited = new boolean[m][n];
+            Trie trie = new Trie();
+            Set<String> res = new HashSet<String>();
+
+            //建立Trie
+            for(String word : words)
+                trie.insert(word);
+
+            for(int i=0; i<m; i++){
+                for(int j=0; j<n; j++){
+                    dfs(board, visited, trie, i, j, res);
+                }
+            }
+
+            //Set to List
+            return new ArrayList<String>(res);
+        }
+
+        public void dfs(char[][] board, boolean[][] visited, Trie trie, int i, int j, Set<String> res){
+            //設定例外, 已經訪問過 或者無此tries
+            if(visited[i][j] || !trie.children.containsKey(board[i][j])) return;
+
+            visited[i][j] = true;//記錄為已訪問
+            trie = trie.children.get(board[i][j]);
+            if(trie.endFlag){
+                //有此單字, 加入到res, 但不用return因為後面可能還有單字
+                res.add(trie.word);
+            }
+
+            //DFS, 記得檢查邊界
+            int m = board.length;
+            int n = board[0].length;
+            if(i + 1 <  m) dfs(board, visited, trie, i + 1, j, res);
+            if(i - 1 >= 0) dfs(board, visited, trie, i - 1, j, res);
+            if(j + 1 <  n) dfs(board, visited, trie, i, j + 1, res);
+            if(j - 1 >= 0) dfs(board, visited, trie, i, j - 1, res);
+
+            visited[i][j] = false;//記得改為離開訪問
+        }
+
+        class Trie{
+            public HashMap<Character, Trie> children;
+            public boolean endFlag;
+            public String word;//記錄一下單字方便DFS時紀錄到res
+
+            public Trie(){
+                children = new HashMap<Character, Trie>();
+                endFlag = false;
+            }
+
+            public void insert(String word){
+                Trie root = this;
+                for(int i=0; i<word.length(); i++){
+                    char ch = word.charAt(i);
+                    if(!root.children.containsKey(ch))
+                        root.children.put(ch, new Trie());
+
+                    root = root.children.get(ch);
+                }
+                root.endFlag = true;
+                root.word = word;//在endFlag = true時加入;
+            }
+        }
     }
 
 }
