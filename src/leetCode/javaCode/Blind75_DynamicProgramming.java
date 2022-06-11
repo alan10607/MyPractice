@@ -140,6 +140,7 @@ public class Blind75_DynamicProgramming {
     //Time Complexity: O(n^2), Space Complexity: O(n), n = s.length()
     class Solution139 {
         public boolean wordBreak(String s, List<String> wordDict) {
+            Set<String> wordDictSet = new HashSet(wordDict);//O(n) to O(1)
             //有可能s被重複使用, 故用dp
             boolean[] dp = new boolean[s.length() + 1];
 
@@ -149,7 +150,7 @@ public class Blind75_DynamicProgramming {
                 // leetcode
                 // ^j  ^i
                 for(int j = 0; j < i; j++){
-                    if(dp[j] && wordDict.contains(s.substring(j, i))){
+                    if(dp[j] && wordDictSet.contains(s.substring(j, i))){
                         dp[i] = true;
                         break;//是 or , 跳出迴圈
                     }
