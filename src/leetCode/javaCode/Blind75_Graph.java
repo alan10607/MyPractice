@@ -206,7 +206,7 @@ public class Blind75_Graph {
     }
 
     //Time Complexity: O(n), Space Complexity: O(n)
-    class Solution {
+    class Solution128 {
         public int longestConsecutive(int[] nums) {
             //使用Set記憶
             //設定例外條件, 要回傳的是連續數列的數量
@@ -321,7 +321,7 @@ public class Blind75_Graph {
     }
 
     //Time Complexity: O(V + E), Space Complexity: O(V + E), V = n 即節點數, E = edges.length 即需要走到的下一個node數量
-    public class Solution261 {
+    class Solution261 {
         public boolean validTree(int n, int[][] edges) {
             //本題是無向圖, 要驗證是否為樹的話, 就是都有連接且沒有產生環
             Map<Integer, List<Integer>> graph = new HashMap<Integer, List<Integer>>();
