@@ -105,4 +105,50 @@ public class Blind75_Heap {
         }
     }
 
+    //Time Complexity: addNum為O(logn), 初始化與findMedian為O(1), Space Complexity: 皆為O(n), n為數列長度
+    class Solution295 {
+        class MedianFinder {
+            public PriorityQueue<Integer> smallQue;
+            public PriorityQueue<Integer> bigQue;
+
+            public MedianFinder() {
+                smallQue = new PriorityQueue<Integer>((i1, i2) -> i2 - i1);//max heap
+                bigQue = new PriorityQueue<Integer>((i1, i2) -> i1 - i2);//max heap
+            }
+
+            public void addNum(int num) {
+                //與中位數比較, 即smallQue.peek()
+                if (smallQue.isEmpty() || num < smallQue.peek()) {
+                    smallQue.offer(num);
+
+                    //調整兩heap長度, smallQue的最大值加入bigQue
+                    if (smallQue.size() > bigQue.size() + 1)
+                        bigQue.offer(smallQue.poll());
+                } else {
+                    bigQue.offer(num);
+
+                    //調整兩heap長度, bigQue的最小值加入smallQue
+                    if (bigQue.size() > smallQue.size())
+                        smallQue.offer(bigQue.poll());
+                }
+
+            }
+
+            public double findMedian() {
+                if (smallQue.size() > bigQue.size()) {
+                    return smallQue.peek();
+                } else {
+                    return (smallQue.peek() + bigQue.peek()) / 2.0;//要用.0, double才會有小數
+                }
+            }
+            /* 透過維護兩組heap(min heap, max heap), heap是完全二元樹(Complete Binary Tree, 除了最後一列其餘node皆為全滿)
+
+            [Max Heap(=smallQue)...][Min Heap(=bigQue)...]
+            [3, 1, 2][4, 5]
+            奇數時Max Heap長度比Min Heap多 1
+            偶數時相等
+            */
+        }
+    }
+
 }
