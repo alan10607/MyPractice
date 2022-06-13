@@ -131,7 +131,7 @@ public class Blind75_Interval {
             //其實就是比對區間有無交集, 直接用排序
             Collections.sort(intervals, (i1, i2) -> i1.start - i2.start);
             for(int i=1; i<intervals.size(); i++){
-                if(intervals.get(1).start < intervals.get(0).end)
+                if(intervals.get(i).start < intervals.get(i - 1).end)
                     return false;
             }
             return true;

@@ -254,7 +254,6 @@ public class Blind75_LinkedList {
             mid.next = null;//斷開鏈表, a = 1 -> 2 -> (3) -> null
 
             //2. 將後半段逆序
-
             b = reverse(b);
 
             //3. 將兩者合併
