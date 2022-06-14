@@ -136,4 +136,134 @@ public class Blind75_String {
         }
     }
 
+    //Deque
+    class Solution20 {
+        public boolean isValid(String s) {
+            Deque<Character> deque = new LinkedList<>();
+            Map<Character, Character> bar = new HashMap<>();
+            bar.put(')', '(');
+            bar.put('}', '{');
+            bar.put(']', '[');
+
+            for(int i=0; i<s.length(); i++){
+                char ch = s.charAt(i);
+                if(bar.containsKey(ch) && bar.get(ch) == deque.peek()){
+                    deque.poll();
+                }else{
+                    deque.push(ch);//從頭加入
+                }
+            }
+            return deque.isEmpty();
+        }
+    }
+
+    //*LR Pointer
+    class Solution125 {
+        public boolean isPalindrome(String s) {
+            //熟悉以下方法
+            //Character.toLowerCase()
+            //Character.isLetterOrDigit()
+            int l = 0;
+            int r = s.length() - 1;
+            while(l < r){
+                while(l < r && !isASCII(s.charAt(l))){
+                    l++;
+                }
+                while(l < r && !isASCII(s.charAt(r))){
+                    r--;
+                }
+                //記得要轉為小寫再比較
+                if(Character.toLowerCase(s.charAt(l)) != Character.toLowerCase(s.charAt(r)))
+                    return false;
+
+                l++;
+                r--;
+            }
+            return true;
+        }
+
+        public boolean isASCII(char ch){
+            return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ('0' <= ch && ch <= '9');
+        }
+    }
+
+    //Simulation
+    class Solution5 {
+        public String longestPalindrome(String s) {
+            int max = 0;
+            int res[] = new int[2];
+            for(int i=0; i<s.length(); i++){
+                int[] odd = expend(s, i, i);
+                int[] even = expend(s, i, i + 1);
+                if(odd[1] - odd[0] > res[1] - res[0]){
+                    res[0] = odd[0];
+                    res[1] = odd[1];
+                }
+                if(even[1] - even[0] > res[1] - res[0]){
+                    res[0] = even[0];
+                    res[1] = even[1];
+                }
+            }
+            return s.substring(res[0], res[1] + 1);
+        }
+
+        public int[] expend(String s, int l, int r){
+            while(0 <= l && r < s.length() && s.charAt(l) == s.charAt(r)){
+                l--;
+                r++;
+            }
+            return new int[]{l + 1, r - 1};//修正
+        }
+    }
+
+    //Simulation
+    class Solution647 {
+        public int countSubstrings(String s) {
+            int res = 0;
+            for(int i=0; i<s.length(); i++){
+                res += expendCount(s, i, i);
+                res += expendCount(s, i, i + 1);
+            }
+            return res;
+        }
+
+        public int expendCount(String s, int l , int r){
+            int count = 0;
+
+            while(0 <= l && r < s.length() && s.charAt(l) == s.charAt(r)){
+                count++;
+                l--;
+                r++;
+            }
+            return count;
+        }
+    }
+
+    //Simulation
+    public class Solution271 {
+        public String encode(List<String> strs) {
+            StringBuffer sb = new StringBuffer();
+            for(int i=0; i<strs.size(); i++){
+                sb.append(strs.get(i).length())
+                  .append("$")
+                  .append(strs.get(i));
+            }
+            return sb.toString();
+        }
+
+        public List<String> decode(String str) {
+            List<String> res = new ArrayList<>();
+            int start = 0;
+            for(int i=0; i<str.length(); i++){
+                if(str.charAt(i) == '$'){
+                    int len = Integer.parseInt(str.substring(start, i));
+                    res.add(str.substring(i + 1, i + 1 + len));
+                    start = i + 1 + len;
+                    i = start;
+                }
+            }
+            return res;
+        }
+    }
+
 }

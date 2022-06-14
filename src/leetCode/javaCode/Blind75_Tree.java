@@ -217,46 +217,48 @@ public class Blind75_Tree {
             TreeNode(int x) { val = x; }
         }
 
-        public String serialize(TreeNode root) {
-            //本提要實作tree序列化與反序列化
-            //序列化方式: DFS收集node, 用","隔開, 若是null則給N
-            StringBuffer res = new StringBuffer();
-            seDFS(root, res);
-            return res.substring(0, res.length() - 1);//記得去掉最後一個,
-        }
+        class Codec {
+            public String serialize(TreeNode root) {
+                //本提要實作tree序列化與反序列化
+                //序列化方式: DFS收集node, 用","隔開, 若是null則給N
+                StringBuffer res = new StringBuffer();
+                seDFS(root, res);
+                return res.substring(0, res.length() - 1);//記得去掉最後一個,
+            }
 
-        public void seDFS(TreeNode root, StringBuffer res){
-            //設定返回條件, 若null插入N
-            if(root == null){
-                res.append("N,");
+            public void seDFS(TreeNode root, StringBuffer res) {
+                //設定返回條件, 若null插入N
+                if (root == null) {
+                    res.append("N,");
+                    return;
+                }
+
+                res.append(root.val).append(",");//加入此node
+
+                //左右兩側接續DFS
+                seDFS(root.left, res);
+                seDFS(root.right, res);
                 return;
             }
 
-            res.append(root.val).append(",");//加入此node
+            public TreeNode deserialize(String data) {
+                //先將String Array轉為LinkedList queue
+                String[] datas = data.split(",");
+                Deque<String> queue = new LinkedList<String>(Arrays.asList(datas));
+                return deDFS(queue);
+            }
 
-            //左右兩側接續DFS
-            seDFS(root.left, res);
-            seDFS(root.right, res);
-            return;
-        }
+            public TreeNode deDFS(Deque<String> queue) {
+                String val = queue.poll();
+                //設定返回條件
+                if ("N".equals(val)) return null;
 
-        public TreeNode deserialize(String data) {
-            //先將String Array轉為LinkedList queue
-            String[] datas = data.split(",");
-            Deque<String> queue = new LinkedList<String>(Arrays.asList(datas));
-            return deDFS(queue);
-        }
-
-        public TreeNode deDFS(Deque<String> queue){
-            String val = queue.poll();
-            //設定返回條件
-            if("N".equals(val)) return null;
-
-            //若不為null, 依照DFS順序建立新的TreeNode
-            TreeNode root = new TreeNode(Integer.parseInt(val));//要轉為數字
-            root.left = deDFS(queue);
-            root.right = deDFS(queue);
-            return root;
+                //若不為null, 依照DFS順序建立新的TreeNode
+                TreeNode root = new TreeNode(Integer.parseInt(val));//要轉為數字
+                root.left = deDFS(queue);
+                root.right = deDFS(queue);
+                return root;
+            }
         }
     }
 
