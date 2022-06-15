@@ -71,6 +71,24 @@ public class Blind75_Interval {
     }
 
     //*Simulation
+    class Solution435 {
+        public int eraseOverlapIntervals(int[][] intervals) {
+            Arrays.sort(intervals, (i1, i2) -> i1[1] - i2[1]);//依照右側排序
+
+            int count = 0;
+            int r = Integer.MIN_VALUE;
+            for(int i=0; i<intervals.length; i++){
+                if(intervals[i][0] < r){
+                    count++;//被計算為要移除, 所以不更新右側
+                }else{
+                    r = intervals[i][1];
+                }
+            }
+            return count;
+        }
+    }
+
+    //*Simulation
     class Solution252 {
         public boolean canAttendMeetings(List<Interval> intervals) {
             Collections.sort(intervals, (i1, i2) -> i1.end - i2.end);

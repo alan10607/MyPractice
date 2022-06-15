@@ -27,6 +27,11 @@ a:visited, a:hover, a:active {
   color: inherit;
 }
 
+body [type="checkbox"] {
+    height: 14px;
+    width: 14px;
+}
+
 .title li{
     line-height: 30px;
 }
@@ -53,8 +58,21 @@ a:visited, a:hover, a:active {
     font-size: 18px;
     color: #885ccb;
 }
+
+.hint{
+    display: none;
+    color: #b30f63;
+}
 </style>
 <script>
+function showHint(e){
+    var hints = Array.from(document.getElementsByClassName("hint"));
+	if(e.checked){
+	    hints.forEach(e => e.style.display = "initial");
+	}else{
+	    hints.forEach(e => e.style.display = "none");
+	}
+}
 </script>
 <body>
 <h1>Leetcode Note</h1>
@@ -73,65 +91,76 @@ a:visited, a:hover, a:active {
 </div>
 <hr>
 <div class="blind75">
+    <input type="checkbox" onchange="showHint(this);">Show Hint
     <p>Array</p>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/two-sum/">Two Sum</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/two-sum/">CN</a>
+            <span class="hint">HaspMap</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">Best Time to Buy and Sell Stock</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">CN</a>
+            <span class="hint">*Slide window</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/contains-duplicate/">Contains Duplicate</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/contains-duplicate/">CN</a>
+            <span class="hint">HashMap</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/product-of-array-except-self/">CN</a>
+            <span class="hint">*Array</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/maximum-subarray/">Maximum Subarray</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/maximum-subarray/">CN</a>
+            <span class="hint">*Kadane's algorithm</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/maximum-product-subarray/">Maximum Product Subarray</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/maximum-product-subarray/">CN</a>
+            <span class="hint">*Kadane's algorithm</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/">CN</a>
+            <span class="hint">LR Pointer</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">CN</a>
+            <span class="hint">*LR Pointer</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/3sum/">3 Sum</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/3sum/">CN</a>
+            <span class="hint">LR Pointer</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/container-with-most-water/">Container With Most Water</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/container-with-most-water/">CN</a>
+            <span class="hint">LR Pointer</span>
         </li>
     </ul>
     <hr>
@@ -140,30 +169,35 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/sum-of-two-integers/">Sum of Two Integers</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/sum-of-two-integers/">CN</a>
+            <span class="hint">Binary</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/number-of-1-bits/">Number of 1 Bits</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/number-of-1-bits/">CN</a>
+            <span class="hint">Binary</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/counting-bits/">Counting Bits</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/counting-bits/">CN</a>
+            <span class="hint">*Binary + DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/missing-number/">Missing Number</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/missing-number/">CN</a>
+            <span class="hint">Binary</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/reverse-bits/">Reverse Bits</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/reverse-bits/">CN</a>
+            <span class="hint">*Binary</span>
         </li>
     </ul>
     <hr>
@@ -172,66 +206,77 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/climbing-stairs/">Climbing Stairs</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/climbing-stairs/">CN</a>
+            <span class="hint">DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/coin-change/">Coin Change</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/coin-change/">CN</a>
+            <span class="hint">*DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">CN</a>
+            <span class="hint">*DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-common-subsequence/">CN</a>
+            <span class="hint">2D-DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/word-break/">Word Break Problem</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/word-break/">CN</a>
+            <span class="hint">*DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/combination-sum-iv/">Combination Sum</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/combination-sum-iv/">CN</a>
+            <span class="hint">DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/house-robber/">House Robber</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/house-robber/">CN</a>
+            <span class="hint">DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/house-robber-ii/">House Robber II</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/house-robber-ii/">CN</a>
+            <span class="hint">DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/decode-ways/">Decode Ways</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/decode-ways/">CN</a>
+            <span class="hint">*DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/unique-paths/">Unique Paths</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/unique-paths/">CN</a>
+            <span class="hint">2D-DP</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/jump-game/">Jump Game</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/jump-game/">CN</a>
+            <span class="hint">*Greedy</span>
         </li>
     </ul>
     <hr>
@@ -240,30 +285,35 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/clone-graph/">Clone Graph</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/clone-graph/">CN</a>
+            <span class="hint">*DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/course-schedule/">Course Schedule</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/course-schedule/">CN</a>
+            <span class="hint">*Topological sorting</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/pacific-atlantic-water-flow/">Pacific Atlantic Water Flow</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/pacific-atlantic-water-flow/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/number-of-islands/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">CN</a>
+            <span class="hint">*HashMap</span>
         </li>
     </ul>
     <ul>
@@ -271,6 +321,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/alien-dictionary/">Alien Dictionary $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/alien-dictionary/">CN</a>
             <a target="_blank" href="https://www.lintcode.com/problem/892/">lintcode</a>
+            <span class="hint">*Topological sorting + PriorityQueue</span>
         </li>
     </ul>
     <ul>
@@ -278,6 +329,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/graph-valid-tree/">Graph Valid Tree $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/graph-valid-tree/">CN</a>
             <a target="_blank" href="https://www.lintcode.com/problem/178/">lintcode</a>
+            <span class="hint">*Union-find</span>
         </li>
     </ul>
     <ul>
@@ -285,6 +337,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/">Number of Connected Components in an Undirected Graph $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/number-of-connected-components-in-an-undirected-graph/">CN</a>
             <a target="_blank" href="https://www.cnblogs.com/grandyang/p/5166356.html">cnblog</a>
+            <span class="hint">*Union-find</span>
         </li>
     </ul>
     <hr>
@@ -293,18 +346,21 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/insert-interval/">Insert Interval</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/insert-interval/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/merge-intervals/">Merge Intervals</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/merge-intervals/">CN</a>
+            <span class="hint">*Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/non-overlapping-intervals/">Non-overlapping Intervals</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/non-overlapping-intervals/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
@@ -312,6 +368,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/meeting-rooms/">Meeting Rooms $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/meeting-rooms/">CN</a>
             <a target="_blank" href="https://www.lintcode.com/problem/920/">lintcode</a>
+            <span class="hint">*Simulation</span>
         </li>
     </ul>
     <ul>
@@ -319,6 +376,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/meeting-rooms-ii/">Meeting Rooms II $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/meeting-rooms-ii/">CN</a>
             <a target="_blank" href="https://www.lintcode.com/problem/919/">lintcode</a>
+            <span class="hint">*Simulation</span>
         </li>
     </ul>
     <hr>
@@ -327,36 +385,42 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/reverse-linked-list/">Reverse a Linked List</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/reverse-linked-list/">CN</a>
+            <span class="hint">*Iteration</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/linked-list-cycle/">Linked List Cycle</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/linked-list-cycle/">CN</a>
+            <span class="hint">*Fast slow pointer</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/merge-two-sorted-lists/">Merge Two Sorted Lists</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">CN</a>
+            <span class="hint">*Iteration</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/merge-k-sorted-lists/">Merge K Sorted Lists</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">CN</a>
+            <span class="hint">*Iteration + Merge</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth Node From End Of List</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">CN</a>
+            <span class="hint">*Iteration</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/reorder-list/">Reorder List</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/reorder-list/">CN</a>
+            <span class="hint">*Iteration</span>
         </li>
     </ul>
     <hr>
@@ -365,24 +429,28 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/set-matrix-zeroes/">Set Matrix Zeroes</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/set-matrix-zeroes/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/spiral-matrix/">Spiral Matrix</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/spiral-matrix/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/rotate-image/">Rotate Image</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/rotate-image/">CN</a>
+            <span class="hint">*Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/word-search/">Word Search</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/word-search/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <hr>
@@ -391,54 +459,63 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">CN</a>
+            <span class="hint">Slide window</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-repeating-character-replacement/">Longest Repeating Character Replacement</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">CN</a>
+            <span class="hint">*Slide window</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/minimum-window-substring/">Minimum Window Substring</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/minimum-window-substring/">CN</a>
+            <span class="hint">*Slide window</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/valid-anagram/">Valid Anagram</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/valid-anagram/">CN</a>
+            <span class="hint">Array</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/group-anagrams/">CN</a>
+            <span class="hint">HaspMap</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/valid-parentheses/">CN</a>
+            <span class="hint">Deque</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/valid-palindrome/">Valid Palindrome</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/valid-palindrome/">CN</a>
+            <span class="hint">*LR Pointer</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/longest-palindromic-substring/">Longest Palindromic Substring</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/longest-palindromic-substring/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/palindromic-substrings/">Palindromic Substrings</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/palindromic-substrings/">CN</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <ul>
@@ -446,6 +523,7 @@ a:visited, a:hover, a:active {
             <a target="_blank" href="https://leetcode.com/problems/encode-and-decode-strings/">Encode and Decode Strings $</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/encode-and-decode-strings/">CN</a>
             <a target="_blank" href="https://www.lintcode.com/problem/659/description">lintcode</a>
+            <span class="hint">Simulation</span>
         </li>
     </ul>
     <hr>
@@ -454,84 +532,98 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/same-tree/">Same Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/same-tree/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/invert-binary-tree/">Invert Binary Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/invert-binary-tree/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">Binary Tree Maximum Path Sum</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">CN</a>
+            <span class="hint">*DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">CN</a>
+            <span class="hint">*BFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize and Deserialize Binary Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/subtree-of-another-tree/">Subtree of Another Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/subtree-of-another-tree/">CN</a>
+            <span class="hint">*DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">Construct Binary Tree from Preorder and Inorder Traversal</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">CN</a>
+            <span class="hint">*DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/validate-binary-search-tree/">Validate Binary Search Tree</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/validate-binary-search-tree/">CN</a>
+            <span class="hint">*DFS(in-order)</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">Kth Smallest Element in a BST</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">CN</a>
+            <span class="hint">*DFS(in-order)</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">Lowest Common Ancestor of BST</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">CN</a>
+            <span class="hint">DFS</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/implement-trie-prefix-tree/">CN</a>
+            <span class="hint">Trie</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/add-and-search-word-data-structure-design/">Add and Search Word</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/add-and-search-word-data-structure-design/">CN</a>
+            <span class="hint">Trie</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/word-search-ii/">Word Search II</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/word-search-ii/">CN</a>
+            <span class="hint">*DFS + Trie</span>
         </li>
     </ul>
     <hr>
@@ -540,18 +632,21 @@ a:visited, a:hover, a:active {
         <li>
             <a target="_blank" href="https://leetcode.com/problems/merge-k-sorted-lists/">Merge K Sorted Lists</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">CN</a>
+            <span class="hint">*Iteration + Merge</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/top-k-frequent-elements/">CN</a>
+            <span class="hint">*PriorityQueue</span>
         </li>
     </ul>
     <ul>
         <li>
             <a target="_blank" href="https://leetcode.com/problems/find-median-from-data-stream/">Find Median from Data Stream</a>
             <a target="_blank" href="https://leetcode-cn.com/problems/find-median-from-data-stream/">CN</a>
+            <span class="hint">*PriorityQueue</span>
         </li>
     </ul>
 </div>
