@@ -113,7 +113,7 @@ public class Blind75_Heap {
 
             public MedianFinder() {
                 smallQue = new PriorityQueue<Integer>((i1, i2) -> i2 - i1);//max heap
-                bigQue = new PriorityQueue<Integer>((i1, i2) -> i1 - i2);//max heap
+                bigQue = new PriorityQueue<Integer>((i1, i2) -> i1 - i2);//min heap
             }
 
             public void addNum(int num) {
