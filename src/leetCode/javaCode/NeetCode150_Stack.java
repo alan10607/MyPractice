@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class NeetCode150_Stack {
 
-    //Time Complexity: 初始話與所有方法: O(1), Space Complexity: O(n), n為stack大小
-    //Deque
+    //Time Complexity: 初始化與所有方法: O(1), Space Complexity: O(n), n為stack大小
+    //Stack
     class Solution155 {
         class MinStack {
             public Deque<Integer> stack;//Deque才有push()
@@ -45,7 +45,7 @@ public class NeetCode150_Stack {
     }
 
     //Time Complexity: O(n), Space Complexity: O(n), 空間使用在stack上
-    //Deque
+    //Stack
     class Solution150 {
         public int evalRPN(String[] tokens) {
             Deque<Integer> stack = new LinkedList<>();
@@ -126,6 +126,88 @@ public class NeetCode150_Stack {
 
          ((()))    (()()) (())()      ()(())   ()()()
          */
+    }
+
+    //Time Complexity: O(n), Space Complexity: O(n), 空間使用在stack上
+    //Stack
+    class Solution739 {
+        public int[] dailyTemperatures(int[] temperatures) {
+            //數列左右比較, 考慮使用stack
+            Deque<int[]> deque = new LinkedList<>();//[溫度, 日期]
+            int[] res = new int[temperatures.length];
+
+            for(int i=0; i<temperatures.length; i++){
+                //跟239一樣, 保留最大的
+                while(!deque.isEmpty() && deque.peek()[0] < temperatures[i]){
+                    int[] last = deque.poll();
+                    res[last[1]] = i - last[1];//現在日期 - 之前日期
+                }
+
+                deque.push(new int[]{temperatures[i], i});
+            }
+            return res;
+        }
+    }
+
+    //Time Complexity: O(n logn), Space Complexity: O(n), 時間複雜度即排序所需
+    //Stack
+    class Solution853 {
+        public int carFleet(int target, int[] position, int[] speed) {
+            //先計算每個車到終點的所需時間, 若前車需要更久時間, 則後車也超過這個時間到達
+            int[][] car = new int[position.length][2];//[位置, 速度]
+            for(int i=0; i<position.length; i++){
+                car[i][0] = position[i];
+                car[i][1] = speed[i];
+            }
+
+            Arrays.sort(car, (c1, c2) -> c1[0] - c2[0]);//依照位置排列;
+
+            Deque<Double> times = new LinkedList<>();
+            for(int i=0; i<car.length; i++){
+                double time = (double) (target - car[i][0]) / car[i][1];
+                while(!times.isEmpty() && times.peek() <= time){//等於的話, 也要拿掉避免重複
+                    times.poll();
+                }
+                times.push(time);
+            }
+            return times.size();
+        }
+    }
+
+    //Time Complexity: O(n), Space Complexity: O(n)
+    //Stack
+    class Solution84 {
+        public int largestRectangleArea(int[] heights) {
+            //保留最大的高度
+            Deque<int[]> stack = new LinkedList<>();//[位置, 高度]
+            int res = 0;
+            for(int i=0; i<heights.length; i++){
+                int posi = i;
+                //若高度比當前的大就pop, 並計算大小
+                while(!stack.isEmpty() && stack.peek()[1] > heights[i]){
+                    int[] data = stack.poll();
+                    res = Math.max(res, (i - data[0]) * data[1]);//底 * 高
+                    posi = data[0];//將此次位置後移
+                }
+                stack.push(new int[]{posi, heights[i]});
+            }
+
+            while(!stack.isEmpty()){
+                int[] data = stack.poll();
+                res = Math.max(res, (heights.length - data[0]) * data[1]);//底 * 高
+            }
+
+            return res;
+        }
+        /*
+        [1, 5, 6, 2]
+        stack = [[0, 1]]
+        stack = [[0, 1], [1, 5]]
+        stack = [[0, 1], [1, 5]]
+        stack = [[0, 1], [1, 5], [2, 6]]
+        stack = [[0, 1], [1, 5], [2, 6], [3, 2]] => [[0, 1], [1, 2]], area = [(3 - 1) * 5, (2 - 1) * 6]
+        stack = [[0, 1], [1, 2]], 結算, area = [(4 - 1) * 2, (4 - 0) * 1], maxArea = 10
+        */
     }
 
 }

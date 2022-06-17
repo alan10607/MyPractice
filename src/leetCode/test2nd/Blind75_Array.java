@@ -113,7 +113,7 @@ public class Blind75_Array {
         }
     }
 
-    //LR Pointer
+    //Binary search
     class Solution153 {
         public int findMin(int[] nums) {
             int l = 0;
@@ -126,14 +126,14 @@ public class Blind75_Array {
                 if(nums[mid] < nums[r]){
                     r = mid;
                 }else{//在左
-                    l = mid + 1;//排除這個
+                    l = mid + 1;//排除這個, 相等時優先讓l移動, 因為要回傳r
                 }
             }
             return nums[r];
         }
     }
 
-    //*LR Pointer
+    //*Binary search
     class Solution33 {
         public int search(int[] nums, int target) {
             int l = 0;

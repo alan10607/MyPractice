@@ -136,7 +136,7 @@ public class Blind75_String {
         }
     }
 
-    //Deque
+    //Stack
     class Solution20 {
         public boolean isValid(String s) {
             Deque<Character> deque = new LinkedList<>();
