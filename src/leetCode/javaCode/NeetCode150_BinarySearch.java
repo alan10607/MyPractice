@@ -95,7 +95,7 @@ public class NeetCode150_BinarySearch {
     }
 
     //Time Complexity: 初始化與set(): O(1), get(): O(logn), Space Complexity: O(n), n為儲存的數目
-    //Binary search
+    //Binary search + HashMap
     class Solution981 {
         class TimeMap {
             //All the timestamps timestamp of set are strictly increasing.
@@ -127,7 +127,8 @@ public class NeetCode150_BinarySearch {
                     int mid = (l + r) / 2;
                     int t = (int) timeList.get(mid)[0];
 
-                    if (t == timestamp) return (String) timeList.get(mid)[1];//一樣就直接回傳
+                    if (t == timestamp)
+                        return (String) timeList.get(mid)[1];//一樣就直接回傳
 
                     if (t < timestamp) {
                         l = mid + 1;
@@ -138,6 +139,34 @@ public class NeetCode150_BinarySearch {
                 }
                 return returnStr;
             }
+        }
+
+        class TimeMap2 {
+            public HashMap<String, TreeMap<Integer, String>> map;
+
+            public TimeMap2() {
+                map = new HashMap<>();
+            }
+
+            public void set(String key, String value, int timestamp) {
+                if (!map.containsKey(key))
+                    map.put(key, new TreeMap<Integer, String>());
+
+                map.get(key).put(timestamp, value);
+            }
+
+            public String get(String key, int timestamp) {
+                if(map.containsKey(key)) {
+                    Integer time = map.get(key).floorKey(timestamp);
+                    if(time != null)//primitive type不可為null, 要用Integer
+                        return map.get(key).get(time);
+                }
+                return "";
+            }
+            /*
+            TreeMap.floorKey() =>回傳小於等於此數的key, 若無則回null
+            TreeMap.ceilingKey() =>回傳大於等於此數的key, 若無則回null
+            */
         }
     }
 
