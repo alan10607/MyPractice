@@ -49,7 +49,7 @@ public class Blind75_Heap {
         }
     }
 
-    //*PriorityQueue
+    //*Heap
     class Solution347 {
         public int[] topKFrequent(int[] nums, int k) {
             //must be better than O(n log n)
@@ -75,7 +75,7 @@ public class Blind75_Heap {
         }
     }
 
-    //*PriorityQueue
+    //*Heap
     class Solution295 {
         class MedianFinder {
             public PriorityQueue<Integer> smallQue;
