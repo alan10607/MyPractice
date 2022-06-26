@@ -216,7 +216,7 @@ public class NeetCode150_Heap {
         */
     }
 
-    //Time Complexity: 初始化, postTweet(), follow(), unfollow(): O(1), getNewsFeed(): O()
+    //Time Complexity: 初始化, postTweet(), follow(), unfollow(): O(1), getNewsFeed(): O(F P log(FP)), F = followee量, P = post量
     //Space Complexity: O(z), T = tasks.length, z為tasks的種類數, 本題最多為26
     //Heap + HashMap
     class Solution355 {

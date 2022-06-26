@@ -20,7 +20,7 @@ public class NeetCode150_Tree {
     }
 
     //Time Complexity: O(n), Space Complexity: O(h), n為node個數, h為tree高度
-    //dfs
+    //DFS
     class Solution543 {
         public int res = 0;
 
