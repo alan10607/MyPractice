@@ -271,4 +271,68 @@ public class NeetCode150_Backtracking {
         }
     }
 
+    //Time Complexity: O(n!), Space Complexity: O(n), 空間只算額外的部分, 除了board外都不會超過n
+    //Backtracking
+    class Solution51 {
+        public List<List<String>> res = new ArrayList<>();
+
+        public List<List<String>> solveNQueens(int n) {
+            //Set<Integer> row = new HashSet<>();// - 一行一行遞歸, 就不用了
+            Set<Integer> col = new HashSet<>();// |
+            Set<Integer> sum = new HashSet<>();// /
+            Set<Integer> sub = new HashSet<>();// \
+            char[][] board = new char[n][n];
+            for(char[] line : board)
+                Arrays.fill(line, '.');
+
+            backtracking(0, col, sum, sub, board);
+            return res;
+        }
+
+        public void backtracking(int m, Set<Integer> col, Set<Integer> sum, Set<Integer> sub, char[][] board){
+            if(m == board.length){
+                res.add(printBoard(board));
+                return;
+            }
+
+            for(int n=0; n<board.length; n++){
+                //檢查 | / \ 有無重複, 如果有一行都沒有進入, 則遞歸往回
+                if(!col.contains(n) && !sum.contains(m + n) && !sub.contains(m - n)){
+                    col.add(n);
+                    sum.add(m + n);
+                    sub.add(m - n);
+                    board[m][n] = 'Q';
+                    backtracking(m + 1, col, sum, sub, board);//找下一行
+                    col.remove(n);
+                    sum.remove(m + n);
+                    sub.remove(m - n);
+                    board[m][n] = '.';
+                }
+            }
+        }
+
+        public List<String> printBoard(char[][] board){
+            List<String> list = new ArrayList<>();
+            for(int i=0; i<board.length; i++)
+                list.add(new String(board[i]));
+
+            return list;
+        }
+        /*
+        m + n
+        m\n 0   1   2   3
+        0   0   1   2   3
+        1   1   2   3   4
+        2   2   3   4   5
+        3   3   4   5   6
+
+        m - n
+        m\n 0   1   2   3
+        0   0  -1  -2  -3
+        1   1   0  -1  -2
+        2   2   1   0  -1
+        3   3   2   1   0
+        */
+    }
+
 }
