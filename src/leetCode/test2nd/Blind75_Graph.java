@@ -46,6 +46,7 @@ public class Blind75_Graph {
             Map<Integer, List<Integer>> edges = new HashMap<>();
             int[] counts = new int[numCourses];
             for(int[] prerequisite : prerequisites){
+                //本題不論哪個方向都ok, 但要注意counts要設對
                 int course = prerequisite[0];
                 int pre = prerequisite[1];
                 if(!edges.containsKey(course)) edges.put(course, new ArrayList<>());

@@ -81,4 +81,134 @@ public class NeetCode150_Graph {
         }
     }
 
+    //Time Complexity: O(mn), Space Complexity: O(mn)
+    //BFS
+    class Solution994 {
+        public int orangesRotting(int[][] grid) {
+            int m = grid.length;
+            int n = grid[0].length;
+            int fresh = 0;
+            int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            Queue<int[]> queue = new LinkedList<>();
+            for(int i=0; i<m; i++){
+                for(int j=0; j<n; j++){
+                    //0 = empty, 1 = fresh, 2 = rotten
+                    if(grid[i][j] == 1){
+                        fresh++;
+                    }else if(grid[i][j] == 2){
+                        queue.offer(new int[]{i, j});
+                    }
+                }
+            }
+
+            //開始BFS
+            int time = 0;
+            while(!queue.isEmpty() && fresh > 0){//fresh > 0, 避免計算最後一次無效步數
+                time++;
+                int size = queue.size();
+                for(int k=0; k<size; k++){
+                    int[] rotten = queue.poll();
+                    int i = rotten[0];
+                    int j = rotten[1];
+
+                    for(int[] dir : dirs){
+                        int nextI = i + dir[0];
+                        int nextJ = j + dir[1];
+                        if(nextI < m && nextI >= 0 && nextJ < n && nextJ >= 0 && grid[nextI][nextJ] == 1){
+                            grid[nextI][nextJ] = 2;
+                            fresh--;
+                            queue.offer(new int[]{nextI, nextJ});
+                        }
+                    }
+                }
+            }
+
+            return fresh == 0 ? time : -1;
+        }
+    }
+
+    //Time Complexity: O(mn), Space Complexity: O(mn)
+    //BFS
+    class Solution286 {
+        public void wallsAndGates(int[][] rooms) {
+            int m = rooms.length;
+            int n = rooms[0].length;
+            Queue<int[]> queue = new LinkedList<>();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (rooms[i][j] == 0) {
+                        queue.offer(new int[]{i, j});
+                    }
+                }
+            }
+
+            //start BFS
+            int distance = 0;
+            int empty = 2147483647;
+            int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            while (!queue.isEmpty()) {
+                distance++;
+                int size = queue.size();
+                for (int k = 0; k < size; k++) {
+                    int[] room = queue.poll();
+                    int i = room[0];
+                    int j = room[1];
+
+                    for (int[] dir : dirs) {
+                        int nextI = i + dir[0];
+                        int nextJ = j + dir[1];
+                        if (nextI < m && nextI >= 0 && nextJ < n && nextJ >= 0 && rooms[nextI][nextJ] == empty) {
+                            rooms[nextI][nextJ] = distance;
+                            queue.offer(new int[]{nextI, nextJ});
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Time Complexity: O(V + E), Space Complexity: O(V + E), V = vertices = numCourses,  E = edges = prerequisites.length
+    //Topological sorting
+    class Solution210 {
+        public int[] findOrder(int numCourses, int[][] prerequisites) {
+            //1 edges
+            Map<Integer, List<Integer>> edges = new HashMap<>();
+            int[] counts = new int[numCourses];
+            for(int[] pre : prerequisites){
+                if(!edges.containsKey(pre[1]))
+                    edges.put(pre[1], new ArrayList<Integer>());
+
+                edges.get(pre[1]).add(pre[0]);//<先修, 後修>
+                counts[pre[0]]++;
+            }
+
+            //2 find start
+            Deque<Integer> queue = new LinkedList<>();
+            for(int i=0; i<counts.length; i++){
+                if(counts[i] == 0)
+                    queue.offer(i);//為最父node或是無任何連接的node會先被走到
+            }
+
+            //3 run
+            int[] res = new int[numCourses];
+            int nodeCount = 0;
+            while(!queue.isEmpty()){
+                int node = queue.poll();
+                res[nodeCount] = node;
+                nodeCount++;
+
+                if(edges.containsKey(node)){
+                    List<Integer> children = edges.get(node);
+                    for(int child : children){
+                        counts[child]--;
+                        if(counts[child] == 0)
+                            queue.offer(child);
+                    }
+                }
+            }
+
+            return nodeCount == numCourses ? res : new int[]{};
+        }
+    }
+
 }
