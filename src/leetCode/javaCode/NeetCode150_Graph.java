@@ -211,4 +211,95 @@ public class NeetCode150_Graph {
         }
     }
 
+    //Time Complexity: O(V logE), Space Complexity: O(V), 此處 V = E = edges.length
+    //Union-Find
+    class Solution684 {
+        public int[] findRedundantConnection(int[][] edges) {
+            //Tree with one additional edge added
+            //會有1~n, 總共edges.length個, 0不使用, 總共需要+1
+            int[] parents = new int[edges.length + 1];
+            Arrays.fill(parents, -1);
+
+            for(int[] edge : edges){
+                int a = findParent(edge[0], parents);
+                int b = findParent(edge[1], parents);
+
+                if(a == b) return edge;
+
+                parents[a] = b;
+            }
+            return new int[]{};
+        }
+
+
+        public int findParent(int node, int[] parents){
+            if(parents[node] == -1) return node;
+            return findParent(parents[node], parents);
+        }
+    }
+
+    //Time Complexity: O(m n^2), Space Complexity: O(m n^2), n = wordList.length, m = wordList[0].length()
+    //BFS
+    class Solution127 {
+        public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+            //1 edges
+            Map<String, List<String>> edges = new HashMap<>();//<*ot, [dot, lot]>
+            for(String word : wordList){
+                for(int i=0; i<word.length(); i++){
+                    String pattern = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
+                    if(!edges.containsKey(pattern))
+                        edges.put(pattern, new ArrayList<String>());
+
+                    edges.get(pattern).add(word);
+                }
+            }
+
+            //2 BFS
+            Queue<String> queue = new LinkedList<String>();
+            Set<String> visited = new HashSet<String>();//避免重複拜訪
+            queue.offer(beginWord);
+            visited.add(beginWord);
+            int ladder = 0;
+            while(!queue.isEmpty()){
+                ladder++;
+
+                int size = queue.size();
+                for(int i=0; i<size; i++){
+                    String word = queue.poll();
+                    if(endWord.equals(word))
+                        return ladder;
+
+                    for(int j=0; j<word.length(); j++){
+                        String pattern = word.substring(0, j) + "*" + word.substring(j + 1, word.length());
+                        if(edges.containsKey(pattern)){
+                            List<String> nextWords = edges.get(pattern);
+                            for(String nextWord : nextWords){
+                                if(!visited.contains(nextWord)){
+                                    queue.offer(nextWord);
+                                    visited.add(nextWord);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+    }
+    /*
+    Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+
+    hot -> *ot -> dot
+    |		|---> lot
+    |----> h*t
+    |----> ho*
+
+    //O(n * m * n), n = wordList.length, m = wordList[0].length()
+
+     hit -> hot -> dot -> dog -> cog
+             |      |  	   |	  ^
+             |---> lot -> log ----|
+    */
+
 }
