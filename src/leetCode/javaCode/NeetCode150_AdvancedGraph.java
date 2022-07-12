@@ -186,7 +186,7 @@ public class NeetCode150_AdvancedGraph {
     //Shortest Path, Dijkstra's Algorithm
     class Solution743 {
         public int networkDelayTime(int[][] times, int n, int k) {
-            //選定一起點, 尋找該點可連到的其他點, 依離起點的長度放入heap排序, 之後依照BFS走訪, 每次走訪都要更新該點離起點的距離
+            //選定一起點, 尋找該點可連到的其他點, 依離起點的長度放入heap排序, 之後依照BFS連接並跳過環的情況, 每次走訪都要更新該點離起點的距離
 
             //1 edges & length
             Map<Integer, List<int[]>> edges = new HashMap<>();//<A點, <[B點, 距離], ...>>
@@ -233,7 +233,7 @@ public class NeetCode150_AdvancedGraph {
 	*/
 
     //Time Complexity: O(n^2 logn), Space Complexity: O(n^2), n = E, 時間複查度為整張表n^2 * logn(heap)
-    //Dijkstra's Algorithm
+    //Shortest Path, Dijkstra's Algorithm
     class Solution778 {
         public int swimInWater(int[][] grid) {
             int m = grid.length;
@@ -267,5 +267,39 @@ public class NeetCode150_AdvancedGraph {
             return -1;
         }
     }
+
+    //Time Complexity: O(kE), Space Complexity: O(V), E = flights.length, V = n
+    //Shortest Path, Bellman–Ford Algorithm
+    class Solution787 {
+        public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+            //選定一起點, 維護一組數組代表該點到其他點的距離, 然後進行(V - 1)輪(V為頂點)的鬆弛, 可用於負權環
+
+            //0 <= src, dst, k < n
+            //需要控制鬆弛的次數, 用Bellman–Ford
+            int[] prices = new int[n];
+            Arrays.fill(prices, Integer.MAX_VALUE);
+
+            prices[src] = 0;//起始點
+            for(int i=0; i < k + 1; i++){//有k站代表要鬆弛k + 1次
+                //更新價格
+                int[] newPrices = Arrays.copyOf(prices, prices.length);//要複製一個新的比對
+                for(int[] filght : flights){
+                    int a = filght[0];
+                    int b = filght[1];
+                    int price = filght[2];
+                    if(prices[a] != Integer.MAX_VALUE)
+                        newPrices[b] = Math.min(newPrices[b], prices[a] + price);//更新B點為A點金額加上距離的金額
+                }
+                prices = newPrices;
+            }
+
+            return prices[dst] == Integer.MAX_VALUE ? -1 : prices[dst];
+        }
+    }
+    /* n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1
+    prices = 0, INF, INF
+    prices = 0, 100, 500, i = 1
+    prices = 0, 100, 200, i = 2
+    */
 
 }
