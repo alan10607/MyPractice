@@ -381,4 +381,173 @@ public class NeetCode150_DynamicProgramming {
     g   1   3   4   5
     */
 
+    //Time Complexity: O(mn), Space Complexity: O(mn)
+    //2D-DP
+    class Solution72 {
+        public int minDistance(String word1, String word2) {
+            int m = word1.length();
+            int n = word2.length();
+            int[][] dp = new int[m + 1][n + 1];
+
+            for(int i=1; i<=m; i++)
+                dp[i][0] = i;//要變成空字串依序要刪除i個
+
+            for(int j=1; j<=n; j++)
+                dp[0][j] = j;//空字串要變成別的字要依序新增j個
+
+            for(int i=1; i<=m; i++){
+                for(int j=1; j<=n; j++){
+                    if(word1.charAt(i - 1) == word2.charAt(j - 1)){
+                        //無異動
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }else{
+                        //有異動
+                        dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));//記得要+1
+                    }
+                }
+            }
+            return dp[m][n];
+        }
+    }
+    /* word1 = "horse", word2 = "ros"
+
+    如果charAt(i)==charAt(j), 則i跟j都+1往後, dp[i][j] = dp[i-1][j-1]
+    如果charAt(i)!=charAt(j), 可以選擇: (取其中最小+1, 因為要做改變)
+    Insert: i不變, j+1, dp[i][j] = dp[i-1][j]
+    Delete: i+1, j不變, dp[i][j] = dp[i][j-1]
+    Replace: i+1, j+1, dp[i][j] = dp[i-1][j-1]
+
+            r   o   s
+        0.  1   2   3
+    h   1   1.  2   3
+    o   2   2   1.  2
+    r   3   2   2.  2
+    s   4   3   3   2.
+    e   5   4   4   3.
+
+    horse
+    rorse
+    rorse
+    rose
+    rose
+    ros
+    */
+
+    //Time Complexity: O(n^3), Space Complexity: O(n^2)
+    //2D-DP
+    class Solution312 {
+        public int maxCoins(int[] nums) {
+            int n = nums.length;
+            int[][] dp = new int[n + 2][n + 2];//int[l][r]表示l到r之前的最大可能
+            int[] tNums = new int[n + 2];//頭尾加上1方便計算
+            for(int i=0; i < tNums.length; i++)
+                tNums[i] = (i == 0 || i == tNums.length - 1) ? 1 : nums[i - 1];
+
+            //要把迴圈設定做調整
+            for (int gap = 0; gap < n; gap++) {//代表跑dp[l][l+gap]的範圍
+                for (int l=1; l <= (tNums.length - 2) - gap; l++) {//設定右界為r - gap
+                    int r = l + gap;
+                    for (int k = l; k <= r; k++) {//遍歷l~r的所有可能, 取最大可能
+                        int sum = tNums[l - 1] * tNums[k] * tNums[r + 1];
+                        sum += dp[l][k - 1] + dp[k + 1][r];
+                        dp[l][r] = Math.max(dp[l][r], sum);
+                    }
+                }
+            }
+            return dp[1][tNums.length - 2];
+        }
+
+        public int maxCoins2(int[] nums) {
+            int n = nums.length;
+            int[][] dp = new int[n + 2][n + 2];//int[l][r]表示l到r之前的最大可能
+            int[] newNums = new int[n + 2];//頭尾加上1方便計算
+            for(int i=0; i < newNums.length; i++)
+                newNums[i] = (i == 0 || i == newNums.length - 1) ? 1 : nums[i - 1];
+
+            return dfs(1, newNums.length - 2, dp, newNums);
+        }
+
+        public int dfs(int l, int r, int[][] dp, int[] nums){
+            if(l > r) return 0;//不存在
+            if(dp[l][r] > 0) return dp[l][r];
+
+            int total = 0;
+            for(int i=l; i<=r; i++){
+                //找出最大的可能
+                total = Math.max(total, nums[l - 1] * nums[i] * nums[r + 1] //最後一個破的氣球
+                        + dfs(l, i - 1, dp, nums)//左方的可能
+                        + dfs(i + 1, r, dp, nums));//右方的可能
+            }
+            dp[l][r] = total;//Memoization, 透過cache
+            return total;
+        }
+    }
+    /* nums = [3,1,5]
+    1   3   1   5   1
+
+    0   0   0   0   0
+    0   3   30  35  0
+    0   0   15  30  0
+    0   0   0   5   0
+    0   0   0   0   0
+    */
+
+    //Time Complexity: O(mn), Space Complexity: O(mn), m = s.length(), n = p.length()
+    //2D-DP
+    class Solution10 {
+        public boolean isMatch(String s, String p) {
+            int m = s.length();
+            int n = p.length();
+            boolean[][] dp = new boolean[m + 1][n + 1];//dp[i][j]表示s[0, i)與p[0, j)是否match
+            dp[0][0] = true;
+
+            for (int i = 0; i <= m; i++) {
+                for (int j = 1; j <= n; j++) {
+                    if (j > 1 && p.charAt(j - 1) == '*') {
+                        dp[i][j] = dp[i][j - 2] //跳過*, 參考j-2的那個
+                                || (i > 0 //空白無法配對
+                                && dp[i - 1][j] //參考上一個
+                                && (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.'));
+                    } else {
+                        dp[i][j] = i > 0 //空白無法配對
+                                && dp[i - 1][j - 1] //參考上一個
+                                && (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.');
+                    }
+                }
+            }
+            return dp[m][n];
+        }
+        /*
+        有三種情況:
+        1. 不含'*', 則只要dp[i-1][j-1]且(s.char(i)==p.char(j) || p.char(j)=='.')就可以
+        2. 含'*', 但不使用, 則直接參考dp[i][j-2], j跳過2 chars
+        3. 含'*', 且使用, 則要dp[i-1][j-1]且(s.char(i)==p.char(j-1) || p.char(j-1)=='.')就可以
+        實際上因為dp多加空格, 所以charAt都要再多-1
+
+        s = "aab", p = "a*b"
+
+                a   *   b
+            T   F   T   F
+        a   F   T   T   F
+        a   F   F   T   F
+        b   F   F   F   T
+        */
+
+        public boolean isMatch2(String s, String p) {
+            //使用backtracking, 稍慢
+            if(p.isEmpty()) return s.isEmpty();
+
+            if(p.length() > 1 && p.charAt(1) == '*'){
+                return isMatch2(s, p.substring(2))//不使用
+                        || (!s.isEmpty() //使用*
+                        && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')
+                        && isMatch2(s.substring(1), p));
+            }else{
+                return !s.isEmpty()
+                        && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')
+                        && isMatch2(s.substring(1), p.substring(1));
+            }
+        }
+    }
+
 }
