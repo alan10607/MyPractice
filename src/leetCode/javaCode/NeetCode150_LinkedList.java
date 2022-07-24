@@ -77,7 +77,7 @@ public class NeetCode150_LinkedList {
     }
 
     //Time Complexity: O(n), Space Complexity: O(1)
-    //Floyd Cycle Detection Algorithm
+    //Fast & Slow Pointer, Floyd Cycle Detection Algorithm
     class Solution287 {
         public int findDuplicate(int[] nums) {
             //solve the problem without modifying the array nums and uses only constant extra space

@@ -167,4 +167,31 @@ public class NeetCode150_Greedy {
     |-------||-----   -----|
     */
 
+    //Time Complexity: O(n), Space Complexity: O(1)
+    //Greedy
+    class Solution678 {
+        public boolean checkValidString(String s) {
+            int leftMax = 0;//最多可能有多少'('
+            int leftMin = 0;//最少可能有多少'('
+            for(int i=0; i<s.length(); i++){
+                char ch = s.charAt(i);
+                if(ch == '('){
+                    leftMax++;
+                    leftMin++;
+                }else if(ch == ')'){
+                    leftMax--;
+                    leftMin--;
+                }else{//ch == '*'
+                    leftMax++;
+                    leftMin--;
+                }
+
+                if(leftMax < 0) return false;//不允許')'多於'('
+                if(leftMin < 0) leftMin = 0;//多餘的')'轉成空白
+            }
+
+            return leftMin == 0;//若不為0, 則代表有多餘的'('未匹配
+        }
+    }
+
 }
