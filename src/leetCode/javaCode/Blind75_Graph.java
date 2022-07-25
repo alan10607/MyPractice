@@ -234,7 +234,7 @@ public class Blind75_Graph {
         }
     }
 
-    //Time Complexity: O(V + E), Space Complexity: O(V), V為出現字母數(最大26), E = words.length
+    //Time Complexity: O(V + E), Space Complexity: O(V + E), V為出現字母數(最大26), E = words.length
     class Solution269 {
         public String alienOrder(String[] words) {
             //要使用拓撲排序Topological sorting, 該sorting限制為圖不能有迴圈

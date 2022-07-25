@@ -190,7 +190,7 @@ public class Blind75_Graph {
         }
     }
 
-    //*Topological sorting + PriorityQueue
+    //*Topological sort + PriorityQueue
     class Solution269 {
         public String alienOrder(String[] words) {
             //1 edges & counts
