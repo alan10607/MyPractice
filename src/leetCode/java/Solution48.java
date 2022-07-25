@@ -1,7 +1,5 @@
 package leetCode.java;
 
-import java.util.*;
-
 //Matrix O(mn) O(1)
 class Solution48 {
     public void rotate(int[][] matrix) {

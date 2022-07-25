@@ -1,7 +1,5 @@
 package leetCode.java;
 
-import java.util.*;
-
 //LR pointer O(n) O(1)
 class Solution11 {
     public int maxArea(int[] height) {

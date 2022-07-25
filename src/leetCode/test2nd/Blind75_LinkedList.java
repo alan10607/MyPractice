@@ -26,7 +26,7 @@ public class Blind75_LinkedList {
         }
     }
 
-    //*Fast slow pointer
+    //*Fast & Slow pointer
     public class Solution141 {
         public boolean hasCycle(ListNode head) {
             if(head == null || head.next == null) return false;
