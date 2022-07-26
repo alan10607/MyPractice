@@ -82,7 +82,7 @@ public class Blind75_Array {
         */
     }
 
-    //*Kadane's algorithm
+    //*Kadane's Algorithm
     class Solution53 {
         public int maxSubArray(int[] nums) {
             int max = Integer.MIN_VALUE;
@@ -95,7 +95,7 @@ public class Blind75_Array {
         }
     }
 
-    //*Kadane's algorithm
+    //*Kadane's Algorithm
     class Solution152 {
         public int maxProduct(int[] nums) {
             int max = Integer.MIN_VALUE;
