@@ -184,7 +184,7 @@ public class Blind75_Array {
         }
     }
 
-    //Time Complexity: O(n^2), Space Complexity: O(logn), 空間複雜度主要是排序, 可能為O(logn)
+    //Time Complexity: O(n^2), Space Complexity: O(n), 空間複雜度主要是排序, 可能為O(n)
     class Solution15 {
         public List<List<Integer>> threeSum(int[] nums) {
             List<List<Integer>> res = new ArrayList<List<Integer>>();

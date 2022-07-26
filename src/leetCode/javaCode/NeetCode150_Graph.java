@@ -168,7 +168,7 @@ public class NeetCode150_Graph {
     }
 
     //Time Complexity: O(V + E), Space Complexity: O(V + E), V = vertices = numCourses,  E = edges = prerequisites.length
-    //Topological sorting
+    //Topological sort
     class Solution210 {
         public int[] findOrder(int numCourses, int[][] prerequisites) {
             //1 edges
