@@ -461,7 +461,7 @@ public class Blind75_Tree {
         */
     }
 
-    //Time Complexity: O(n), Space Complexity: O(n), n為tree之節點數
+    //Time Complexity: O(H + k), Space Complexity: O(H), H為高度, 時間複雜度供需要先下H, 再上k
     class Solution230 {
         class TreeNode {
             int val;

@@ -175,8 +175,8 @@ public class Blind75_String {
         }
     }
 
-    //Time Complexity: O(n(m + z)), Space Complexity: O(n(m + z))
-    //z為字符集26個, k為最長的str長度, n = strs.length, 每次進入回圈都要k次紀錄hash, z次由hash轉成string(word)
+    //Time Complexity: O(nk), Space Complexity: O(nZ)
+    //Z為字符集26個, k為最長的str長度, n = strs.length, 每次進入回圈都要k次紀錄hash, n次由hash轉成string(word)
     class Solution49 {
         public List<List<String>> groupAnagrams(String[] strs) {
             //本題運用char[]當作hash轉String儲存的方式比對

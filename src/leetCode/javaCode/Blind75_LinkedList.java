@@ -294,9 +294,6 @@ public class Blind75_LinkedList {
         }
 
         public void merge(ListNode a, ListNode b){
-            ListNode dummy = new ListNode();
-            ListNode tail = dummy;
-
             //依照findMid, a始終會比b長或等於
             while(a != null && b != null){
                 ListNode nextA = a.next;
