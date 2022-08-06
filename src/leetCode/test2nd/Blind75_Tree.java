@@ -143,7 +143,7 @@ public class Blind75_Tree {
         }
     }
 
-    //*DFS
+    //*Backtracking
     class Solution105 {
         public TreeNode buildTree(int[] preorder, int[] inorder) {
             Map<Integer, Integer> inMap = new HashMap<>();//方便找查, 空間換時間
