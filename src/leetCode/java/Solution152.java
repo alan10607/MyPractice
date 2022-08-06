@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//DP Kadane's Algorithm O(n) O(1)
+//Greedy Kadane's Algorithm O(n) O(1)
 class Solution152 {
     public int maxProduct(int[] nums) {
         int max = 1;
