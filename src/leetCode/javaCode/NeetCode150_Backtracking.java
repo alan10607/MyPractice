@@ -147,7 +147,7 @@ public class NeetCode150_Backtracking {
         */
     }
 
-    //Time Complexity: O((2^n)n), Space Complexity: O(n), n = nums.length, 此時間大於排序所需
+    //Time Complexity: O((2^n)n), Space Complexity: O(n), n = candidates.length, 此時間大於排序所需
     //DFS
     class Solution40 {
         public List<List<Integer>> res = new ArrayList<>();
