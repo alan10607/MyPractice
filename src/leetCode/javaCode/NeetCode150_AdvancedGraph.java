@@ -283,10 +283,10 @@ public class NeetCode150_AdvancedGraph {
             for(int i=0; i < k + 1; i++){//有k站代表要鬆弛k + 1次
                 //更新價格
                 int[] newPrices = Arrays.copyOf(prices, prices.length);//要複製一個新的比對
-                for(int[] filght : flights){
-                    int a = filght[0];
-                    int b = filght[1];
-                    int price = filght[2];
+                for(int[] flight : flights){
+                    int a = flight[0];
+                    int b = flight[1];
+                    int price = flight[2];
                     if(prices[a] != Integer.MAX_VALUE)
                         newPrices[b] = Math.min(newPrices[b], prices[a] + price);//更新B點為A點金額加上距離的金額
                 }
