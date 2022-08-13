@@ -170,7 +170,7 @@ public class NeetCode150_Heap {
         */
     }
 
-    //Time Complexity: 初始化: O(T + z)), Space Complexity: O(z), T = tasks.length, z為tasks的種類數, 本題最多為26
+    //Time Complexity: 初始化: O(tlogt), Space Complexity: O(z), t = tasks.length, z為tasks的種類數, 本題最多為26
     //Heap
     class Solution621 {
         public int leastInterval(char[] tasks, int n) {

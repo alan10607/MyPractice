@@ -7,9 +7,9 @@ import java.util.*;
  */
 public class NeetCode150_Greedy {
 
-    //Time Complexity: O(n), Space Complexity: O(1), n = nums.length
     //BFS
     class Solution45 {
+        //Time Complexity: O(n), Space Complexity: O(1), n = nums.length
         public int jump(int[] nums) {
             int rightMost = 0;//目前能走到的最右邊, 先設為0
             int temp = 0;//用來記錄到rightMost之前的最大可能
@@ -26,6 +26,21 @@ public class NeetCode150_Greedy {
                 }
             }
             return res;
+        }
+
+        //Time Complexity: O(n^2), Space Complexity: O(n), n = nums.length
+        public int jump2(int[] nums) {
+            int n = nums.length;
+            int[] dp = new int[n];
+            Arrays.fill(dp, n);//預設為n, 不可能需要到n步
+            dp[0] = 0;
+            for(int i=1; i <= n - 1; i++){
+                for(int j = i - 1; j>=0; j--){
+                    if(j + nums[j] >= i)
+                        dp[i] = Math.min(dp[i], dp[j] + 1);
+                }
+            }
+            return dp[n - 1] == n ? -1 : dp[n - 1];
         }
     }
     /* nums = [2,3,1,1,4]

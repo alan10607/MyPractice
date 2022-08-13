@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Slide Window O(n) O(k), n = nums.length
+//Slide Window Stack O(n) O(k), n = nums.length
 class Solution239 {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int[] res = new int[nums.length - k + 1];
