@@ -60,7 +60,7 @@ public class NeetCode150_Heap {
         }
     }
 
-    //Time Complexity: 初始化: O(T + z)), Space Complexity: O(z), T = tasks.length, z為tasks的種類數, 本題最多為26
+    //Time Complexity: O(nlogk), Space Complexity: O(n), n = points.length
     //Heap
     class Solution973 {
         public int[][] kClosest(int[][] points, int k) {
@@ -216,9 +216,9 @@ public class NeetCode150_Heap {
         */
     }
 
-    //Time Complexity: 初始化, postTweet(), follow(), unfollow(): O(1), getNewsFeed(): O(F P log(FP)), F = followee量, P = post量
-    //Space Complexity: O(z), T = tasks.length, z為tasks的種類數, 本題最多為26
-    //Heap + HashMap
+    //Time Complexity: 初始化, postTweet(), follow(), unfollow(): O(1), getNewsFeed(): O(f * p * log(fp))
+    //Space Complexity: 初始化, postTweet(), follow(), unfollow(): O(F + P), getNewsFeed(): O(fp)
+    //F = followMap.size(), P = postMap.size(), f表示該追蹤人的被追人, p表示被追人的文章數
     class Solution355 {
         class Twitter {
             Map<Integer, Set<Integer>> followMap;//<追蹤人, [被追蹤人, ...]>
