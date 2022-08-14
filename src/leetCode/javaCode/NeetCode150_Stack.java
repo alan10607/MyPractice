@@ -70,7 +70,7 @@ public class NeetCode150_Stack {
         }
     }
 
-    //Time Complexity: O((4^n)/(n^(1/2)))(卡塔蘭數), Space Complexity: O(n)
+    //Time Complexity: O((4^n)/(n^(1/2)))(卡塔蘭數), Space Complexity: O((4^n)/(n^(1/2)))
     //Recursion
     class Solution22 {
         public List<String> generateParenthesis(int n) {
@@ -118,14 +118,13 @@ public class NeetCode150_Stack {
             }
             return;
         }
-        /**                        (
-         ((                              ()
-         (((            (()              ()(
-         (()(   (())      ()((   ()()
-         (())(                ()()(
-
-         ((()))    (()()) (())()      ()(())   ()()()
-         */
+        /**
+                                        (
+                        ((									()
+                (((				(()				()(
+               ((())) 		(()(   (())		()((	()()
+                           (()())  (())()  ()(())  ()()()
+        */
     }
 
     //Time Complexity: O(n), Space Complexity: O(n), 空間使用在stack上
