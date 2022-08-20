@@ -257,6 +257,31 @@ public class NeetCode150_DynamicProgramming {
         i=1		1		-1
         i=2	  2   0   0   -2
         */
+
+        //Time Complexity: O(mn), Space Complexity: O(mn) m = nums.length, n = sumOfPosi,
+        public int findTargetSumWays3(int[] nums, int target) {
+            //第一種方法的分解dp
+            int sum = 0;
+            for(int num : nums)
+                sum += num;
+
+            int targetAndSum = target + sum;
+            if(targetAndSum % 2 != 0 || targetAndSum < 0) return 0;//檢查是否存在sum(正)
+            int posi = targetAndSum / 2;//sum(正)
+
+            int[][] dp = new int[nums.length + 1][posi + 1];//問題轉化為, 是否能從nums中取出posi
+            dp[0][0] = 1;//不取nums可以滿足
+
+            for(int i=1; i<=nums.length; i++){
+                for(int j=0; j<=posi; j++){
+                    dp[i][j] += dp[i - 1][j];
+                    int gap = nums[i - 1];
+                    if(j - gap >= 0)
+                        dp[i][j] += dp[i - 1][j - gap];
+                }
+            }
+            return dp[nums.length][posi];
+        }
     }
 
     //Time Complexity: O(mn), Space Complexity: O(mn)
