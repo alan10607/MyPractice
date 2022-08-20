@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Shortest Path Dijkstra Algorithm O(ElogE) O(E + V), V = n, E = times.length
+//Shortest Path Dijkstra Algorithm O(ElogE) O(V + E), V = n, E = times.length
 class Solution743 {
     public int networkDelayTime(int[][] times, int n, int k) {
         Map<Integer, List<int[]>> edges = new HashMap<>();//<A, <[B, 距離], ...>>

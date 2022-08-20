@@ -170,7 +170,7 @@ public class NeetCode150_BinarySearch {
         }
     }
 
-    //Time Complexity: log(min(m,n)), Space Complexity: O(1), m = nums1.length, n = nums2.length
+    //Time Complexity: log(min(m,n)), Space Complexity: O(log(min(m + n))), m = nums1.length, n = nums2.length
     //Binary search
     class Solution4 {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {

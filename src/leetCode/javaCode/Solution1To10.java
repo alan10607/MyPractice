@@ -83,7 +83,7 @@ public class Solution1To10 {
         }
     }
 
-    //Time Complexity: O(log(min(m, n))), Space Complexity: O(1), m, n = num1, num2's length
+    //Time Complexity: O(log(min(m + n))), Space Complexity: O(log(min(m + n))), m, n = num1, num2's length
     class Solution4 {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
             int len = nums1.length + nums2.length;
