@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Union-Find O(VlogE) O(V), 本題V = E = edges.length
+//Union-Find O(ElogE) O(V), 本題V = E = edges.length
 class Solution684 {
     public int[] findRedundantConnection(int[][] edges) {
         int[] parents = new int[edges.length + 1];//1~n但0不使用

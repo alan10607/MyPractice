@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.Arrays;
 
-//Union-Find O(VlogE) O(V), V = n, E = edges.length
+//Union-Find O(ElogE) O(V), V = n, E = edges.length
 class Solution323 {
     public int countComponents(int n, int[][] edges) {
         int[] parents = new int[n];

@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Union-Find O(VlogE) O(V), V = n, E = edges.length, logE因為每次探索最多可能跑n-1次
+//Union-Find O(ElogE) O(V), V = n, E = edges.length, logE因為每次探索最多可能跑n-1次
 class Solution261 {//lintcode178
     public boolean validTree(int n, int[][] edges) {
         //1 V = E + 1

@@ -6,6 +6,8 @@ import java.util.List;
 class Node {
     public int val;
     public List<Node> neighbors;
+    public Node next;
+    public Node random;
     public Node() {
         val = 0;
         neighbors = new ArrayList<Node>();
@@ -13,6 +15,8 @@ class Node {
     public Node(int _val) {
         val = _val;
         neighbors = new ArrayList<Node>();
+        this.next = null;
+        this.random = null;
     }
     public Node(int _val, ArrayList<Node> _neighbors) {
         val = _val;

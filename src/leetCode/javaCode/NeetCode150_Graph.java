@@ -211,7 +211,7 @@ public class NeetCode150_Graph {
         }
     }
 
-    //Time Complexity: O(V logE), Space Complexity: O(V), 此處 V = E = edges.length
+    //Time Complexity: O(E logE), Space Complexity: O(V), 此處 V = E = edges.length
     //Union-Find
     class Solution684 {
         public int[] findRedundantConnection(int[][] edges) {
