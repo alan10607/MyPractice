@@ -255,8 +255,8 @@ public class NeetCode150_Graph {
             }
 
             //2 BFS
-            Queue<String> queue = new LinkedList<String>();
-            Set<String> visited = new HashSet<String>();//避免重複拜訪
+            Queue<String> queue = new LinkedList<>();
+            Set<String> visited = new HashSet<>();//避免重複拜訪
             queue.offer(beginWord);
             visited.add(beginWord);
             int ladder = 0;

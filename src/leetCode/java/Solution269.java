@@ -3,7 +3,7 @@ package leetCode.java;
 import java.util.*;
 
 //Topological Sort + PriorityQueue O(V + E) O(V + E), V最大為26
-public class Solution269 {//lintcode892
+class Solution269 {//lintcode892
     public String alienOrder(String[] words) {
         //1 edges & counts
         Map<Character, List<Character>> edges = new HashMap<>();//<c1, c2>
