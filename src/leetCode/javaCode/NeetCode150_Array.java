@@ -50,9 +50,9 @@ public class NeetCode150_Array {
         }
     }
 
-    //Time Complexity: O(n), Space Complexity: O(1)
-    //LR Pointer
     class Solution42 {
+        //Time Complexity: O(n), Space Complexity: O(1)
+        //LR Pointer
         public int trap(int[] height) {
             int l = 0;
             int r = height.length - 1;
@@ -74,6 +74,48 @@ public class NeetCode150_Array {
             }
             return res;
         }
+
+        //Time Complexity: O(n), Space Complexity: O(n)
+        //Stack
+        public int trap2(int[] height) {
+            Deque<Integer> deque = new LinkedList<>();//<位置>
+            int res = 0;
+            for(int i=0; i<height.length; i++){
+                while(!deque.isEmpty() && height[deque.peek()] < height[i]){
+                    int bottom = deque.poll();
+                    if(deque.isEmpty())
+                        break;//沒有左側可以比對了
+
+                    //左右側選最小
+                    int left = deque.peek();
+                    res += (Math.min(height[left], height[i]) - height[bottom]) * (i - left - 1);
+                }
+                deque.push(i);
+            }
+            return res;
+        }
+        /* height = [3,2,0,0,2,5,4,5]
+             * *
+             ***
+        *    ***
+        **  ****
+        **  ****
+            ^poll=>0,0, res=4
+
+             * *
+             ***
+        *    ***
+        **..****
+        **..****
+             ^poll()=>2,2,3, res=8
+
+             * *
+             ***
+        *....***
+        **..****
+        **..****
+               ^poll=>4, res=9
+        */
     }
 
     //Time Complexity: O(n), Space Complexity: O(z), n = s2.length(), z = 26
