@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Slide window O((s + t) * Z) O(Z), s = s.length(), t = t.length(), Z = 26
+//Slide Window O((s + t) * Z) O(Z), s = s.length(), t = t.length(), Z = 26
 class Solution76 {
     public String minWindow(String s, String t) {
         if(s.length() < t.length()) return "";

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Blind75_String {
 
-    //Slide window
+    //Slide Window
     class Solution3 {
         public int lengthOfLongestSubstring(String s) {
             Set<Character> memo = new HashSet<>();

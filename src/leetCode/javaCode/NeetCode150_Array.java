@@ -119,7 +119,7 @@ public class NeetCode150_Array {
     }
 
     //Time Complexity: O(n), Space Complexity: O(z), n = s2.length(), z = 26
-    //Slide window
+    //Slide Window
     class Solution567 {
         public boolean checkInclusion(String s1, String s2) {
             //permutation表示可以重新排列, 但要在一起的單字
@@ -188,7 +188,7 @@ public class NeetCode150_Array {
     }
 
     //Time Complexity: O(n), Space Complexity: O(k), n = nums.length
-    //Slide window
+    //Slide Window
     class Solution {
         public int[] maxSlidingWindow(int[] nums, int k) {
             //依序查會Time Limit Exceeded
