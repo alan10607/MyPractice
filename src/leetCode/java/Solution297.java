@@ -3,7 +3,7 @@ package leetCode.java;
 import java.util.*;
 
 //DFS serialize(), deserialize(): O(V) O(V)
-class Codec {
+class Codec {//Solution297
     public String serialize(TreeNode root) {
         //Pre-order前序遍歷, root, left, right
         return seDFS(root);
