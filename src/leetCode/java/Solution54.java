@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Matrix O(mn) O()
+//Matrix O(mn) O(1), 空間複雜度不含答案所需
 class Solution54 {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
