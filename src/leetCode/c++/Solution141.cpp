@@ -1,4 +1,4 @@
-//Fast & Slow pointer O(n) O(1)
+//Fast & Slow Pointer O(n) O(1)
 class Solution141 {
 public:
     bool hasCycle(ListNode *head) {

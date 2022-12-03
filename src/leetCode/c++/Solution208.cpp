@@ -1,16 +1,14 @@
 //Trie Trie(): O(1) O(1), insert(), search(): O(n) O(V), n = word.length(), V為node數量
 class Trie {//Solution208
 public:
-    Trie* children[26];
+    vector<Trie*> children;
     bool endFlag;
-    
+
     Trie() {
-        for (auto &child : children)
-            child = nullptr;
-        
+        children = vector<Trie*>(26, nullptr);
         endFlag = false;
     }
-    
+
     void insert(string word) {
         Trie* root = this;
         for(char c : word){
@@ -22,7 +20,7 @@ public:
         }
         root->endFlag = true;
     }
-    
+
     bool search(string word) {
         Trie* root = this;
         for(char c : word){
@@ -34,7 +32,7 @@ public:
         }
         return root->endFlag;
     }
-    
+
     bool startsWith(string prefix) {
 	Trie* root = this;
         for(char c : prefix){
