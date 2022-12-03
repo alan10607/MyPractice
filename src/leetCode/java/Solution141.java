@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//Fast & Slow pointer O(n) O(1)
+//Fast & Slow Pointer O(n) O(1)
 class Solution141 {
     public boolean hasCycle(ListNode head) {
         ListNode fast = head;

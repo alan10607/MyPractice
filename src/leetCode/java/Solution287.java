@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//Fast & Slow pointer Floyd Cycle Detection Algorithm O(n) O(1)
+//Fast & Slow Pointer Floyd Cycle Detection Algorithm O(n) O(1)
 class Solution287 {
     public int findDuplicate(int[] nums) {
         //must solve without modifying the array nums and uses only constant extra space
