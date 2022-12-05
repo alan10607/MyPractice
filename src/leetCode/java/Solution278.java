@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//Binary search, O(logn) O(1)
+//Binary Search, O(logn) O(1)
 public class Solution278 extends VersionControl {
     public int firstBadVersion(int n) {
         int l = 1;

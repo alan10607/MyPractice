@@ -1,4 +1,4 @@
-//Binary search, O(logn) O(1)
+//Binary Search, O(logn) O(1)
 class Solution278 {
 public:
     int firstBadVersion(int n) {
