@@ -43,21 +43,22 @@ res=16
 */
 
 /*
-大排到小(大根堆, 預設, 跟java相反)
-priority_queue<int, vector<int>, less<int>>
+sort跟priority_queue剛好相反
 
-auto comp = [](int& a, int& b){
-        return a > b;
-    };
-priority_queue<int, vector<int>, decltype(comp)> pq(comp);
+sort(vec.begin(), vec.end(), less<int>());//小到大
+sort(vec.begin(), vec.end(), greater<int>());//大到小
+
+sort(vec.begin(), vec.end(), [](int a, int b){return a < b; });//小到大
+sort(vec.begin(), vec.end(), [](int a, int b){return a > b; });//大到小
 
 
-小排到大(小根堆)
-priority_queue<int, vector<int>, greater<int>>
+priority_queue<int, vector<int>, less<int>> pq1;//大到小
+priority_queue<int, vector<int>, greater<int>> pq2;//小到大
 
-auto comp = [](int& a, int& b){
-        return a < b;
-    };
-priority_queue<int, vector<int>, decltype(comp)> pq(comp);
+auto comp1 = [](int a, int b){return a < b; };
+priority_queue<int, vector<int>, decltype(comp1)> pq3(comp1);//大到小
+
+auto comp2 = [](int a, int b){return a > b; };
+priority_queue<int, vector<int>, decltype(comp2)> pq4(comp2);//小到大
 
 */
