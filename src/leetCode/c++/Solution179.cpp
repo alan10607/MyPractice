@@ -1,4 +1,4 @@
-//O(n * logn * logZ) O(logn), n = nums.length, Z = num轉為字串的長度(最大32), 空間複雜度為排序所需
+//O(n * logn * logZ) O(logn), n = nums.size(), Z = num轉為字串的長度(最大32), 空間複雜度為排序所需
 class Solution179 {
 public:
     string largestNumber(vector<int>& nums) {

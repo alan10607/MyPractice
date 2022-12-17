@@ -1,4 +1,4 @@
-//DP O(nk) O(n), n = coins.length, k = amount
+//DP O(nk) O(n), n = coins.size(), k = amount
 class Solution322 {
 public:
     int coinChange(vector<int>& coins, int amount) {

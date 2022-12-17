@@ -1,4 +1,4 @@
-//Heap O(tlogt) O(Z), t = tasks.length, Z為tasks的種類
+//Heap O(tlogt) O(Z), t = tasks.size(), Z為tasks的種類
 class Solution621 {
 public:
     int leastInterval(vector<char>& tasks, int n) {

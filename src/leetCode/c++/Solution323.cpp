@@ -1,4 +1,4 @@
-//Union-Find O(ElogE) O(V), V = n, E = edges.length
+//Union-Find O(ElogE) O(V), V = n, E = edges.size()
 class Solution323 {
 public:
     int countComponents(int n, vector<pair<int, int>>& edges) {

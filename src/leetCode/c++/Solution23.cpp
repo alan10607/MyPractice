@@ -1,4 +1,4 @@
-//LinkedList O(nklogk) O(logk), k = lists.length, n為鏈表長度, klogk相當於合併排序之時間複雜度
+//LinkedList O(nklogk) O(logk), k = lists.size(), n為鏈表長度, klogk相當於合併排序之時間複雜度
 class Solution23 {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {

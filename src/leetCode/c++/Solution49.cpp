@@ -1,4 +1,4 @@
-//O(nk) O(nZ), n = strs.length, k為最大的str長度, Z = 26
+//O(nk) O(nZ), n = strs.size(), k為最大的str長度, Z = 26
 class Solution49 {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {

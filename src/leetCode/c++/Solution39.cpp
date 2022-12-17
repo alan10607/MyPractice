@@ -1,4 +1,4 @@
-//Backtracking O(n^2) O(target), n = candidates.length
+//Backtracking O(n^2) O(target), n = candidates.size()
 class Solution39 {
 public:
     vector<vector<int>> res;
