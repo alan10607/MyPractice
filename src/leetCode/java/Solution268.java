@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//Bit O(1) O(1)
+//Bit O(n) O(1)
 class Solution268 {
     public int missingNumber(int[] nums) {
         //using only O(1) extra space complexity and O(n)

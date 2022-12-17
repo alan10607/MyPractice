@@ -1,4 +1,4 @@
-//DFS O(H) O(V)
+//DFS O(V) O(H)
 class Solution543 {
 public:
     int res = 0;

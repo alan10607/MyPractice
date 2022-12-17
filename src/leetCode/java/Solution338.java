@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//Bit + DP O(n) O(1)
+//Bit DP O(n) O(1)
 class Solution338 {
     public int[] countBits(int n) {
         //如果(n & (n-1)) == 0, 剛好會是00100...的情況
