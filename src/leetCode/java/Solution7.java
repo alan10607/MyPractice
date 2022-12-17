@@ -10,9 +10,9 @@ class Solution7 {
 
             //return 0 if go outside the signed 32-bit integer range
             if( reverse >  Integer.MAX_VALUE / 10
-                    || (reverse == Integer.MAX_VALUE / 10 && last > Integer.MAX_VALUE % 10)
-                    ||  reverse <  Integer.MIN_VALUE / 10
-                    || (reverse == Integer.MIN_VALUE / 10 && last < Integer.MIN_VALUE % 10))
+            || (reverse == Integer.MAX_VALUE / 10 && last > Integer.MAX_VALUE % 10)
+            ||  reverse <  Integer.MIN_VALUE / 10
+            || (reverse == Integer.MIN_VALUE / 10 && last < Integer.MIN_VALUE % 10))
                 return 0;
 
             reverse = reverse * 10 + last;
