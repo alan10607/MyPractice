@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//LR Pointer O(n^2) O(n)
+//LR Pointer O(n^2) O(logn)
 class Solution15 {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);//記得要先排序過
