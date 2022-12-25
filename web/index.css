@@ -1,0 +1,129 @@
+body{
+    font-size: 18px;
+    font-family: Microsoft JhengHei;
+    background-color: #202020;
+    color: #eee;
+}
+
+body a{
+    color: #eee;
+}
+
+#page-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #232323;
+    border-bottom: 0.5px solid #eee;
+}
+
+#page-bar span{
+    display: inline-block;
+    margin: 0;
+    cursor: pointer;
+    color: #eee;
+    padding: 2px 5px;
+}
+
+#page-bar span + span:before{
+    display: inline-block;
+    width: 0px;
+    height: 14px;
+    margin-right: 10px;
+    content: "";
+    border-right: 1px solid #8e8e8e;
+}
+
+#no-bar a{
+    display: inline-block;
+    margin: auto 5px;
+}
+
+#code-box > div{
+    margin: 40px auto 100px auto;
+}
+
+#code-box a{
+    font-size: 15px;
+}
+
+#code-box pre{
+    border-radius: 0;
+    font-size: 15px;
+    background-color: #1e1e1e;
+    white-space: pre;
+    overflow: auto;
+    padding: 10px 5px;
+    width: 95%;
+    margin: 1em auto;
+    line-height: 20px;
+}
+
+#loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table;
+    background-color: #00000088;
+}
+
+#loading > div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.loading-icon {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.loading-icon div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: loading-icon 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+
+.loading-icon div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.loading-icon div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.loading-icon div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes loading-icon {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.disable{
+    display: none !important;
+}
+
+@media (max-width: 575.99px) {
+    #code-box pre {
+        font-size: 14px;
+    }
+}
