@@ -6,28 +6,37 @@ public:
         ListNode* start = dummy;
         ListNode* cur = start->next;
         for(int i=1; cur; ++i){
-            if(i % k == 0){
-                start = reverse(start, cur->next);
-                cur = start->next;
-            }else{
-                cur = cur->next;
-            }
+            cur = cur->next;
+            if(i % k == 0)
+                start = reverse(start, cur);//翻轉start~end間(皆不包含)
+
         }
         return dummy->next;
     }
 
     ListNode* reverse(ListNode* start, ListNode* end) {
-        ListNode* pre = end;//先設pre為下一組的起點
+        ListNode* pre = end;
         ListNode* cur = start->next;
         ListNode* nextStart = start->next;//用來回傳
         while(cur != end){
             ListNode* next = cur->next;
-            cur->next = pre;
+            cur->next= pre;
             pre = cur;
             cur = next;
         }
-        start->next = pre;//記得start接回
+        start->next = pre;
 
         return nextStart;
     }
 };
+/*
+-1 -> 1 -> 2 -> 3 -> 4
+ s    c
+ s              c=end
+
+ ----------v
+-1    1 <- 2    3 -> 4
+      ----------^
+      s         c
+
+*/
