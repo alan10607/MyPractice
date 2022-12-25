@@ -21,26 +21,6 @@ function get(url, callback, ...args){
 	});
 }
 
-$(document).ready(init);
-
-function init(){
-    alert("start init2");
-    for(let i=0; i<FILE_URL.length; ++i){
-        getFilePath(FILE_URL[i], i);
-    }
-
-    showLoading();
-    var loading = setInterval(function() {
-        if(LOAD_CNT > 0){
-            console.log("Wait file loading...");
-        }else{
-            printPages();
-            closeLoading();
-            clearInterval(loading);
-        }
-    }, 200);
-}
-
 function getFilePath(url, index){
     get(url, getFilePathAfter, index);
 }
@@ -123,3 +103,20 @@ function showLoading(){
 function closeLoading(){
     $("#loading").addClass("disable");
 }
+
+//init
+alert(window.onload);
+for(let i=0; i<FILE_URL.length; ++i){
+    getFilePath(FILE_URL[i], i);
+}
+
+showLoading();
+var loading = setInterval(function() {
+    if(LOAD_CNT > 0){
+        console.log("Wait file loading...");
+    }else{
+        printPages();
+        closeLoading();
+        clearInterval(loading);
+    }
+}, 200);
