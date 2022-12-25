@@ -22,6 +22,7 @@ function get(url, callback, ...args){
 }
 
 function init(){
+    alert("start init");
     for(let i=0; i<FILE_URL.length; ++i){
         getFilePath(FILE_URL[i], i);
     }
@@ -69,6 +70,7 @@ function printPages(){
     }
     SOU_NO = Array.from(noSet).sort((a, b) => a - b);
 
+    $("#page-bar").empty().text("題號: ");
     for(let i=0; i<SOU_NO.length; ++i){
         if(i % LOAD_SIZE == LOAD_SIZE - 1 || i == SOU_NO.length - 1){
             var start = i - (LOAD_SIZE > 1 && i % LOAD_SIZE == 0 ? LOAD_SIZE : i % LOAD_SIZE);
