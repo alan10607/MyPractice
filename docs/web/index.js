@@ -105,7 +105,6 @@ function closeLoading(){
 }
 
 //init
-alert(window.onload);
 for(let i=0; i<FILE_URL.length; ++i){
     getFilePath(FILE_URL[i], i);
 }
