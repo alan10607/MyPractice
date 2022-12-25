@@ -109,7 +109,8 @@ for(let i=0; i<FILE_URL.length; ++i){
     getFilePath(FILE_URL[i], i);
 }
 
-showLoading();
+alert("start ini");
+//showLoading();
 var loading = setInterval(function() {
     if(LOAD_CNT > 0){
         console.log("Wait file loading...");
