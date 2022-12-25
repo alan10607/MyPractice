@@ -21,8 +21,10 @@ function get(url, callback, ...args){
 	});
 }
 
+$(document).ready(init);
+
 function init(){
-    alert("start init");
+    alert("start init2");
     for(let i=0; i<FILE_URL.length; ++i){
         getFilePath(FILE_URL[i], i);
     }
