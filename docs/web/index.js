@@ -29,7 +29,7 @@ function getFilePathAfter(res, index){
     for(let r of res){
         if(!isSolution(r.name) || r.download_url == null) continue;
 
-        var no = parseInt(r.download_url.match(/(?<=Solution)[0-9]+(?=.)/)[0]);
+        var no = parseInt(r.download_url.match(new RegExp("Solution(\\d+)\\."))[1]);
         CODE[index].set(no, {
             "name" : r.name,
             "url" : r.download_url,
@@ -40,7 +40,7 @@ function getFilePathAfter(res, index){
 }
 
 function isSolution(fileName){
-    return /^Solution/.test(fileName);
+    return new RegExp("^Solution").test(fileName);
 }
 
 function printPages(){
@@ -104,19 +104,19 @@ function closeLoading(){
     $("#loading").addClass("disable");
 }
 
-//init
-for(let i=0; i<FILE_URL.length; ++i){
-    getFilePath(FILE_URL[i], i);
-}
-
-alert("start ini");
-//showLoading();
-var loading = setInterval(function() {
-    if(LOAD_CNT > 0){
-        console.log("Wait file loading...");
-    }else{
-        printPages();
-        closeLoading();
-        clearInterval(loading);
+function init(){
+    for(let i=0; i<FILE_URL.length; ++i){
+        getFilePath(FILE_URL[i], i);
     }
-}, 200);
+
+    showLoading();
+    var loading = setInterval(function() {
+        if(LOAD_CNT > 0){
+            console.log("Wait file loading...");
+        }else{
+            printPages();
+            closeLoading();
+            clearInterval(loading);
+        }
+    }, 200);
+}
