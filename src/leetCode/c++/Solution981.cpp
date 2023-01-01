@@ -20,6 +20,6 @@ public:
 map.upper_bound() 找出大於這個數值的最小值
 map.lower_bound() 找出大於或等或等於這個數值的最小值
 
-TreeMap.floorKey() 找出大於或等於這個數值的最小值
-TreeMap.ceilingKey 找出小於或等於這個數值的最大值
+TreeMap.ceilingKey() 找出大於或等於這個數值的最小值
+TreeMap.floorKey() 找出小於或等於這個數值的最大值
 */

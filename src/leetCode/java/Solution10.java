@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//10 Backtracking DP O(n) O(n), n = p.length
+//Backtracking O(n) O(n), n = p.length
 class Solution10 {
     public boolean isMatch(String s, String p) {
         return isMatch(0, 0, s, p);
