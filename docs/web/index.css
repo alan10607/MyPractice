@@ -9,16 +9,9 @@ body a{
     color: #eee;
 }
 
-#header{
-    height: 30px;
-}
-
 #page-bar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
+    margin-bottom: 8px;
+    padding: 0 10px 8px 10px;
     background-color: #232323;
     border-bottom: 0.5px solid #eee;
 }
@@ -51,6 +44,12 @@ body a{
 
 #code-box a{
     font-size: 15px;
+}
+
+#code-box > div > a {
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 18px;
 }
 
 #code-box pre{

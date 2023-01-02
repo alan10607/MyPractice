@@ -2,6 +2,7 @@ const FILE_URL = [
     "https://api.github.com/repos/alan10607/MyPractice/contents/src/leetCode/c++",
     "https://api.github.com/repos/alan10607/MyPractice/contents/src/leetCode/java"
 ];
+const LEETCODE_URL = "https://leetcode.com/problems/";
 const LOAD_SIZE = 10;
 var CODE = new Array(FILE_URL.length).fill(null).map(() => new Map());
 var LOAD_CNT = FILE_URL.length;
@@ -19,6 +20,23 @@ function get(url, callback, ...args){
 			console.log("Status:" + status + ",xhr:" + JSON.stringify(xhr));
 		}
 	});
+}
+
+function init(){
+    for(let i=0; i<FILE_URL.length; ++i){
+        getFilePath(FILE_URL[i], i);
+    }
+
+    showLoading();
+    var loading = setInterval(function() {
+        if(LOAD_CNT > 0){
+            console.log("Wait file loading...");
+        }else{
+            printPages();
+            closeLoading();
+            clearInterval(loading);
+        }
+    }, 200);
 }
 
 function getFilePath(url, index){
@@ -60,9 +78,6 @@ function printPages(){
             $("<span>", {text : str, "onclick" : `printCode(${start}, LOAD_SIZE);`}).appendTo($("#page-bar"));
         }
     }
-
-    var barHeight = $("#page-bar")[0].offsetHeight;
-    $("#header").css("height", barHeight + "px");
 }
 
 function printCode(start, len){
@@ -71,8 +86,11 @@ function printCode(start, len){
     var query = [];
     for(let i = 0; i < len && start + i < SOU_NO.length; ++i){
         var no = SOU_NO[start + i];
+        var problem = PROBLEMS.get(no);
         $("<div>", {id : no}).appendTo($("#code-box"));
-        $("<a>", {text : no, href : "#" + no}).appendTo($("#no-bar"));
+        $("<a>", {text : no, href : "#" + no, target : "_blank"}).appendTo($("#no-bar"));
+        $("<span>", {text : no + ". "}).appendTo($("#" + no));
+        $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + no));
         for(let code of CODE){
             if(!code.has(no)) continue
             $("<div>", {id : code.get(no).name}).appendTo($("#" + no));
@@ -102,21 +120,4 @@ function showLoading(){
 
 function closeLoading(){
     $("#loading").addClass("disable");
-}
-
-function init(){
-    for(let i=0; i<FILE_URL.length; ++i){
-        getFilePath(FILE_URL[i], i);
-    }
-
-    showLoading();
-    var loading = setInterval(function() {
-        if(LOAD_CNT > 0){
-            console.log("Wait file loading...");
-        }else{
-            printPages();
-            closeLoading();
-            clearInterval(loading);
-        }
-    }, 200);
 }
