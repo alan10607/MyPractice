@@ -88,7 +88,7 @@ function printCode(start, len){
         var no = SOU_NO[start + i];
         var problem = PROBLEMS.get(no);
         $("<div>", {id : no}).appendTo($("#code-box"));
-        $("<a>", {text : no, href : "#" + no, target : "_blank"}).appendTo($("#no-bar"));
+        $("<a>", {text : no, href : "#" + no}).appendTo($("#no-bar"));
         $("<span>", {text : no + ". "}).appendTo($("#" + no));
         $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + no));
         for(let code of CODE){
@@ -107,7 +107,7 @@ function printCodeAfter(res, args){
     var name = args[0];
     var github = args[1];
     var id = "#" + name.replace(".", "\\.");
-    $("<a>", {text : name, href : github}).appendTo($(id));
+    $("<a>", {text : name, href : github, target : "_blank"}).appendTo($(id));
     $("<pre>", {text : res, class : "prettyprint linenums"}).appendTo($(id));
 
     PR.prettyPrint();
