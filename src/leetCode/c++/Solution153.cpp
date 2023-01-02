@@ -8,7 +8,7 @@ public:
             if(nums[mid] > nums[r]){
                 l = mid + 1;//在左側
             }else{
-                r = mid;//透過 /2變小
+                r = mid;//在右側, 透過 /2變小
             }
         }
         return nums[r];
