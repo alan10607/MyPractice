@@ -1,4 +1,4 @@
-//DP O(target * n) O(target), n = nums.length
+//DP O(target * n) O(target), n = nums.size()
 class Solution377 {
 public:
     int combinationSum4(vector<int>& nums, int target) {
@@ -13,3 +13,12 @@ public:
         return dp[target];
     }
 };
+/* nums = [1,2,3], target = 4, 只是計算可重複的組合可能數, 用backtracking太吃記憶體, 用DP即可
+
+dp[0]=1
+dp[1]=(1)=1
+dp[2]=(11 2)=2
+dp[3]=(111 21 12 3)=4
+dp[4]=(1111 211 121 31 112 22 13)=7
+
+*/
