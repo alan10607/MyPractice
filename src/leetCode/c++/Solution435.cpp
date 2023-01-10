@@ -2,15 +2,12 @@
 class Solution435 {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        //這題排序若無取址&的話會TLE
-        sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b){
-                return a[1] < b[1];//依右側小排到大
-            });
-        
-        int res = 0, right = INT_MIN;
-        for(vector<int> interval : intervals){
-            if(interval[0] < right){
-                ++res;//跳過這個
+        sort(intervals.begin(), intervals.end());
+        int right = INT_MIN, res = 0;
+        for(auto interval : intervals){
+            if(interval[0] < right){//前一個的右側大於這左側
+                res++;
+                right = min(right, interval[1]);//取較短的, 即捨棄長的
             }else{
                 right = interval[1];
             }
@@ -18,9 +15,3 @@ public:
         return res;
     }
 };
-/* 優先去除end較大的那個
-------
-       -------
------------------
-
-*/
