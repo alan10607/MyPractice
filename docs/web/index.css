@@ -64,6 +64,30 @@ body a{
     line-height: 20px;
 }
 
+#to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 63px;
+    color: #1e1e1e;
+    font-weight: 600;
+    font-size: 36px;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0.5;
+    transition-duration: 0.1s;
+}
+
+#to-top:hover {
+    opacity: 1;
+    transition-duration: 0.1s;
+}
+
 #loading{
     position: absolute;
     top: 0;
