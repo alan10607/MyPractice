@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//2D-DP O(n * nega) O(nega), nega = (sum(nums) - target) / 2
+//2D-DP KP O(n * nega) O(nega), nega = (sum(nums) - target) / 2
 class Solution494 {
     public int findTargetSumWays(int[] nums, int target) {
         int sum = 0;

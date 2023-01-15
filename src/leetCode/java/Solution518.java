@@ -1,6 +1,6 @@
 package leetCode.java;
 
-//DP NP-Complete O(mn) O(n) m = coins.length, n = amount,
+//DP KP O(mn) O(n), m = coins.length, n = amount,
 class Solution518 {
     public int change(int amount, int[] coins) {
         int[] dp = new int[amount + 1];//代表n金額可以有幾種金幣組合
