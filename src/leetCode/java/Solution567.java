@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.*;
 
-//Slide Window O(n) O(Z), n = s2.length(), Z最多為26
+//Slide Window O(m + n) O(Z), m = s1.length(), n = s2.length(), Z=26
 class Solution567 {
     public boolean checkInclusion(String s1, String s2) {
         //permutation表示要黏在一起的交換字
