@@ -5,9 +5,8 @@ import java.util.*;
 //BFS Shortest Path Dijkstra Algorithm O(n^2 * logn) O(n^2)
 class Solution778 {
     public int swimInWater(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        boolean[][] visited = new boolean[m][n];
+        int n = grid.length;
+        boolean[][] visited = new boolean[n][n];
         int[][] dirs = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         int res = -1;
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);//<[x, y, 水面高度], ...>
@@ -22,12 +21,12 @@ class Solution778 {
 
             visited[x][y] = true;
             res = Math.max(res, height);//更新高度
-            if(x == m - 1 && y == n - 1) break;//到達終點
+            if(x == n - 1 && y == n - 1) break;//到達終點
 
             for(int[] dir : dirs){
                 int i = x + dir[0];
                 int j = y + dir[1];
-                if(i < m && i >= 0 && j < n && j >= 0)
+                if(i < n && i >= 0 && j < n && j >= 0)
                     pq.offer(new int[]{i, j, grid[i][j]});
             }
         }
