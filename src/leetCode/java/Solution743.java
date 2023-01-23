@@ -2,7 +2,8 @@ package leetCode.java;
 
 import java.util.*;
 
-//Shortest Path Dijkstra Algorithm O(ElogE) O(V + E), V = n, E = times.length
+//Shortest Path Dijkstra Algorithm O(E + VlogV) O(E + V), E = times.length, V = n
+//收集edges需要O(E) O(E), 跑pq while要O(VlogV) O(V)
 class Solution743 {
     public int networkDelayTime(int[][] times, int n, int k) {
         Map<Integer, List<int[]>> edges = new HashMap<>();//<A, <[B, 距離], ...>>
@@ -32,7 +33,7 @@ class Solution743 {
                     heap.offer(new int[]{child[0], child[1] + root[1]});//更新距離
             }
         }
-        return visited.size() == n ? res : -1;
 
+        return visited.size() == n ? res : -1;
     }
 }
