@@ -1,19 +1,20 @@
-//DP O(n) O(1)
-class Solution213 {
+//LinkedList O(n) O(n)
+class Solution138 {
 public:
-    int rob(vector<int>& nums) {
-        if(nums.size() == 1) return nums[0];
-        return max(rob(nums, 0, nums.size() - 2), rob(nums, 1, nums.size() - 1));
-    }
-
-    int rob(vector<int>& nums, int start, int end){
-        int one = nums[start];
-        int two = 0;
-        for(int i = start + 1; i <= end; ++i){
-            int temp = one;
-            one = max(nums[i] + two, one);
-            two = temp;
+    Node* copyRandomList(Node* head) {
+        unordered_map<Node*, Node*> oldToNew;
+        Node* cur = head;
+        while(cur){
+            oldToNew[cur] = new Node(cur->val);
+            cur = cur->next;
         }
-        return max(one, two);
+
+        cur = head;
+        while(cur){
+            oldToNew[cur]->next = oldToNew[cur->next];
+            oldToNew[cur]->random = oldToNew[cur->random];//unordered_map可以接受查詢null
+            cur = cur->next;
+        }
+        return oldToNew[head];
     }
 };
