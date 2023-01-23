@@ -75,7 +75,7 @@ function printPages(){
         if(i % LOAD_SIZE == LOAD_SIZE - 1 || i == SOU_NO.length - 1){
             var start = i - (LOAD_SIZE > 1 && i % LOAD_SIZE == 0 ? LOAD_SIZE : i % LOAD_SIZE);
             var str = SOU_NO[start] + "-" + SOU_NO[i];
-            $("<span>", {text : str, "onclick" : `printCode(${start}, LOAD_SIZE);`}).appendTo($("#page-bar"));
+            $("<span>", {text : str, "onclick" : `printCode(${start}, LOAD_SIZE); getBold(this)`}).appendTo($("#page-bar"));
         }
     }
 }
@@ -112,6 +112,12 @@ function printCodeAfter(res, args){
 
     PR.prettyPrint();
 }
+
+function getBold(e){
+    $("#page-bar .bold").removeClass("bold")
+    $(e).addClass("bold");
+}
+
 
 /* --- Loading視窗 --- */
 function showLoading(){

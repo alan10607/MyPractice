@@ -33,6 +33,11 @@ body a{
     border-right: 1px solid #8e8e8e;
 }
 
+#page-bar .bold{
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 #no-bar a{
     display: inline-block;
     margin: auto 5px;
