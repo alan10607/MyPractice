@@ -1,6 +1,6 @@
 const FILE_URL = [
-    "https://api.github.com/repos/alan10607/MyPractice/contents/src/leetCode/c++",
-    "https://api.github.com/repos/alan10607/MyPractice/contents/src/leetCode/java"
+    "https://api.github.com/repos/alan10607/MyPractice/contents/c++",
+    "https://api.github.com/repos/alan10607/MyPractice/contents/java"
 ];
 const LEETCODE_URL = "https://leetcode.com/problems/";
 var LOAD_SIZE = 10;
