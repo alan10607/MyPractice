@@ -4,3 +4,4 @@ MyPractice.iml
 Test*.java
 .DS_Store
 .vscode/
+test/
