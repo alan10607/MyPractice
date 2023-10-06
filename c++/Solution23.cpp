@@ -2,13 +2,13 @@
 class Solution23 {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() == 0) return nullptr;
-        if(lists.size() == 1) return lists[0];
+        if (lists.size() == 0) return nullptr;
+        if (lists.size() == 1) return lists[0];
         return split(0, lists.size() - 1, lists);
     }
 
-    ListNode* split(int start, int end, vector<ListNode*>& lists){
-        if(start == end) return lists[start];
+    ListNode* split(int start, int end, vector<ListNode*>& lists) {
+        if (start == end) return lists[start];
 
         int mid = start + (end - start) / 2;
         ListNode* left = split(start, mid, lists);
@@ -17,14 +17,14 @@ public:
         return merge(left, right);
     }
 
-    ListNode* merge(ListNode* a, ListNode* b){
+    ListNode* merge(ListNode* a, ListNode* b) {
         ListNode* dummy = new ListNode(-1);
         ListNode* tail = dummy;
-        while(a && b){
-            if(a->val < b->val){
+        while (a && b) {
+            if (a->val < b->val) {
                 tail->next = a;
                 a = a->next;
-            }else{
+            } else {
                 tail->next = b;
                 b = b->next;
             }

@@ -2,10 +2,10 @@
 class Solution383 {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char, int> counts;
-        for(char c : magazine) ++counts[c];
-        for(char c : ransomNote){
-            if(--counts[c] < 0)
+        vector<int> cnt(26, 0);
+        for(char ch : magazine) ++cnt[ch - 'a'];
+        for(char ch : ransomNote){
+            if(--cnt[ch - 'a'] < 0) 
                 return false;
         }
         return true;
