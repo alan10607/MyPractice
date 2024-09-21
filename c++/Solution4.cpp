@@ -1,20 +1,19 @@
-
-//Binary Search O(log(min(m, n))) O(log(min(m, n)))
+//Binary Search O(log(min(m, n))) O(1)
 class Solution4 {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        if(nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1);//保證nums1是較短的
+        if(nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1); //保證nums1是較短的
 
         int len = nums1.size() + nums2.size();
-        int half = len / 2;//要找到前half個最小的
-        int l = 0, r = nums1.size() - 1;// LR-pointer只需要在nums1上
-        while(true) {
-            int i = floor((l + r) / 2.0);
-            int j = half - i - 2;//轉回array index, 需要還原兩次所以再減2
-            int l1 = i >= 0 ? nums1[i] : INT_MIN;
-            int r1 = i + 1 < nums1.size() ? nums1[i + 1] : INT_MAX;
-            int l2 = j >= 0 ? nums2[j] : INT_MIN;
-            int r2 = j + 1 < nums2.size() ? nums2[j + 1] : INT_MAX;
+        int half = len / 2; //要找到前half個最小的
+        int l = 0, r = nums1.size(); //LR-pointer只需要在nums1上
+        while(l <= r) {
+            int i = (l + r) / 2; //i代表分割位置
+            int j = half - i; //j代表分割位置, 應該從還需要從nums2切割j個到左側
+            int l1 = i > 0 ? nums1[i - 1] : INT_MIN;
+            int r1 = i < nums1.size() ? nums1[i] : INT_MAX;
+            int l2 = j > 0 ? nums2[j - 1] : INT_MIN;
+            int r2 = j < nums2.size() ? nums2[j] : INT_MAX;
 
             if (l1 <= r2 && l2 <= r1) {
                 return len % 2 == 1 ? min(r1, r2) : (max(l1, l2) + min(r1, r2)) / 2.0;
@@ -28,38 +27,43 @@ public:
         return -1;
     }
 };
+
 /* 如果只對最小的數列作二分法, 也可以解出
 ex: 假設nums1.size() < nums2.size()
 透過對nums1二分法, 同時比較nums2進行LR-pointer位移
+i,j代表分割位置, i=0表示沒有數字在左側, 而i=num1.size()代表所有數字都在左側
+因此l,r應該要包含要0~nums1.size()的範圍
 
 nums1=1239
 nums2=123456789
 總長=13, 中位數index=half=6, 
-nums1中取一半(前2)個, nums2取前(6-2=4)個比較 
-i=(l+r)/2=(0+3)/2=1
-j=half-i-2=6-1-2=3
+nums1中取一半(前2)個, nums2取前(6-2=4)個比較
+l=0, r=4
+i=(l+r)/2=(0+4)/2=2
+j=half-i=6-2=4
 
 
-      li     r
+      l     i r
 nums1=12    39
 nums2=1234  56789
-         j
+            j
 其中nums1[i]<nums2[j+1], 但是nums2[j]>nums1[i], j太大了, i太小了
 所以將l左移讓i變大, 使l=i+1
-i=(2+3)/2=2
-j=6-2-3=2
+l=3, r=4
+i=(3+4)/2=3
+j=6-3=3
 
 
-        i
-        lr   
-nums1=1239
-nums2=123456789
-        j
+           i
+           lr   
+nums1=123  9
+nums2=123  456789
+           j
 此時nums1[i]<nums2[j+1] && nums2[j]<nums1[i+1], 已經抓到前最小的6個
-得result=min(nums1[i+1], nums2[j+1])
-
+得result=min(nums1[i+1], nums2[j+1])=4
 
 */
+
 
 
 //Binary Search O(log(m + n)) O(log(m + n))
