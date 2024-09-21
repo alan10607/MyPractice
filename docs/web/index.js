@@ -1,13 +1,14 @@
-const FILE_URL = [
-    "https://api.github.com/repos/alan10607/MyPractice/contents/c++",
-    "https://api.github.com/repos/alan10607/MyPractice/contents/java"
-];
+const FILE_URL = new Map([
+    [ "c++",  "https://api.github.com/repos/alan10607/MyPractice/contents/c++" ],
+    [ "java", "https://api.github.com/repos/alan10607/MyPractice/contents/java" ]
+]);
 const LEETCODE_URL = "https://leetcode.com/problems/";
 var LOAD_SIZE = 10;
-var CODE = new Array(FILE_URL.length).fill(null).map(() => new Map());
-var LOAD_CNT = FILE_URL.length;
+var CODE = new Map();
+var LOAD_CNT = FILE_URL.size;
 var SOU_NO = [];
 const STORAGE_KEY = "lc-did-no";
+const ENABLED_LANGUAGE = new Map();
 
 function get(url, callback, ...args){
 	$.ajax({
@@ -24,12 +25,12 @@ function get(url, callback, ...args){
 }
 
 function init(){
-    for(let i=0; i<FILE_URL.length; ++i){
-        getFilePath(FILE_URL[i], i);
+    for (let [language, url] of FILE_URL.entries()) {
+        getFilePath(url, language);
     }
 
     showLoading();
-    var loading = setInterval(function() {
+    const loading = setInterval(function() {
         if(LOAD_CNT > 0){
             console.log("Wait file loading...");
         }else{
@@ -45,16 +46,19 @@ function getFilePath(url, index){
 }
 
 function getFilePathAfter(res, index){
+    const problemInfo = new Map();
     for(let r of res){
         if(!isSolution(r.name) || r.download_url == null) continue;
 
         var no = parseInt(r.download_url.match(new RegExp("Solution(\\d+)\\."))[1]);
-        CODE[index].set(no, {
+        problemInfo.set(no, {
             "name" : r.name,
             "url" : r.download_url,
             "github" : r.html_url
         });
     }
+    CODE.set(index, problemInfo);
+    ENABLED_LANGUAGE.set(index, true);
     --LOAD_CNT;
 }
 
@@ -64,8 +68,8 @@ function isSolution(fileName){
 
 function printPages(){
     var noSet = new Set();
-    for(let code of CODE){
-        for(let no of code.keys()){
+    for(const problems of CODE.values()){
+        for(let no of problems.keys()){
             noSet.add(no);
         }
     }
@@ -81,6 +85,14 @@ function printPages(){
         }
     }
     $("<span>", {text : "[每日一題]", "onclick" : "printRandom()"}).appendTo($("#page-bar"));
+
+    var codeType = $('<span>', { id: 'combo-checkbox' });
+    $("<span>", {text: "顯示: [C++"}).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "c++", "onclick" : "setCodeType(this)", checked: ENABLED_LANGUAGE.get("c++") }).appendTo(codeType);
+    $("<span>", {text: "] / [Java"}).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "java", "onclick" : "setCodeType(this)", checked: ENABLED_LANGUAGE.get("java") }).appendTo(codeType);
+    $("<span>", {text: "]"}).appendTo(codeType);
+    codeType.appendTo($('#page-bar'));
 }
 
 function printCode(start, len){
@@ -96,10 +108,11 @@ function printCode(start, len){
         }
         $("<span>", {text : no + ". "}).appendTo($("#" + no));
         $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + no));
-        for(let code of CODE){
-            if(!code.has(no)) continue
-            $("<div>", {id : code.get(no).name}).appendTo($("#" + no));
-            query.push(code.get(no))
+        for(const [language, problems] of CODE.entries()){
+            if(!problems.has(no)) continue;
+            if(!ENABLED_LANGUAGE.get(language)) continue;
+            $("<div>", {id : problems.get(no).name}).appendTo($("#" + no));
+            query.push(problems.get(no))
         }
     }
 
@@ -130,11 +143,7 @@ function changeLoadSize(){
     printPages();
 }
 
-function t(){
-for(let i=0; i<230; ++i){
-    printRandom();
-}
-}
+
 function printRandom(){
     $("#random-bar").empty();
     const didNos = getDidNos();
@@ -173,6 +182,10 @@ function getRandomProblemNo(){
     didNos.push(no);
     saveDidNos(didNos);
     return no;
+}
+
+function setCodeType(checkbox) {
+    ENABLED_LANGUAGE.set(checkbox.value, checkbox.checked);
 }
 
 /* --- Loading視窗 --- */
