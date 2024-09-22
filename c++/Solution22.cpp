@@ -1,21 +1,20 @@
 //Backtracking O((4^n)/(n^(1/2))) O((4^n)/(n^(1/2))), Catalan number 卡塔蘭數, Cn = (2n)!/((n+1)!n!) = (4^n)/(n^(1/2))
 class Solution22 {
 public:
-    vector<string> res;
-
     vector<string> generateParenthesis(int n) {
-        backtracking(0, "", n);
+        vector<string> res;
+        backtracking(n, 0, "", res);
         return res;
     }
 
-    void backtracking(int level, string str, int n){
-        if(n == 0 && level == 0){//level=(個數 - )個數
+    void backtracking(int n, int remained_right, string str, vector<string>& res) {
+        if (n == 0 && remained_right == 0) {
             res.push_back(str);
             return;
         }
-        if(n < 0 || level < 0) return;
+        if (n < 0 || remained_right < 0) return; // remained_right < 0表示左括號太多了
 
-        backtracking(level + 1, str + "(", n - 1);
-        backtracking(level - 1, str + ")", n);
+        backtracking(n - 1, remained_right + 1, str + '(', res);
+        backtracking(n, remained_right - 1, str + ')', res);
     }
 };

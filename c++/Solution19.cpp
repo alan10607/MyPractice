@@ -11,7 +11,7 @@ public:
 
         if(!fast) return head->next;//代表是移除第一個
 
-        while(fast->next){
+        while(fast->next){//要讓slow停在要移除的那個之前, 所以是fast->next==nullptr時
             fast = fast->next;
             slow = slow->next;
         }
@@ -23,6 +23,6 @@ public:
 /* head = [1,2,3,4,5], n = 2
 
  *1 -> 2 -> 3 -> 4 -> 5 -> null
-          ^s        ^f
+            ^s        ^f
 
 */

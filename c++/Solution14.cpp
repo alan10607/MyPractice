@@ -4,9 +4,9 @@ public:
     string longestCommonPrefix(vector<string>& strs) {
         for(int i=0; i<strs[0].length(); ++i){
             char ch = strs[0][i];
-            for(string str : strs){
-                if(i >= str.length() || ch != str[i])
-                    return str.substr(0, i);
+            for(int j=1; j<strs.size(); ++j){
+                if(i >= strs[j].length() || ch != strs[j][i])
+                    return strs[j].substr(0, i);
             }
         }
         return strs[0];//代表全都一樣
