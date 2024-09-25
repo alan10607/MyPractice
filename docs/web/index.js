@@ -108,9 +108,11 @@ function printCode(start, len){
         }
         $("<span>", {text : no + ". "}).appendTo($("#" + no));
         $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + no));
-        for(const [language, problems] of CODE.entries()){
+
+        for(const [language, enabled] of ENABLED_LANGUAGE.entries()){
+            if(!enabled) continue;
+            const problems = CODE.get(language);
             if(!problems.has(no)) continue;
-            if(!ENABLED_LANGUAGE.get(language)) continue;
             $("<div>", {id : problems.get(no).name}).appendTo($("#" + no));
             query.push(problems.get(no))
         }
