@@ -5,8 +5,9 @@ public:
         int sum = accumulate(skill.begin(), skill.end(), 0);
 
         int group_size = skill.size() / 2;
-        if (sum % group_size != 0)
+        if (sum % group_size != 0) {
             return -1; // not divisible
+        }
 
         int target = sum / group_size;
         int l = 0, r = skill.size() - 1;
