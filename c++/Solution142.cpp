@@ -19,3 +19,14 @@ public:
         return start;
     }
 };
+/* head = [3,2,0,-4], pos = 1
+第一次loop判斷是否成環
+fast=3->0->2->-4
+slow=3->2->0->-4
+
+第二次判斷成環位置
+fast=-4->2
+slow= 3->2
+
+res=2
+*/
