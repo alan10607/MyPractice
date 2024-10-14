@@ -1,11 +1,20 @@
-const FILE_URL = new Map([
-    [ "c++",  "https://api.github.com/repos/alan10607/MyPractice/contents/c++" ],
-    [ "java", "https://api.github.com/repos/alan10607/MyPractice/contents/java" ]
-]);
+const CODE = {
+    "c++": {
+        solutionUrl: "https://api.github.com/repos/alan10607/MyPractice/contents/c++",
+        enabled: true,
+        solutions: new Map(),
+        isLoadingComplete: false
+    },
+    "java": {
+        solutionUrl: "https://api.github.com/repos/alan10607/MyPractice/contents/java",
+        enabled: true,
+        solutions: new Map(),
+        isLoadingComplete: false
+    }
+};
+
 const LEETCODE_URL = "https://leetcode.com/problems/";
 var LOAD_SIZE = 10;
-var CODE = new Map();
-var LOAD_CNT = FILE_URL.size;
 var SOU_NO = [];
 const STORAGE_KEY = "lc-did-no";
 const ENABLED_LANGUAGE = new Map();
@@ -25,13 +34,17 @@ function get(url, callback, ...args){
 }
 
 function init(){
-    for (let [language, url] of FILE_URL.entries()) {
-        getFilePath(url, language);
+    for (let language of Object.keys(CODE)) {
+        getFilePath(language);
     }
 
     showLoading();
     const loading = setInterval(function() {
-        if(LOAD_CNT > 0){
+        const loadingCount = Object.values(CODE).reduce((count, code) => {
+            return code.isLoadingComplete ? count : count + 1;
+        }, 0);
+
+        if(loadingCount > 0){
             console.log("Wait file loading...");
         }else{
             printPages();
@@ -41,25 +54,26 @@ function init(){
     }, 200);
 }
 
-function getFilePath(url, index){
-    get(url, getFilePathAfter, index);
+function getFilePath(language){
+    const url = CODE[language].solutionUrl;
+    get(url, getFilePathAfter, language);
 }
 
-function getFilePathAfter(res, index){
-    const problemInfo = new Map();
-    for(let r of res){
+function getFilePathAfter(res, language){
+    console.log(`Loading ${language} file paths...`);
+
+    for(const r of res){
         if(!isSolution(r.name) || r.download_url == null) continue;
 
-        var no = parseInt(r.download_url.match(new RegExp("Solution(\\d+)\\."))[1]);
-        problemInfo.set(no, {
+        var num = parseInt(r.download_url.match(new RegExp("Solution(\\d+)\\."))[1]);
+        CODE[language].solutions.set(num, {
             "name" : r.name,
             "url" : r.download_url,
             "github" : r.html_url
         });
     }
-    CODE.set(index, problemInfo);
-    ENABLED_LANGUAGE.set(index, true);
-    --LOAD_CNT;
+
+    CODE[language].isLoadingComplete = true;
 }
 
 function isSolution(fileName){
@@ -67,13 +81,14 @@ function isSolution(fileName){
 }
 
 function printPages(){
-    var noSet = new Set();
-    for(const problems of CODE.values()){
-        for(let no of problems.keys()){
-            noSet.add(no);
+    var numSet = new Set();
+    for(const code of Object.values(CODE)){
+        const solutionsMap = code.solutions;
+        for(let num of solutionsMap.keys()){
+            numSet.add(num);
         }
     }
-    SOU_NO = Array.from(noSet).sort((a, b) => a - b);
+    SOU_NO = Array.from(numSet).sort((a, b) => a - b);
 
     $("#page-bar").empty();
     $("<span>", {text : `題數: ${LOAD_SIZE}`, "onclick" : "changeLoadSize()"}).appendTo($("#page-bar"));
@@ -88,9 +103,9 @@ function printPages(){
 
     var codeType = $('<span>', { id: 'combo-checkbox' });
     $("<span>", {text: "顯示: [C++"}).appendTo(codeType);
-    $("<input>", { type: "checkbox", value: "c++", "onclick" : "setCodeType(this)", checked: ENABLED_LANGUAGE.get("c++") }).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "c++", "onclick" : "setCodeEnable(this)", checked: CODE["c++"].enabled }).appendTo(codeType);
     $("<span>", {text: "] / [Java"}).appendTo(codeType);
-    $("<input>", { type: "checkbox", value: "java", "onclick" : "setCodeType(this)", checked: ENABLED_LANGUAGE.get("java") }).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "java", "onclick" : "setCodeEnable(this)", checked: CODE["c++"].enabled }).appendTo(codeType);
     $("<span>", {text: "]"}).appendTo(codeType);
     codeType.appendTo($('#page-bar'));
 }
@@ -100,21 +115,22 @@ function printCode(start, len){
     $("#no-bar").empty();
     var query = [];
     for(let i = 0; i < len && start + i < SOU_NO.length; ++i){
-        var no = SOU_NO[start + i];
-        var problem = PROBLEMS.get(no);
-        $("<div>", {id : no}).appendTo($("#code-box"));
+        var num = SOU_NO[start + i];
+        var problem = PROBLEMS.get(num);
+        $("<div>", {id : num}).appendTo($("#code-box"));
         if(len > 1) {
-            $("<a>", {text : no, href : "#" + no}).appendTo($("#no-bar"));
+            $("<a>", {text : num, href : "#" + num}).appendTo($("#no-bar"));
         }
-        $("<span>", {text : no + ". "}).appendTo($("#" + no));
-        $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + no));
+        $("<span>", {text : num + ". "}).appendTo($("#" + num));
+        $("<a>", {text : problem, href : LEETCODE_URL + problem, target : "_blank"}).appendTo($("#" + num));
 
-        for(const [language, enabled] of ENABLED_LANGUAGE.entries()){
-            if(!enabled) continue;
-            const problems = CODE.get(language);
-            if(!problems.has(no)) continue;
-            $("<div>", {id : problems.get(no).name}).appendTo($("#" + no));
-            query.push(problems.get(no))
+        for(const code of Object.values(CODE)){
+            if(!code.enabled) continue;
+            const solutions = code.solutions;
+            if(!solutions.has(num)) continue;
+            const solution = solutions.get(num);
+            $("<div>", {id : solution.name}).appendTo($("#" + num));
+            query.push(solution)
         }
     }
 
@@ -186,8 +202,8 @@ function getRandomProblemNo(){
     return no;
 }
 
-function setCodeType(checkbox) {
-    ENABLED_LANGUAGE.set(checkbox.value, checkbox.checked);
+function setCodeEnable(checkbox) {
+    CODE[checkbox.value].enabled = checkbox.checked;
 }
 
 /* --- Loading視窗 --- */

@@ -42,12 +42,12 @@ bool foo(ListNode* head) {
 ```
 
 # Two Pointers
-## Fast-Slow pointer
+## Fast-Slow pointers
 - https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 - https://leetcode.com/problems/remove-element/
 - https://leetcode.com/problems/move-zeroes/
 
-### In-Place Modify
+### In-Place Modification
 ```
 void fastSlowPointer(vector<int>& nums) {
     int fast = 0, slow = 0;
