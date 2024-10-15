@@ -58,6 +58,25 @@ void fastSlowPointer(vector<int>& nums) {
 
 
 ### Sliding Window
+- https://leetcode.com/problems/minimum-window-substring/
+```
+string slidingWindow(string s) {
+    auto window;
+    int l = 0, r = 0;
+    while (r < s.length()) {
+        window.add(s[r]); // 加入目前這一個
+
+        while (滿足某條件情況下, 開始收縮左邊) {
+            // 依照題目要求進行處理
+
+            window.remove(s[l]); // 移除最左邊這個  
+            ++l; // 繼續看下一個左邊
+        }
+
+        ++r; // 開始查看下一個
+    }
+}
+```
 
 
 ## L-R Pointers
