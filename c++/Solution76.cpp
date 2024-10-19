@@ -47,9 +47,10 @@ public:
             if(--cnt[s[r]] >= 0) {
                 ++check;
             }
+            ++r;
 
             while(check == t.length()){
-                int len = r - l + 1;
+                int len = r - l; // ++r設在判斷之前, 因為左閉右開[l, r) 方便計算
                 if(min_len > len) {
                     start = l;
                     min_len = len;
@@ -60,7 +61,6 @@ public:
                 }
                 ++l;
             }
-            ++r;
         }
 
         return min_len == INT_MAX ? "" : s.substr(start, min_len);

@@ -28,3 +28,38 @@ c   b   a   e   b   a   b   a   c   d
                         ---------
                     ^l          ^r
 */
+
+
+//Slide Window O(m + n) O(Z), m = s.length(), n = p.length(), Z = 128
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> cnt(128);
+        for(char ch : p ){
+            ++cnt[ch];
+        }
+
+        int l = 0, r = 0;
+        int check = 0;
+        vector<int> res;
+        while(r < s.length()){
+            if(cnt[s[r]]-- > 0){
+                ++check;
+            }
+            ++r;
+
+            if(l + p.length() < r){
+                if(++cnt[s[l]] > 0){
+                    --check;
+                }
+                ++l;
+            }
+
+            if(check == p.length()){
+                res.push_back(l);
+            }
+        }
+
+        return res;
+    }
+};
