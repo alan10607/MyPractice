@@ -59,7 +59,9 @@ void fastSlowPointer(vector<int>& nums) {
 
 ### Sliding Window
 - https://leetcode.com/problems/minimum-window-substring/
-https://leetcode.com/problems/permutation-in-string/
+- https://leetcode.com/problems/permutation-in-string/
+- https://leetcode.com/problems/find-all-anagrams-in-a-string/
+- https://leetcode.com/problems/longest-substring-without-repeating-characters/
 ```
 string slidingWindow(string s) {
     auto window;
@@ -83,10 +85,74 @@ string slidingWindow(string s) {
 ## L-R Pointers
 - https://leetcode.com/problems/reverse-string/
 - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
-- https://leetcode.com/problems/longest-palindromic-substring/
+
 ### Binary Search
-### N-Sum
+- https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+- https://leetcode.com/problems/binary-search/
+
+1. 找某目標index, 不存在則返回-1  
+    - 搜索區間是[l, r], mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]
+```
+int binarySearch(vector<int>& nums, int target) {
+    int l = 0, r = nums.size() - 1;
+    while (l <= r) {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            l = mid + 1;
+        } else if (nums[mid] > target) {
+            r = mid - 1;
+        }
+    }
+    return -1;
+}
+```
+
+2. lower_bound, 左側邊界, 找第一個不小於某目標的數
+    - ex:[0,1,1,1,1], target=1, return=1  
+    - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
+    - 若相同, 則應該往左側尋找
+```
+int lowerBound(vector<int>& nums, int target) {
+    int l = 0, r = nums.size();
+    while (l < r) {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] == target) {
+            r = mid
+        } else if (nums[mid] < target) {
+            l = mid + 1;
+        } else if (nums[mid] > target) {
+            r = mid;
+        }
+    }
+    return l; // 或r也可以, 因為l == r
+}
+```
+
+3. upper_bound, 右側邊界, 找第一個大於某目標的數
+    - ex:[0,1,1,1,1], target=1, return=5  
+    - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
+    - 若相同, 則應該往右側尋找
+```
+int upperBound(vector<int>& nums, int target) {
+    int l = 0, r = nums.size();
+    while (l < r) {
+        if (nums[mid] == target) {
+            l = mid + 1
+        } else if (nums[mid] < target) {
+            l = mid + 1;
+        } else if (nums[mid] > target) {
+            r = mid;
+        }
+    }
+    return l; // 或r也可以, 因為l == r
+}
+```
+
+
 ### Palindrome
+- https://leetcode.com/problems/longest-palindromic-substring/
 ```
 string palindrome(int l, int r, string s) {
     while (0 <= l && r < s.length() && s[l] == s[r]) {
@@ -98,6 +164,7 @@ string palindrome(int l, int r, string s) {
     return s.substr(l, r - l + 1);
 }
 ```
+### N-Sum
 
 
 # Dynamic Programming

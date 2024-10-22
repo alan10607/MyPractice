@@ -31,7 +31,7 @@ c   b   a   e   b   a   b   a   c   d
 
 
 //Slide Window O(m + n) O(Z), m = s.length(), n = p.length(), Z = 128
-class Solution {
+class Solution438_2 {
 public:
     vector<int> findAnagrams(string s, string p) {
         vector<int> cnt(128);
