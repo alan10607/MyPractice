@@ -13,7 +13,8 @@ public:
         return (dp[amount] == amount + 1) ? -1 : dp[amount];
     }
 };
-/* coins = [1,2,5], amount = 11, 預設為amount+1表示不可能, 或是可以用INT_MAX-1
+/* 此為自底向上的解法, 還有另一種解法是自頂向下
+coins = [1,2,5], amount = 11, 預設為amount+1表示不可能, 或是可以用INT_MAX-1
     0   1   2   3   4   5   6   7   8   9   10  11
     0   12  12  12  12  12  12  12  12  12  12  12
 1   0   1   2   3   4   5   6   7   8   9   10  11
@@ -30,3 +31,30 @@ public:
 可重複, 是否可以取出target, 內層正序
 
 */
+
+
+
+class Solution322_2 {
+public:
+    vector<int> memo;
+    
+    int coinChange(vector<int>& coins, int amount) {
+        memo = vector<int> (amount + 1, INT_MIN); // INT_MIN表示未被紀錄
+        return backtracking(coins, amount);
+    }
+
+    int backtracking(vector<int>& coins, int amount) { // 透過自頂向下的遞歸也可以解這題
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        if (memo[amount] != INT_MIN) return memo[amount];
+
+        int res = INT_MAX;
+        for (int coin : coins) {
+            int num = backtracking(coins, amount - coin); // 計算子問題
+            if (num == -1) continue;
+            res = min(res, num + 1);
+        }
+        memo[amount] = res == INT_MAX ? -1 : res;
+        return memo[amount];
+    }
+};
