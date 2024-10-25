@@ -16,6 +16,9 @@ public:
 
 /* 常用std 方法
 
+# string
+    string(n, '.')
+
 # unordered_map
     unordered_map.insert({1, "One"})
     unordered_map.emplace(2, "Two"))

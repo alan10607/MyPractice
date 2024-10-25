@@ -4,26 +4,25 @@ public:
     vector<vector<int>> res;
 
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int> vec;
-        vector<bool> visited(nums.size());
-        backtracking(vec, visited, nums);
+        unordered_set<int> visited;
+        vector<int> selected;
+        backtracking(nums, visited, selected);
         return res;
     }
 
-    void backtracking(vector<int>& vec, vector<bool>& visited, vector<int>& nums) {
-        if(vec.size() == nums.size()){
-            res.push_back(vec);
-            return;
+    void backtracking(vector<int>& nums, unordered_set<int>& visited, vector<int>& selected) {
+        if (selected.size() == nums.size()) {
+            res.push_back(selected);
         }
 
-        for(int i=0; i<nums.size(); ++i){
-            if(visited[i]) continue;
+        for (int num : nums) {
+            if (visited.count(num)) continue;
 
-            visited[i] = true;
-            vec.push_back(nums[i]);
-            backtracking(vec, visited, nums);
-            vec.pop_back();
-            visited[i] = false;
+            visited.insert(num);
+            selected.push_back(num);
+            backtracking(nums, visited, selected);
+            visited.erase(num);
+            selected.pop_back();
         }
     }
 };

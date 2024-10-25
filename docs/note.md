@@ -210,6 +210,30 @@ int solution(所有選擇, 狀態1, 狀態2, ...) {
 ## Knapsack Problem
 ## Greedy
 # Backtracking
+- https://leetcode.com/problems/permutations/
+- https://leetcode.com/problems/n-queens/
+- https://leetcode.com/problems/n-queens-ii/
+
+
+```
+auto res;
+
+void backtracking(所有選擇, 已拜訪, 已選擇) {
+    if (完成需要條件) {
+        res.push_back(已選擇);
+        return;
+    }
+
+    for (選擇 : 所有選擇) {
+        if (該選擇已被拜訪) continue; 
+
+        將該選擇加入已拜訪, 已選擇
+        backtracking(nums, visited, selected);
+        將該選擇移出已拜訪, 已選擇
+    }
+}
+```
+
 ## DFS
 ## BFS
 # Binary Tree

@@ -1,4 +1,4 @@
-//Backtracking O(n!) O(n^2)
+// Backtracking O(n!) O(n^2)
 class Solution51 {
 public:
     vector<vector<string>> res;
@@ -8,18 +8,18 @@ public:
         unordered_set<int> sum;
         unordered_set<int> sub;
         vector<string> board(n, string(n, '.'));
-        backtracking(0, board, col, sum, sub);//以行為單位遍歷
+        backtracking(0, board, col, sum, sub); // 以行為單位遍歷
         return res;
     }
 
-    void backtracking(int i, vector<string>& board, unordered_set<int>& col, unordered_set<int>& sum, unordered_set<int>& sub){
-        if(i == board.size()){          
+    void backtracking(int i, vector<string>& board, unordered_set<int>& col, unordered_set<int>& sum, unordered_set<int>& sub) {
+        if (i == board.size()) {
             res.push_back(board);
             return;
         }
 
-        for(int j=0; j<board.size(); ++j){//迴圈跑一行, 遞迴在跑所有行
-            if(col.count(j) || sum.count(i + j) || sub.count(i - j)) continue;
+        for (int j = 0; j < board.size(); ++j) { // 迴圈跑一行, 遞迴在跑所有行
+            if (col.count(j) || sum.count(i + j) || sub.count(i - j)) continue;
 
             col.insert(j);
             sum.insert(i + j);
