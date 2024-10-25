@@ -227,17 +227,35 @@ void backtracking(所有選擇, 已拜訪, 已選擇) {
     for (選擇 : 所有選擇) {
         if (該選擇已被拜訪) continue; 
 
-        將該選擇加入已拜訪, 已選擇
+        // 將該選擇加入已拜訪, 已選擇
         backtracking(nums, visited, selected);
-        將該選擇移出已拜訪, 已選擇
+        // 將該選擇移出已拜訪, 已選擇
     }
 }
 ```
 
+## Permutation / Subset / Combination
 ## DFS
+
+```
+void dfs(Node root) {
+    if (!root) return;
+
+    // 進行選擇
+    for (Node child : root.children) {
+        dfs(child);
+    }
+    // 撤銷選擇
+}
+```
 ## BFS
+- https://leetcode.com/problems/minimum-depth-of-binary-tree/
+- https://leetcode.com/problems/open-the-lock/description/
+```
+...
+```
+
 # Binary Tree
-# Subset / Combination / Permutation
 # Intervals
 # Math / Bit
 
