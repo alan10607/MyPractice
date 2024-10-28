@@ -9,7 +9,7 @@ public:
         return res;
     }
 
-    int dfs(TreeNode* root){
+    int dfs(TreeNode* root) {
         if(!root) return 0;
 
         int left = dfs(root->left);

@@ -256,6 +256,64 @@ void dfs(Node root) {
 ```
 
 # Binary Tree
+- https://leetcode.com/problems/maximum-depth-of-binary-tree/
+- https://leetcode.com/problems/binary-tree-preorder-traversal/
+- https://leetcode.com/problems/diameter-of-binary-tree/
+- 前序遍歷 (Preorder Traversal): 根 -> 左 -> 右
+- 中序遍歷 (Inorder Traversal): 左 -> 根 -> 右
+- 後序遍歷 (Postorder Traversal): 左 -> 右 -> 根
+
+
+```
+void traverse(TreeNode* root) {
+    if (!root) return;
+
+    // 前序
+    traverse(root->left);
+    // 中序
+    traverse(root->right);
+    // 後序
+}
+```
+
+
+```
+void preorderTraversal(TreeNode* root) {
+    if (!root) return {};
+
+    stack<TreeNode*> st;
+    st.push(root);
+    while (!st.empty()) {
+        TreeNode* node = st.top(); st.pop();
+        cout << node->val << " ";
+        if (node->right) st.push(node->right);
+        if (node->left) st.push(node->left);
+    }
+}
+```
+
+```
+void inorderTraversal(TreeNode* root) {
+    stack<TreeNode*> st;
+    TreeNode* node = root;
+    while (!st.empty() || node) {
+        // 將左子節點一路壓入stack
+        while (node) {
+            st.push(node);
+            node = node->left;
+        }
+        // 處理節點
+        node = st.top(); st.pop();
+        cout << node->val << " ";
+
+        // 移動到右子節點
+        node = node->right;
+    }
+}
+```
+
+
+
 # Intervals
 # Math / Bit
 
