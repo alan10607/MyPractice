@@ -264,55 +264,126 @@ void dfs(Node root) {
 - 後序遍歷 (Postorder Traversal): 左 -> 右 -> 根
 
 
+## 透過 recursion
 ```
+vector<int> preorder;
+vector<int> inorder;
+vector<int> postorder;
+
 void traverse(TreeNode* root) {
     if (!root) return;
 
-    // 前序
+    preorder.push_back(root->val); // 前序
     traverse(root->left);
-    // 中序
+    inorder.push_back(root->val); // 中序
     traverse(root->right);
-    // 後序
+    postorder.push_back(root->val); // 後序
 }
 ```
 
-
+## 透過stack traverse
+1. 前序
 ```
-void preorderTraversal(TreeNode* root) {
-    if (!root) return {};
-
-    stack<TreeNode*> st;
-    st.push(root);
-    while (!st.empty()) {
-        TreeNode* node = st.top(); st.pop();
-        cout << node->val << " ";
-        if (node->right) st.push(node->right);
-        if (node->left) st.push(node->left);
-    }
-}
-```
-
-```
-void inorderTraversal(TreeNode* root) {
+vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> res;
     stack<TreeNode*> st;
     TreeNode* node = root;
     while (!st.empty() || node) {
-        // 將左子節點一路壓入stack
-        while (node) {
+        if (node) {
+            res.push_back(node->val); // 在進入node就馬上紀錄
             st.push(node);
             node = node->left;
+        } else {
+            node = st.top(); st.pop();
+            node = node->right;
         }
-        // 處理節點
-        node = st.top(); st.pop();
-        cout << node->val << " ";
-
-        // 移動到右子節點
-        node = node->right;
     }
+
+    return res;
 }
 ```
 
+2. 中序
+```
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> st;
+    TreeNode* node = root;
+    while (!st.empty() || node) {
+        if (node) {
+            st.push(node);
+            node = node->left;
+        } else {
+            node = st.top(); st.pop();
+            res.push_back(node->val); // 在離開左node後要進入右node前紀錄
+            node = node->right;
+        }
+    }
 
+    return res;
+}
+```
+
+3. 後序
+```
+vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> st;
+    TreeNode* node = root;
+    TreeNode* last = nullptr; // 後續需要一個last node來代表上一個跳出的node, 避免重新在進入右邊
+    while (!st.empty() || node) {
+        if (node) {
+            st.push(node);
+            node = node->left;
+        } else {
+            TreeNode* p = st.top();
+            if (p->right && p->right != last) { // 存在右node且沒訪問過就進入
+                node = p->right;
+            } else {
+                res.push_back(p->val); // 在要離開node時紀錄
+                st.pop();
+                last = p; // 記錄為前一個node, 代表已經訪問
+            }
+        }
+    }
+
+    return res;
+}
+```
+
+4. 前中後一起
+```
+void traverse(TreeNode* root) {
+    vector<int> preorder;
+    vector<int> inorder;
+    vector<int> postorder;
+    stack<TreeNode*> st;
+    TreeNode* cur = root;
+    TreeNode* last = nullptr;
+
+    while (!st.empty() || cur) {
+        if (cur) {
+            preorder.push_back(cur->val); // 在進入node就馬上紀錄
+            st.push(cur);
+            cur = cur->left;
+        } else {
+            TreeNode* p = st.top();
+            if (p->right && p->right != last) {
+                inorder.push_back(p->val); // 在離開左node後要進入右node前紀錄
+                cur = p->right;
+            } else {
+                if(!p->right) {
+                    inorder.push_back(p->val); // 如果沒有右node則直接紀錄
+                }
+                postorder.push_back(p->val); // 在要離開node時紀錄
+                st.pop();
+                last = p;
+            }
+        }
+    }
+
+}
+```
 
 # Intervals
 # Math / Bit
