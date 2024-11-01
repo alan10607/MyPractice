@@ -4,15 +4,16 @@ public:
     vector<vector<int>> res;
 
     vector<vector<int>> permute(vector<int>& nums) {
-        unordered_set<int> visited;
         vector<int> selected;
-        backtracking(nums, visited, selected);
+        unordered_set<int> visited;
+        backtracking(visited, selected, nums);
         return res;
     }
 
-    void backtracking(vector<int>& nums, unordered_set<int>& visited, vector<int>& selected) {
+    void backtracking(unordered_set<int>& visited, vector<int>& selected, vector<int>& nums) {
         if (selected.size() == nums.size()) {
             res.push_back(selected);
+            return;
         }
 
         for (int num : nums) {
@@ -20,7 +21,7 @@ public:
 
             visited.insert(num);
             selected.push_back(num);
-            backtracking(nums, visited, selected);
+            backtracking(visited, selected, nums);
             visited.erase(num);
             selected.pop_back();
         }

@@ -210,7 +210,6 @@ int solution(所有選擇, 狀態1, 狀態2, ...) {
 ## Knapsack Problem
 ## Greedy
 # Backtracking
-- https://leetcode.com/problems/permutations/
 - https://leetcode.com/problems/n-queens/
 - https://leetcode.com/problems/n-queens-ii/
 
@@ -234,7 +233,6 @@ void backtracking(所有選擇, 已拜訪, 已選擇) {
 }
 ```
 
-## Permutation / Subset / Combination
 ## DFS
 
 ```
@@ -255,6 +253,42 @@ void dfs(Node root) {
 ...
 ```
 
+
+
+
+## Permutation / Subset / Combination
+https://leetcode.com/problems/subsets/
+https://leetcode.com/problems/combinations/
+- https://leetcode.com/problems/permutations/
+https://leetcode.com/problems/subsets-ii/
+https://leetcode.com/problems/combination-sum-ii/
+### 依據選項可以分成
+1. 不重複, 不可複選
+ex: nums=[2,3,6,7], target=7, res=[7]
+
+2. 有重複, 不可複選
+ex: nums=[2,3,2,5]
+
+3. 不重複, 可複選
+ex: nums=[2,3,6,7], target=7, res=[2,2,3],[7]
+
+
+### 依據題型可以分成以下樹
+1. Subset, Combination(子集, 組合)
+```
+                        []
+        1               2               3
+    12      13          23
+    123
+```
+
+2. Permutation(排列)
+```
+                        []
+        1               2               3
+    12      13      21      23      31      32
+    123     132     213     231     312     321
+```
 # Binary Tree
 - https://leetcode.com/problems/maximum-depth-of-binary-tree/
 - https://leetcode.com/problems/binary-tree-preorder-traversal/

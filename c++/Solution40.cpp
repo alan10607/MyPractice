@@ -1,28 +1,29 @@
-//Knapsack Backtracking O(n * 2^n) O(target), n = candidates.size()
+//Backtracking Knapsack O(n * 2^n) O(target), n = candidates.size()
 class Solution40 {
 public:
+    vector<vector<int>> res;
+
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<int> nums;
-        vector<vector<int>> res;
         sort(candidates.begin(), candidates.end()); // 要避免重複, 所以排序小的先入列篩選
-        backtracking(0, target, candidates, nums, res);
+
+        vector<int> selected;
+        backtracking(0, selected, candidates, target);
         return res;
     }
 
-    void backtracking(int start, int target, vector<int>& candidates, vector<int>& nums, vector<vector<int>>& res) {
+    void backtracking(int start, vector<int>& selected, vector<int>& candidates, int target) {
         if (target == 0) {
-            res.push_back(nums);
+            res.push_back(selected);
             return;
         }
         if (target < 0) return;
 
         for (int i = start; i < candidates.size(); ++i) {
-            if (i > start && candidates[i] == candidates[i - 1])
-                continue; // 跳過重複的, 因為該項已經在前一個情況出現過, 即只挑選candidates[i]的那個情況
+            if (i > start && candidates[i] == candidates[i - 1]) continue; // 跳過重複的, 因為該項已經在前一個情況出現過, 即只挑選candidates[i]的那個情況
 
-            nums.push_back(candidates[i]);
-            backtracking(i + 1, target - candidates[i], candidates, nums, res); // 不重複所以i+1找下一個
-            nums.pop_back();
+            selected.push_back(candidates[i]);
+            backtracking(i + 1, selected, candidates, target - candidates[i]);
+            selected.pop_back();
         }
     }
 };
