@@ -1,24 +1,25 @@
-//Knapsack Backtracking O(n * 2^n) O(target), n = candidates.size()
+//Backtracking Knapsack O(n * 2^n) O(target), n = candidates.size()
 class Solution39 {
 public:
+    vector<vector<int>> res;
+
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int> nums;
-        vector<vector<int>> res;
-        backtracking(0, target, candidates, nums, res);
+        vector<int> selected;
+        backtracking(0, selected, candidates, target);
         return res;
     }
 
-    void backtracking(int start, int target, vector<int>& candidates, vector<int>& nums, vector<vector<int>>& res){
-        if(target == 0) {
-            res.push_back(nums);
+    void backtracking(int start, vector<int>& selected, vector<int>& nums, int target) {
+        if (target == 0) {
+            res.push_back(selected);
             return;
         }
-        if(target < 0) return;
+        if (target < 0) return;
 
-        for(int i = start; i < candidates.size(); ++i){ // All candidates are distinct, 所以不用判斷前一個是否相同
-            nums.push_back(candidates[i]);
-            backtracking(i, target - candidates[i], candidates, nums, res);
-            nums.pop_back();
+        for (int i = start; i < nums.size(); ++i) { // 元素不相同, 所以不用判斷前一個是否相同
+            selected.push_back(nums[i]);
+            backtracking(i, selected, nums, target - nums[i]); // 從i繼續試探
+            selected.pop_back();
         }
     }
 };

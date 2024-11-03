@@ -262,6 +262,9 @@ https://leetcode.com/problems/combinations/
 - https://leetcode.com/problems/permutations/
 https://leetcode.com/problems/subsets-ii/
 https://leetcode.com/problems/combination-sum-ii/
+https://leetcode.com/problems/permutations-ii/
+https://leetcode.com/problems/combination-sum/
+https://leetcode.com/problems/combination-sum-iii/
 ### 依據選項可以分成
 1. 不重複, 不可複選
 ex: nums=[2,3,6,7], target=7, res=[7]
@@ -289,6 +292,10 @@ ex: nums=[2,3,6,7], target=7, res=[2,2,3],[7]
     12      13      21      23      31      32
     123     132     213     231     312     321
 ```
+
+
+
+
 # Binary Tree
 - https://leetcode.com/problems/maximum-depth-of-binary-tree/
 - https://leetcode.com/problems/binary-tree-preorder-traversal/
