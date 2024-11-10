@@ -10,6 +10,7 @@
 - https://leetcode.com/problems/linked-list-cycle-ii/
 - https://leetcode.com/problems/intersection-of-two-linked-lists/
 - https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+- https://leetcode.com/problems/reverse-linked-list/
 
 
 ## 鏈表合併/分割/修改
