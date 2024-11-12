@@ -11,6 +11,9 @@
 - https://leetcode.com/problems/intersection-of-two-linked-lists/
 - https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 - https://leetcode.com/problems/reverse-linked-list/
+- https://leetcode.com/problems/reverse-linked-list-ii/
+- https://leetcode.com/problems/reverse-nodes-in-k-group/
+- https://leetcode.com/problems/palindrome-linked-list/
 
 
 ## 鏈表合併/分割/修改
@@ -40,6 +43,24 @@ bool foo(ListNode* head) {
         ...
     }
 }
+```
+
+## 反轉鏈表
+```
+ListNode* reverse(ListNode* start, ListNode* end) { // 反轉區間是(start, end)左開右開
+    ListNode* cur = start->next;
+    ListNode* pre = end;
+    ListNode* next_head = cur; // 用來回傳
+    while (cur != end) {
+        ListNode* next = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = next;
+    }
+    start->next = pre;
+    return next_head; // 依照需求回傳, 像這裡是回傳下一個reserve的start node
+}
+
 ```
 
 # Two Pointers
