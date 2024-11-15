@@ -1,12 +1,53 @@
 # Array / Hashing
 
 https://leetcode.com/problems/rotate-image
+https://leetcode.com/problems/spiral-matrix/
+https://leetcode.com/problems/spiral-matrix-ii/
 
 
+
+```
+void matrixSolution(vector<vector<int>>& matrix) {
+    int t = 0; // top, bottom, left, right定位四個方向
+    int b = matrix.size() - 1;
+    int l = 0;
+    int r = matrix[0].size() - 1;
+    while(...){
+        ...
+    }
+}
+```
+```
+/* 畫圖來看, 
+t/b是上下, l/r是左右, matrix[t/b, l/r]
+
+        left                right
+        +-----+-----+-----+-----+
+ top->  |[t,l]|     |     |[t,r]|
+        +-----+-----+-----+-----+
+        |     |     |     |     |
+        +-----+-----+-----+-----+
+bottom->|[b,r]|     |     |[b,r]|
+        +-----+-----+-----+-----+
+
+
+各方向加上for loop, i 變量的話
+
+        ---> [t][l+i]
+                          |
+    ^       1   2   3     v
+    |       4   5   6   [t+i][r]
+[b-i][l]    7   8   9
+
+            <--- [b][r-i]
+
+
+*/
+```
 # Linked List
 - https://leetcode.com/problems/merge-two-sorted-lists/
 - https://leetcode.com/problems/partition-list/
-- https://leetcode.com/problems/merge-k-sorted-lists/description/
+- https://leetcode.com/problems/merge-k-sorted-lists/
 - https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 - https://leetcode.com/problems/middle-of-the-linked-list/
 - https://leetcode.com/problems/linked-list-cycle/
@@ -17,7 +58,7 @@ https://leetcode.com/problems/rotate-image
 - https://leetcode.com/problems/reverse-linked-list-ii/
 - https://leetcode.com/problems/reverse-nodes-in-k-group/
 - https://leetcode.com/problems/palindrome-linked-list/
-
+- https://leetcode.com/problems/rotate-list/
 
 ## 鏈表合併/分割/修改
 ```
@@ -87,6 +128,7 @@ void fastSlowPointer(vector<int>& nums) {
 - https://leetcode.com/problems/permutation-in-string/
 - https://leetcode.com/problems/find-all-anagrams-in-a-string/
 - https://leetcode.com/problems/longest-substring-without-repeating-characters/
+- https://leetcode.com/problems/reverse-words-in-a-string/
 ```
 string slidingWindow(string s) {
     auto window;
@@ -273,7 +315,7 @@ void dfs(Node root) {
 ```
 ## BFS
 - https://leetcode.com/problems/minimum-depth-of-binary-tree/
-- https://leetcode.com/problems/open-the-lock/description/
+- https://leetcode.com/problems/open-the-lock/
 ```
 ...
 ```
