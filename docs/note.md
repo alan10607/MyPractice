@@ -152,6 +152,9 @@ string slidingWindow(string s) {
 ## L-R Pointers
 - https://leetcode.com/problems/reverse-string/
 - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+- https://leetcode.com/problems/two-sum/
+- https://leetcode.com/problems/3sum/
+- https://leetcode.com/problems/4sum/
 
 ### Binary Search
 - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
@@ -276,6 +279,16 @@ int solution(所有選擇, 狀態1, 狀態2, ...) {
 ```
 ## Knapsack Problem
 ## Greedy
+## 前綴和與array
+- https://leetcode.com/problems/range-sum-query-immutable/
+- https://leetcode.com/problems/range-sum-query-2d-immutable/
+```
+index   0     1     2     3
+nums=   1     2     3     4
+           \     \     \     \
+sum=    0 <-- 1 <-- 3 <-- 6 <-- 10
+```
+
 # Backtracking
 - https://leetcode.com/problems/n-queens/
 - https://leetcode.com/problems/n-queens-ii/
