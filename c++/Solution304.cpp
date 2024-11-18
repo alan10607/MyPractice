@@ -1,19 +1,19 @@
-//DP NumArray(): O(mn) O(mn), sumRange(): O(1) O(mn)
+//NumArray(): O(mn) O(mn), sumRange(): O(1) O(mn)
 class NumMatrix {//Solution304
 public:
-    vector<vector<int>> dp;
+    vector<vector<int>> sums;
     NumMatrix(vector<vector<int>>& matrix) {
         int m = matrix.size(), n = matrix[0].size();
-        dp.resize(m + 1, vector<int>(n + 1, 0));
+        sums.resize(m + 1, vector<int>(n + 1, 0));
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                dp[i + 1][j + 1] = dp[i + 1][j] + dp[i][j + 1] - dp[i][j] + matrix[i][j];
+                sums[i + 1][j + 1] = sums[i + 1][j] + sums[i][j + 1] - sums[i][j] + matrix[i][j];
             }
         }
     }
 
     int sumRegion(int x1, int y1, int x2, int y2) {
-        return dp[x2 + 1][y2 + 1] - dp[x1][y2 + 1] - dp[x2 + 1][y1] + dp[x1][y1];
+        return sums[x2 + 1][y2 + 1] - sums[x1][y2 + 1] - sums[x2 + 1][y1] + sums[x1][y1];
     }
 };
 
@@ -44,7 +44,7 @@ ex:
 2       7   8   9
 
 
-dp:
+sums:
         0   1   2   3
 
 0       0   0   0   0
@@ -52,9 +52,9 @@ dp:
 2       0   5   12  22
 3       0   12  27  46
 
-dp[2][2] = dp[1][2] + dp[2][1] - dp[1][1] + matrix[1][1]
+sums[2][2] = sums[1][2] + sums[2][1] - sums[1][1] + matrix[1][1]
 
 反知
-matrix[1][1] = dp[2][2] - dp[1][2] - dp[2][1] + dp[1][1]
+matrix[1][1] = sums[2][2] - sums[1][2] - sums[2][1] + sums[1][1]
 
 */

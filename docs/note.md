@@ -1,5 +1,5 @@
 # Array / Hashing
-
+## Matrix
 https://leetcode.com/problems/rotate-image
 https://leetcode.com/problems/spiral-matrix/
 https://leetcode.com/problems/spiral-matrix-ii/
@@ -43,6 +43,17 @@ bottom->|[b,r]|     |     |[b,r]|
 
 
 */
+```
+
+
+## Prefix Sum
+- https://leetcode.com/problems/range-sum-query-immutable/
+- https://leetcode.com/problems/range-sum-query-2d-immutable/
+```
+index   0     1     2     3
+nums=   1     2     3     4
+           \     \     \     \
+sum=    0 <-- 1 <-- 3 <-- 6 <-- 10
 ```
 # Linked List
 - https://leetcode.com/problems/merge-two-sorted-lists/
@@ -279,15 +290,7 @@ int solution(所有選擇, 狀態1, 狀態2, ...) {
 ```
 ## Knapsack Problem
 ## Greedy
-## 前綴和與array
-- https://leetcode.com/problems/range-sum-query-immutable/
-- https://leetcode.com/problems/range-sum-query-2d-immutable/
-```
-index   0     1     2     3
-nums=   1     2     3     4
-           \     \     \     \
-sum=    0 <-- 1 <-- 3 <-- 6 <-- 10
-```
+
 
 # Backtracking
 - https://leetcode.com/problems/n-queens/

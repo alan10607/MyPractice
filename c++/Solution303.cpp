@@ -1,22 +1,22 @@
-//DP NumArray(): O(n) O(n), sumRange(): O(1) O(n)
+//NumArray(): O(n) O(n), sumRange(): O(1) O(n)
 class NumArray {//Solution303
 public:
-    vector<int> dp;
+    vector<int> sums;
     NumArray(vector<int>& nums) {
-        dp.resize(nums.size() + 1, 0); // 需要resize, 長度為nums.size() + 1
+        sums.resize(nums.size() + 1, 0); // 需要resize, 長度為nums.size() + 1
         for (int i = 0; i < nums.size(); ++i) {
-            dp[i + 1] = nums[i] + dp[i];
+            sums[i + 1] = nums[i] + sums[i];
         }
     }
 
     int sumRange(int left, int right) {
-        return dp[right + 1] - dp[left];
+        return sums[right + 1] - sums[left];
     }
 };
 /*
 index   0     1     2     3
 nums=   1     2     3     4
            \     \     \     \
-sum=    0 <-- 1 <-- 3 <-- 6 <-- 10
+sums=    0 <-- 1 <-- 3 <-- 6 <-- 10
 
 */
