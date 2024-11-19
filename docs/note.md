@@ -1,8 +1,9 @@
 # Array / Hashing
+https://leetcode.com/problems/range-addition-ii/
 ## Matrix
-https://leetcode.com/problems/rotate-image
-https://leetcode.com/problems/spiral-matrix/
-https://leetcode.com/problems/spiral-matrix-ii/
+- https://leetcode.com/problems/rotate-image
+- https://leetcode.com/problems/spiral-matrix/
+- https://leetcode.com/problems/spiral-matrix-ii/
 
 
 
@@ -53,8 +54,20 @@ bottom->|[b,r]|     |     |[b,r]|
 index   0     1     2     3
 nums=   1     2     3     4
            \     \     \     \
-sum=    0 <-- 1 <-- 3 <-- 6 <-- 10
+sums=   0 <-- 1 <-- 3 <-- 6 <-- 10      
+
 ```
+## Difference Array
+- $ https://leetcode.com/problems/range-addition/
+- https://leetcode.com/problems/corporate-flight-bookings/
+- https://leetcode.com/problems/car-pooling/description/
+/*
+index   0     1     2     3     4     5
+nums=   8 <-- 2 <-- 6 <-- 3 <-- 1 
+            \     \     \
+diff=   8     -6    4     -3    -2    -1
+    
+*/
 # Linked List
 - https://leetcode.com/problems/merge-two-sorted-lists/
 - https://leetcode.com/problems/partition-list/
