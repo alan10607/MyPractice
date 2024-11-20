@@ -1,5 +1,8 @@
 # Array / Hashing
 https://leetcode.com/problems/range-addition-ii/
+- https://leetcode.com/problems/two-sum/
+- *https://leetcode.com/problems/two-sum-iii-data-structure-design/
+
 ## Matrix
 - https://leetcode.com/problems/rotate-image
 - https://leetcode.com/problems/spiral-matrix/
@@ -47,9 +50,10 @@ bottom->|[b,r]|     |     |[b,r]|
 ```
 
 
-## Prefix Sum
+## Prefix Sum 前綴和
 - https://leetcode.com/problems/range-sum-query-immutable/
 - https://leetcode.com/problems/range-sum-query-2d-immutable/
+- https://leetcode.com/problems/subarray-sum-equals-k/
 ```
 index   0     1     2     3
 nums=   1     2     3     4
@@ -57,7 +61,7 @@ nums=   1     2     3     4
 sums=   0 <-- 1 <-- 3 <-- 6 <-- 10      
 
 ```
-## Difference Array
+## Difference Array 差分法
 - $ https://leetcode.com/problems/range-addition/
 - https://leetcode.com/problems/corporate-flight-bookings/
 - https://leetcode.com/problems/car-pooling/description/
@@ -132,11 +136,12 @@ ListNode* reverse(ListNode* start, ListNode* end) { // 反轉區間是(start, en
 ```
 
 # Two Pointers
+
+
 ## Fast-Slow pointers
 - https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 - https://leetcode.com/problems/remove-element/
 - https://leetcode.com/problems/move-zeroes/
-
 ### In-Place Modification
 ```
 void fastSlowPointer(vector<int>& nums) {
@@ -176,7 +181,6 @@ string slidingWindow(string s) {
 ## L-R Pointers
 - https://leetcode.com/problems/reverse-string/
 - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
-- https://leetcode.com/problems/two-sum/
 - https://leetcode.com/problems/3sum/
 - https://leetcode.com/problems/4sum/
 
@@ -259,7 +263,48 @@ string palindrome(int l, int r, string s) {
 }
 ```
 ### N-Sum
+## KMP（Knuth-Morris-Pratt)
+- https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 
+
+```
+int findFirstIndexOf(string s, string p) {
+    vector<int> lps = buildLps(p);
+    int j = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        while (j > 0 && s[i] != p[j]) {
+            j = lps[j - 1]; // 與buildLps一樣如果不匹配可以回到前一個相同前綴就好
+        }
+
+        if (s[i] == p[j]) {
+            ++j;
+        }
+
+        if (j == p.size()) {
+            return (i + 1) - p.size(); // i還在這個字母上, 先+1到下一個
+        }
+    }
+    return -1;
+}
+
+vector<int> buildLps(string s) {
+    vector<int> lps(s.length(), 0);
+    int i = 1;
+    int j = 0;
+    for (int i = 1; i < s.length(); ++i) {
+        while (j > 0 && s[i] != s[j]) {
+            j = lps[j - 1]; // 退回之前有讀過的長度
+        }
+
+        if (s[i] == s[j]) {
+            ++j; // 直接繼續找下一個
+        }
+
+        lps[i] = j;
+    }
+    return lps;
+}
+```
 
 # Dynamic Programming
 - https://leetcode.com/problems/fibonacci-number/
