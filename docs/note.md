@@ -54,6 +54,18 @@ bottom->|[b,r]|     |     |[b,r]|
 - https://leetcode.com/problems/range-sum-query-immutable/
 - https://leetcode.com/problems/range-sum-query-2d-immutable/
 - https://leetcode.com/problems/subarray-sum-equals-k/
+
+https://leetcode.com/problems/contiguous-array/
+- https://leetcode.com/problems/random-pick-with-weight/
+https://leetcode.com/problems/minimum-size-subarray-sum/
+https://leetcode.com/problems/product-of-array-except-self/
+*https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+https://leetcode.com/problems/continuous-subarray-sum/
+https://leetcode.com/problems/subarray-product-less-than-k/
+https://leetcode.com/problems/find-pivot-index/
+https://leetcode.com/problems/subarray-sums-divisible-by-k/
+https://leetcode.com/problems/max-consecutive-ones-iii/
+https://leetcode.com/problems/matrix-block-sum/
 ```
 index   0     1     2     3
 nums=   1     2     3     4
