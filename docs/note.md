@@ -170,6 +170,7 @@ void fastSlowPointer(vector<int>& nums) {
 - https://leetcode.com/problems/find-all-anagrams-in-a-string/
 - https://leetcode.com/problems/longest-substring-without-repeating-characters/
 - https://leetcode.com/problems/reverse-words-in-a-string/
+- https://leetcode.com/problems/repeated-dna-sequences/
 ```
 string slidingWindow(string s) {
     auto window;
@@ -199,6 +200,9 @@ string slidingWindow(string s) {
 ### Binary Search
 - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 - https://leetcode.com/problems/binary-search/
+- https://leetcode.com/problems/koko-eating-bananas/
+- https://leetcode.com/problems/split-array-largest-sum/
+- https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
 
 1. 找某目標index, 不存在則返回-1  
     - 搜索區間是[l, r], mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]
