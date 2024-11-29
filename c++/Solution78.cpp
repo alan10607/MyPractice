@@ -1,4 +1,4 @@
-// Backtracking O(n * 2^n) O(n)
+// Backtracking O(n * 2^n) O(n), 子集數量為2^n, 要進行(2^n)次backtracking, 每次要跑一次for(n)
 class Solution78{
 public:
     vector<vector<int>> res;

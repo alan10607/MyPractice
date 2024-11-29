@@ -43,5 +43,8 @@ nums=[2,2,2], 可以有以下組合
 ex: selected=[2]遇到2''時, 前一個2'沒有被使用, 要跳過,
 selected就不會有[2,2''...]
 
+反之有visted就不跳過
+ex: selected=[2]遇到2'時, selected會繼續[2,2'...]
+
 
 */
