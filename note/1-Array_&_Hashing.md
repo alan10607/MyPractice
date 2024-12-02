@@ -10,7 +10,7 @@
 - https://leetcode.com/problems/spiral-matrix/
 - https://leetcode.com/problems/spiral-matrix-ii/
 
-```
+```cpp
 void matrixSolution(vector<vector<int>>& matrix) {
     int t = 0; // top, bottom, left, right定位四個方向
     int b = matrix.size() - 1;
@@ -21,7 +21,7 @@ void matrixSolution(vector<vector<int>>& matrix) {
     }
 }
 ```
-```
+```cpp
 /* 畫圖來看, 
 t/b是上下, l/r是左右, matrix[t/b, l/r]
 
@@ -68,7 +68,7 @@ https://leetcode.com/problems/find-pivot-index/
 https://leetcode.com/problems/subarray-sums-divisible-by-k/
 https://leetcode.com/problems/max-consecutive-ones-iii/
 https://leetcode.com/problems/matrix-block-sum/
-```
+```cpp
 index   0     1     2     3
 nums=   1     2     3     4
            \     \     \     \

@@ -4,7 +4,7 @@
 
 
 
-```
+```cpp
 auto res;
 
 void backtracking(所有選擇, 已拜訪, 已選擇) {
@@ -25,7 +25,7 @@ void backtracking(所有選擇, 已拜訪, 已選擇) {
 
 ## DFS / BFS
 ### DFS
-```
+```cpp
 void dfs(Node root) {
     if (!root) return;
 
@@ -40,7 +40,7 @@ void dfs(Node root) {
 ### BFS
 - https://leetcode.com/problems/minimum-depth-of-binary-tree/
 - https://leetcode.com/problems/open-the-lock/
-```
+```cpp
 ...
 ```
 
@@ -69,7 +69,7 @@ ex: nums=[2,3,6,7], target=7, res=[2,2,3],[7]
 A. Subset, Combination(子集, 組合)
 - 子集數 2^n 個, 每個選項可以選擇選或不選
 - 不考慮排序, 不同排序也視為同一種, ex:[1,2]=[2,1]
-```
+```cpp
                         []
         1               2               3
     12      13          23
@@ -79,7 +79,7 @@ A. Subset, Combination(子集, 組合)
 B. Permutation(排列)
 - 子集數 n! 個, 每個選項可以選擇選或不選
 - 考慮排序, 不同排序視為不同種, ex:[1,2]!=[2,1]
-```
+```cpp
                         []
         1               2               3
     12      13      21      23      31      32
@@ -88,7 +88,7 @@ B. Permutation(排列)
 
 ex:  
 - 1A: (不重複, 不可複選) + (Subset, Combination)
-```
+```cpp
 void backtracking(起點, 已選擇, 所有選項) {
     if (完成需要條件) { // Subset時直接加入, Combinations依條件加入
         res.push_back(已選擇);
@@ -104,7 +104,7 @@ void backtracking(起點, 已選擇, 所有選項) {
 ```
 
 - 1B: (不重複, 不可複選) + (Permutation)
-```
+```cpp
 void backtracking(已拜訪, 已選擇, 所有選項) {
     if (完成需要條件) { // 通常是排序完時
         res.push_back(已選擇);
@@ -122,7 +122,7 @@ void backtracking(已拜訪, 已選擇, 所有選項) {
 ```
 
 - 2A: (有重複, 不可複選) + (Subset, Combination)
-```
+```cpp
 sort(所有選項.begin(), 所有選項.end()); // 若有重複, 就要透過排序處理
 
 void backtracking(起點, 已選擇, 所有選項) {
@@ -142,7 +142,7 @@ void backtracking(起點, 已選擇, 所有選項) {
 ```
 
 - 2B: (有重複, 不可複選) + (Permutation)
-```
+```cpp
 sort(所有選項.begin(), 所有選項.end()); // 若有重複, 就要透過排序處理
 
 void backtracking(已拜訪, 已選擇, 所有選項) {
@@ -167,7 +167,7 @@ void backtracking(已拜訪, 已選擇, 所有選項) {
 ```
 
 - 3A: (不重複, 可複選) + (Subset, Combination)
-```
+```cpp
 void backtracking(起點, 已選擇, 所有選項) {
     if (完成需要條件) {
         res.push_back(已選擇);

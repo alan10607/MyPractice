@@ -17,7 +17,7 @@
 
 
 ## 鏈表合併/分割/修改
-```
+```cpp
 ListNode* foo(ListNode* list) {
     ListNode* dummy = new ListNode(-1); // 用來定位起點
     ListNode* tail = dummy;             // 用來指向當前位置
@@ -34,7 +34,7 @@ ListNode* foo(ListNode* list) {
 
 
 ## 快慢指標 -> 查是否有交點
-```
+```cpp
 bool foo(ListNode* head) {
     ListNode* fast = head;
     ListNode* slow = head;
@@ -48,7 +48,7 @@ bool foo(ListNode* head) {
 
 
 ## 反轉鏈表
-```
+```cpp
 ListNode* reverse(ListNode* start, ListNode* end) { // 反轉區間是(start, end)左開右開
     ListNode* cur = start->next;
     ListNode* pre = end;

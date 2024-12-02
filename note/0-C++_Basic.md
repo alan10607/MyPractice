@@ -3,7 +3,7 @@ sort跟priority_queue剛好相反
 ## 有關排序
 ### Sort
 #### 小到大 (default)
-```
+```cpp
 sort(vec.begin(), vec.end());
 sort(vec.begin(), vec.end(), less<int>());
 
@@ -11,7 +11,7 @@ auto comp1 = [](int a, int b){return a < b; };
 sort(vec.begin(), vec.end(), comp1);
 ```
 #### 大到小
-```
+```cpp
 sort(vec.begin(), vec.end(), greater<int>());
 
 auto comp2 = [](int a, int b){return a > b; };
@@ -20,7 +20,7 @@ sort(vec.begin(), vec.end(), comp2);
 
 ### Priority Queue
 #### 大到小, max heap (default)
-```
+```cpp
 priority_queue<int, vector<int>> pq;
 priority_queue<int, vector<int>, less<int>> pq1;
 
@@ -29,7 +29,7 @@ priority_queue<int, vector<int>, decltype(comp1)> pq2(comp1);
 ```
 #### 小到大, min heap
 
-```
+```cpp
 priority_queue<int, vector<int>, greater<int>> pq3;
 
 auto comp2 = [](int a, int b){return a > b; };

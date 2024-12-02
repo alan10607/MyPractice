@@ -10,7 +10,7 @@ DP三要素:
 3. 重疊子問題 -> 透過DP table/memo的形式紀錄
 
 1. 自頂向下
-```
+```cpp
 vector<int> dp(0, ...); // dp table用來當memo紀錄
 
 int solution(所有選擇, 狀態1, 狀態2, ...) {
@@ -24,7 +24,7 @@ int solution(所有選擇, 狀態1, 狀態2, ...) {
 ```
 
 2. 自底向上
-```
+```cpp
 int solution(所有選擇, 狀態1, 狀態2, ...) {
     vector<int> dp(0, ...); // 依照題目要求初始化
     dp[0] = ...

@@ -8,7 +8,7 @@
 
 
 ## 透過 recursion
-```
+```cpp
 vector<int> preorder;
 vector<int> inorder;
 vector<int> postorder;
@@ -26,7 +26,7 @@ void traverse(TreeNode* root) {
 
 ## 透過stack traverse
 1. 前序
-```
+```cpp
 vector<int> preorderTraversal(TreeNode* root) {
     vector<int> res;
     stack<TreeNode*> st;
@@ -47,7 +47,7 @@ vector<int> preorderTraversal(TreeNode* root) {
 ```
 
 2. 中序
-```
+```cpp
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> res;
     stack<TreeNode*> st;
@@ -68,7 +68,7 @@ vector<int> inorderTraversal(TreeNode* root) {
 ```
 
 3. 後序
-```
+```cpp
 vector<int> postorderTraversal(TreeNode* root) {
     vector<int> res;
     stack<TreeNode*> st;
@@ -95,7 +95,7 @@ vector<int> postorderTraversal(TreeNode* root) {
 ```
 
 4. 前中後一起
-```
+```cpp
 void traverse(TreeNode* root) {
     vector<int> preorder;
     vector<int> inorder;

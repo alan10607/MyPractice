@@ -7,7 +7,7 @@
 
 
 ### In-Place Modification
-```
+```cpp
 void fastSlowPointer(vector<int>& nums) {
     int fast = 0, slow = 0;
     while (fast < nums.size()) {
@@ -23,7 +23,7 @@ void fastSlowPointer(vector<int>& nums) {
 - https://leetcode.com/problems/longest-substring-without-repeating-characters/
 - https://leetcode.com/problems/reverse-words-in-a-string/
 - https://leetcode.com/problems/repeated-dna-sequences/
-```
+```cpp
 string slidingWindow(string s) {
     auto window;
     int l = 0, r = 0;
@@ -56,7 +56,7 @@ string slidingWindow(string s) {
 
 1. 找某目標index, 不存在則返回-1  
     - 搜索區間是[l, r], mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]
-```
+```cpp
 int binarySearch(vector<int>& nums, int target) {
     int l = 0, r = nums.size() - 1;
     while (l <= r) {
@@ -77,7 +77,7 @@ int binarySearch(vector<int>& nums, int target) {
     - ex:[0,1,1,1,1], target=1, return=1  
     - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
     - 若相同, 則應該往左側尋找
-```
+```cpp
 int lowerBound(vector<int>& nums, int target) {
     int l = 0, r = nums.size();
     while (l < r) {
@@ -98,7 +98,7 @@ int lowerBound(vector<int>& nums, int target) {
     - ex:[0,1,1,1,1], target=1, return=5  
     - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
     - 若相同, 則應該往右側尋找
-```
+```cpp
 int upperBound(vector<int>& nums, int target) {
     int l = 0, r = nums.size();
     while (l < r) {
@@ -117,7 +117,7 @@ int upperBound(vector<int>& nums, int target) {
 
 ### Palindrome 迴文
 - https://leetcode.com/problems/longest-palindromic-substring/
-```
+```cpp
 string palindrome(int l, int r, string s) {
     while (0 <= l && r < s.length() && s[l] == s[r]) {
         --l;
@@ -136,7 +136,7 @@ string palindrome(int l, int r, string s) {
 1. 要先排序
 2. 重複的數字可以跳過
 3. 注意左右指標的判斷, 有時候找到值也要繼續移動
-```
+```cpp
 vector<vector<int>> threeSum(vector<int>& nums) {
     sort(nums.begin(), nums.end()); // c++要指定範圍
 
@@ -177,7 +177,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 - https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 
 用來判斷substring index的經典算法
-```
+```cpp
 int findFirstIndexOf(string s, string p) {
     vector<int> lps = buildLps(p);
     int j = 0;
@@ -215,7 +215,7 @@ vector<int> buildLps(string s) {
     return lps;
 }
 ```
-```
+```cpp
 如何建立 LPS(Longest Prefix Suffix) ?
 這個表計算前綴與後綴相同的長度有多少
 ex: abacabab
