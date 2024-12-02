@@ -54,6 +54,7 @@ bottom->|[b,r]|     |     |[b,r]|
 - https://leetcode.com/problems/range-sum-query-immutable/
 - https://leetcode.com/problems/range-sum-query-2d-immutable/
 - https://leetcode.com/problems/subarray-sum-equals-k/
+- https://leetcode.com/problems/random-pick-with-weight/
 
 //TO-DO
 - https://leetcode.com/problems/contiguous-array/
