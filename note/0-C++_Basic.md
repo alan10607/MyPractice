@@ -2,6 +2,7 @@
 
 ## 常用方法
 ```cpp
+cout << format("{}, {}", num1, nums2) << endl;
 max(a, b); // 找最大值
 min(a, b); // 找最小值
 rand(); // 獲得隨機數字, 要取得[a,b)的隨機整数, 使用 a + (rand() % (b - a));
@@ -42,20 +43,21 @@ sort(vec.begin(), vec.end(), comp2);
 
 #### 大到小, max heap (default)
 ```cpp
-priority_queue<int, vector<int>> pq;
-priority_queue<int, vector<int>, less<int>> pq1;
+priority_queue<int> pq;
+priority_queue<int, vector<int>> pq1;
+priority_queue<int, vector<int>, less<int>> pq2;
 
 auto comp1 = [](int a, int b){return a < b; };
-priority_queue<int, vector<int>, decltype(comp1)> pq2(comp1);
+priority_queue<int, vector<int>, decltype(comp1)> pq3(comp1);
 ```
 
 #### 小到大, min heap
 
 ```cpp
-priority_queue<int, vector<int>, greater<int>> pq3;
+priority_queue<int, vector<int>, greater<int>> pq4;
 
 auto comp2 = [](int a, int b){return a > b; };
-priority_queue<int, vector<int>, decltype(comp2)> pq4(comp2);
+priority_queue<int, vector<int>, decltype(comp2)> pq5(comp2);
 ```
 
 

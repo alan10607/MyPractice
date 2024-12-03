@@ -45,6 +45,7 @@ string slidingWindow(string s) {
 
 ## L-R Pointers
 - https://leetcode.com/problems/reverse-string/
+- https://leetcode.com/problems/advantage-shuffle/
 
 ### Binary Search
 - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
