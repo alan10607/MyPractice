@@ -5,6 +5,10 @@
 - https://leetcode.com/problems/invert-binary-tree/
 - https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 - https://leetcode.com/problems/flatten-binary-tree-to-linked-list
+- https://leetcode.com/problems/maximum-binary-tree/
+- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+- https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
 
 
 如何解題? 通常有兩種solution:

@@ -30,7 +30,6 @@ public:
                 sum += weight;
             }
         }
-        cout << capacity << " --> " << day << endl;
         return day;
     }
 };

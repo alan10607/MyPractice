@@ -37,7 +37,6 @@ public:
         while(!q.empty()){
             char node = q.top(); q.pop();
 
-            cout << node << endl;
             res.push_back(node);
             for(auto child : edges[node]){
                 if(--cnt[child] == 0){
