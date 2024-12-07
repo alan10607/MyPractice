@@ -90,8 +90,11 @@ priority_queue.size()
 
 ## 常用方法
 ```cpp
+cout << "log" << endl; // out print
+format("{}, {}", num1, nums2); // format to string
 string(n, '.'); // 初始化string
-cout << format("{}, {}", num1, nums2) << endl;
+to_string(123); // int to string
+stoi("123"); // string to int
 max(a, b); // 找最大值
 min(a, b); // 找最小值
 rand(); // 獲得隨機數字, 要取得[a,b)的隨機整数, 使用 a + (rand() % (b - a));
@@ -149,6 +152,25 @@ auto comp2 = [](int a, int b){return a > b; };
 priority_queue<int, vector<int>, decltype(comp2)> pq5(comp2);
 ```
 
+## stringstream
+```cpp
+ostringstream oss;
+string name = "Alice";
+int age = 22;
+
+oss << "Name: " << name << ", Age: " << age; // 將資料用<<加入到oss
+string str = oss.str(); // 需要先轉str
+cout << str << endl; // Name: Alice, Age: 22
+
+istringstream iss(str);
+string s1, s2, s3;
+int i;
+iss >> s1 >> s2 >> s3 >> i; // 將資料從iss取出, 以" "為分隔
+cout << s1 << endl; // Name:
+cout << s2 << endl; // Alice,
+cout << s3 << endl; // Age:
+cout << i << endl; // 22
+```
 
 ===
 

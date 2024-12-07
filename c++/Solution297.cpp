@@ -2,37 +2,72 @@
 class Codec {//Solution297
 public:
     string serialize(TreeNode* root) {
-        return serDFS(root);
+        ostringstream oss;
+        serialize(root, oss);
+        return oss.str();
     }
 
-    string serDFS(TreeNode* root){
-        if(!root) return "N";
-        return to_string(root->val) + "," + serDFS(root->left) + "," + serDFS(root->right);
+    void serialize(TreeNode* root, ostringstream& oss) {
+        if (!root) {
+            oss << "N ";
+        } else {
+            oss << root->val << " ";
+            serialize(root->left, oss);
+            serialize(root->right, oss);
+        }
     }
 
     TreeNode* deserialize(string data) {
-        queue<string> q;//有可能是兩位數以上, 用string
-        string temp = "";
-        for(char ch : data){
-            if(ch == ','){
-                q.push(temp);
-                temp.clear();
-            }else{
-                temp.push_back(ch);
-            }
-        }
-        q.push(temp);//放入最後
-        return desDFS(q);
+        istringstream iss(data);
+        return deserialize(iss);
     }
 
-    TreeNode* desDFS(queue<string>& q){//要使用&q否則每次遞迴會不一樣
-        string str = q.front(); q.pop();
-        if(str == "N") return nullptr;
+    TreeNode* deserialize(istringstream& iss) {
+        string val;
+        iss >> val;
+        if (val == "N") {
+            return nullptr;
+        } else {
+            TreeNode* node = new TreeNode(stoi(val));
+            node->left = deserialize(iss);
+            node->right = deserialize(iss);
+            return node;
+        }
+    }
+};
 
-        int val = stoi(str);
-        TreeNode* node = new TreeNode(val);
-        node->left = desDFS(q);//依順序解決
-        node->right = desDFS(q);
+
+//DFS serialize(), deserialize(): O(V) O(V)
+class Codec {//Solution297_2
+public:
+    string serialize(TreeNode* root) {
+        if (!root) return "N";
+
+        return format("{},{},{}", root->val, serialize(root->left), serialize(root->right));
+    }
+
+    TreeNode* deserialize(string data) {
+        queue<string> q; // 有可能是兩位數以上, 用string
+        string tmp = "";
+        for (char ch : data) {
+            if (ch == ',') {
+                q.push(tmp);
+                tmp = "";
+            } else {
+                tmp.push_back(ch);
+            }
+        }
+        q.push(tmp); // 放入最後
+        return buildTree(q);
+    }
+
+    TreeNode* buildTree(queue<string>& q) { // 依照preorder解析
+        string val = q.front(); q.pop();
+        if (val == "N") return nullptr;
+
+        TreeNode* node = new TreeNode(stoi(val));
+        node->left = buildTree(q);
+        node->right = buildTree(q);
         return node;
     }
 };

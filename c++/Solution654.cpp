@@ -1,4 +1,4 @@
-// DFS O(n^2) O(n), n = nums.size()
+//DFS O(n^2) O(n), n = nums.size()
 class Solution654 {
 public:
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
@@ -26,7 +26,7 @@ public:
 };
 
 
-// DFS O(n) O(n), n = nums.size()
+//DFS O(n) O(n), n = nums.size()
 class Solution654_2 {
 public:
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {

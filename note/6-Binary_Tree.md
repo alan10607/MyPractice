@@ -9,8 +9,11 @@
 - https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 - https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 - https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+- https://leetcode.com/problems/find-duplicate-subtrees/
+- https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 
 
+## 解題思路
 如何解題? 通常有兩種solution:
 
 1. 遍歷: 是否可以通過一次遍歷binary tree解決? 可以的話建立traverse函式與外部變量解決
@@ -47,7 +50,7 @@ TreeNode* subSolution(TreeNode* root) {
 - 後序遍歷 (Postorder Traversal): 左 -> 右 -> 根
 
 
-## 透過 recursion
+### 透過 recursion
 ```cpp
 vector<int> preorder;
 vector<int> inorder;
@@ -64,7 +67,7 @@ void traverse(TreeNode* root) {
 }
 ```
 
-## 透過while + stack
+### 透過while + stack
 1. 前序
 ```cpp
 vector<int> preorderTraversal(TreeNode* node) {
@@ -163,4 +166,27 @@ void traverse(TreeNode* root) {
     }
 
 }
+```
+
+
+## 關於序列化
+
+1. 序列化後內容不含null:
+    - 只有獲得兩種order才有辦法還原tree
+    1. preorder + inorder 或 postorder + inorder -> 可還原成唯一 binary tree
+    2. preorder + posorder -> 有多個可能
+```cpp
+ex: preorder = [1,2,3], postorder = [3,2,1], 可以長得是
+    1         1
+  2     or      2
+3                 3
+```
+2. 序列化後內容包含null:
+    1. preorder 或 postorder -> 可還原成唯一 binary tree
+    2. inorder -> 有多個可能
+```cpp
+ex: inorder = [N,1,N,1,N]可以長得是
+    1          1
+  1   N  or  N   1
+N   N          N   N
 ```
