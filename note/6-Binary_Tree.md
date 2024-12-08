@@ -196,6 +196,10 @@ N   N          N   N
 - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 - https://leetcode.com/problems/convert-bst-to-greater-tree/
 - https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+- https://leetcode.com/problems/validate-binary-search-tree/
+- https://leetcode.com/problems/search-in-a-binary-search-tree
+- https://leetcode.com/problems/insert-into-a-binary-search-tree/
+- https://leetcode.com/problems/delete-node-in-a-bst/
 
 
 BST, 對於某個node來, 左子樹與其底下node都小於自身, 右子樹與其底下node都大於自身  
@@ -210,4 +214,25 @@ ex:
         7
     4       9
   1   8       10
+```
+
+## BFS
+- https://leetcode.com/problems/minimum-depth-of-binary-tree/
+```cpp
+void bfs(TreeNode* root) {
+    if (!root) return;
+
+    queue<TreeNode*> q;
+    q.push(root);
+    int depth = 1; // 當前的層數
+    while (!q.empty()) {
+        int sz = q.size();
+        for (int i = q.size(); i > 0; --i) { // 透過i先確定值, 解決q.size()會變動的問題
+            TreeNode* node = q.front(); q.pop();
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+        depth++;
+    }
+}
 ```

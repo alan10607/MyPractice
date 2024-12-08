@@ -38,7 +38,6 @@ void dfs(Node root) {
 ```
 
 ### BFS
-- https://leetcode.com/problems/minimum-depth-of-binary-tree/
 - https://leetcode.com/problems/open-the-lock/
 ```cpp
 ...
