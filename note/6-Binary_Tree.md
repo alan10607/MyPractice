@@ -6,11 +6,6 @@
 - https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 - https://leetcode.com/problems/flatten-binary-tree-to-linked-list
 - https://leetcode.com/problems/maximum-binary-tree/
-- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
-- https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
-- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
-- https://leetcode.com/problems/find-duplicate-subtrees/
-- https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 
 
 ## 解題思路
@@ -170,6 +165,12 @@ void traverse(TreeNode* root) {
 
 
 ## 關於序列化
+- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+- https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+- https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+- https://leetcode.com/problems/find-duplicate-subtrees/
+- https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+
 
 1. 序列化後內容不含null:
     - 只有獲得兩種order才有辦法還原tree
@@ -189,4 +190,24 @@ ex: inorder = [N,1,N,1,N]可以長得是
     1          1
   1   N  or  N   1
 N   N          N   N
+```
+
+## Binary Search Tree
+- https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+- https://leetcode.com/problems/convert-bst-to-greater-tree/
+- https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+
+
+BST, 對於某個node來, 左子樹與其底下node都小於自身, 右子樹與其底下node都大於自身,
+ex:
+```cpp
+是BST:
+        7
+    4       9
+  1   5       10
+
+不是BST
+        7
+    4       9
+  1   8       10
 ```
