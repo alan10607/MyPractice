@@ -198,7 +198,7 @@ N   N          N   N
 - https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
 
 
-BST, 對於某個node來, 左子樹與其底下node都小於自身, 右子樹與其底下node都大於自身,
+BST, 對於某個node來, 左子樹與其底下node都小於自身, 右子樹與其底下node都大於自身  
 ex:
 ```cpp
 是BST:
