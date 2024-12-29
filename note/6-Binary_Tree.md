@@ -6,6 +6,41 @@
 - https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 - https://leetcode.com/problems/flatten-binary-tree-to-linked-list
 - https://leetcode.com/problems/maximum-binary-tree/
+- https://leetcode.com/problems/count-complete-tree-nodes/
+
+
+## 各種Tree
+### 有序
+1. Binary Search Tree
+```cpp
+            4
+    2               6   
+1       3       5       7
+```
+
+### 無序
+1. Complete Binary Tree: 除了最後一層都是滿的, 如BST順序
+```cpp
+            x
+    x               x
+x       x       x
+```
+
+2. Full Binary Tree: 每個node都有兩個children
+```cpp
+            x
+    x               x
+x       x
+       x x
+```
+
+3. Perfect Binary Tree: 全滿, node數量為 2^高度-1
+```cpp
+            x
+    x               x
+x       x       x       x
+
+```
 
 
 ## 解題思路
@@ -203,6 +238,8 @@ N   N          N   N
 - https://leetcode.com/problems/unique-binary-search-trees/
 - https://leetcode.com/problems/unique-binary-search-trees-ii/
 - https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/
+- https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+- https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 
 BST, 對於某個node來, 左子樹與其底下node都小於自身, 右子樹與其底下node都大於自身  
