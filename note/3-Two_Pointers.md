@@ -53,7 +53,7 @@ string slidingWindow(string s) {
 - https://leetcode.com/problems/koko-eating-bananas/
 - https://leetcode.com/problems/split-array-largest-sum/
 - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
-
+- https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 
 1. 找某目標index, 不存在則返回-1  
     - 搜索區間是[l, r], mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]

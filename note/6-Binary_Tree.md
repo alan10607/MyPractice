@@ -276,3 +276,9 @@ void bfs(TreeNode* root) {
     }
 }
 ```
+
+## Merge Sort
+Merge Sort就是 Binary Tree 的後序遍歷
+- https://leetcode.com/problems/sort-an-array/
+- https://leetcode.com/problems/reverse-pairs/
+- 

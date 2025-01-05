@@ -70,10 +70,17 @@ https://leetcode.com/problems/subarray-sums-divisible-by-k/
 https://leetcode.com/problems/max-consecutive-ones-iii/
 https://leetcode.com/problems/matrix-block-sum/
 ```cpp
+當需要計算array某區間的和時, 可以透過不斷累加做為上升值
+不同上升值相減就可以得到區間和
+
+
 index   0     1     2     3
 nums=   1     2     3     4
-           \     \     \     \
-sums=   0 <-- 1 <-- 3 <-- 6 <-- 10      
+        |     |     |     |
+        v     v     v     v
+sums=   0 --> 1 --> 3 --> 6 --> 10   
+計算          0+1   1+2   3+3   6+4
+
 
 ```
 
@@ -82,10 +89,16 @@ sums=   0 <-- 1 <-- 3 <-- 6 <-- 10
 - $ https://leetcode.com/problems/range-addition/
 - https://leetcode.com/problems/corporate-flight-bookings/
 - https://leetcode.com/problems/car-pooling/description/
-/*
+```cpp
+當array在區間內有頻繁的增減, 可以直接計算區間變化來獲得array
+diff代表區間的變化量, 透過計算區間變化量可以得到值(捨棄區間頭尾, 頭尾會是起始的0)
+
 index   0     1     2     3     4     5
-nums=   8 <-- 2 <-- 6 <-- 3 <-- 1 
-            \     \     \
-diff=   8     -6    4     -3    -2    -1
+diff=   8     -6    4    -3    -2    -1
+        |   ^ |   ^ |   ^ |   ^ |
+        v  /  v  /  v  /  v  /  v
+nums=   8     2     6     3     1
+計算    0+8   8-6   2+4   6-3   3-2
+
     
-*/
+```
