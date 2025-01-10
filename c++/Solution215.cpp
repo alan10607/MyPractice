@@ -2,29 +2,48 @@
 class Solution215 {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        return quickSort(0, nums.size() - 1, k - 1, nums);//k-1轉為位置
+        return quickSelect(nums, 0, nums.size() - 1, k - 1); // k-1轉為位置
     }
 
-    int quickSort(int i, int j, int k, vector<int>& nums){
-        int p = i;//左為pivot, 大排到小
-        int l = i + 1;
-        int r = j;
-        while(l <= r){
-            if(nums[l] >= nums[p]){
+    int quickSelect(vector<int>& nums, int start, int end, int k) {
+        int pivit = nums[start]; // 左為pivot, 大排到小
+        int l = start + 1;
+        int r = end;
+        while (l <= r) { 
+            if (nums[l] < pivit && pivit < nums[r]) { // 這裡用if-else會TLE
+                swap(nums[l++], nums[r--]);
+            }
+            if (nums[l] >= pivit) {
                 ++l;
-            }else if(nums[r] <= nums[p]){
+            }
+            if (nums[r] <= pivit) {
                 --r;
-            }else{
-                swap(nums[l], nums[r]);
             }
         }
-        swap(nums[p], nums[r]);//此時r會較大, 移到左邊
+        swap(nums[start], nums[r]); // 此時r會較大, 移到左邊
 
-        if(r == k) return nums[r];
-        if(r > k){
-            return quickSort(i, r - 1, k, nums);
-        }else{//r < k
-            return quickSort(r + 1, j, k, nums);
+        if (k == r) {
+            return nums[r];
+        } else if (k < r) {
+            return quickSelect(nums, start, r - 1, k);
+        } else { // k > l
+            return quickSelect(nums, r + 1, end, k);
         }
+    }
+};
+
+
+//Heap O(nlogn) O(k), n = nums.size()
+class Solution215_2 {
+public:
+    int findKthLargest(vector<int>& nums, int k) { // 用pq會花比較多時間
+        priority_queue<int, vector<int>, greater<int>> pq; // 小到大, min heap
+        for (int num : nums) {
+            pq.push(num);
+            if (pq.size() > k) {
+                pq.pop();
+            }
+        }
+        return pq.top();
     }
 };
