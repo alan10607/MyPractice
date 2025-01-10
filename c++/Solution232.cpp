@@ -1,49 +1,45 @@
-//Stack pop(), empty(), pop(), peek(): O(1) O(n), 除了moveToOld()時需要O(n)時間
+//Stack push(), pop(), peek(), empty(): O(1) O(n), 但移動stack時需要O(n)時間
 class MyQueue {//Solution232
-private:
-    stack<int> newStack;
-    stack<int> oldStack;
-
-    void moveToOld(){
-        if(!oldStack.empty()) return;//等舊的stack都pop到為空才可加入, 否則順序會亂掉
-
-        while(!newStack.empty()){
-            oldStack.push(newStack.top());
-            newStack.pop();
-        }
-    }
-
 public:
-    MyQueue() {
-    }
+    stack<int> st;
+    stack<int> reversedSt;
 
-    void push(int x) {
-        newStack.push(x);
-    }
+    MyQueue() {}
+
+    void push(int x) { st.push(x); }
 
     int pop() {
-        moveToOld();
-        int top = oldStack.top();
-        oldStack.pop();
-        return top;
+        peek();
+        int val = reversedSt.top();
+        reversedSt.pop();
+        return val;
     }
 
     int peek() {
-        moveToOld();
-        return oldStack.top();
+        if (reversedSt.empty()) { // 空的時候才加入, 否則順序會亂掉
+            while (!st.empty()) {
+                int val = st.top();
+                st.pop();
+                reversedSt.push(val);
+            }
+        }
+
+        return reversedSt.top();
     }
 
     bool empty() {
-        return newStack.empty() && oldStack.empty();
+        return st.empty() && reversedSt.empty();
     }
-
 };
 /*
-newStack={3,2,1,0}
-oldStack={}
+All the calls to pop and peek are valid.
+所以不考慮在空的時候pop()或peek()
 
-當peek或pop時, moveToOld
+建立兩個stack
+stack={3,2,1,0}
+reversed={}
 
-newStack={}
-oldStack={0,1,2,3}
+當要peek或pop的時候把st拉出放到reversedSt
+stack={}
+reversed={0,1,2,3}
 */
