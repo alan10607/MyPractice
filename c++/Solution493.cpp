@@ -9,7 +9,7 @@ public:
 
         int mid = (end - start) / 2 + start;
         int res = mergeSort(nums, start, mid) + mergeSort(nums, mid + 1, end);
-        for (int i = start; i <= mid; ++i) {
+        for (int i = start; i <= mid; ++i) { // 用左半部比較右半部
             int j = mid + 1;
             while (j <= end && nums[i] / 2.0 > nums[j]) { // 用除的, 否則給INT_MAX會overflow
                 ++j; // 可以嘗試找更大的j

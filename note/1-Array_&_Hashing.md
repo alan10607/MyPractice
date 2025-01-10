@@ -102,3 +102,7 @@ nums=   8     2     6     3     1
 
     
 ```
+
+## Stack & Queue
+- https://leetcode.com/problems/implement-queue-using-stacks/
+- https://leetcode.com/problems/implement-stack-using-queues/
