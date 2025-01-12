@@ -106,3 +106,24 @@ nums=   8     2     6     3     1
 ## Stack & Queue
 - https://leetcode.com/problems/implement-queue-using-stacks/
 - https://leetcode.com/problems/implement-stack-using-queues/
+
+
+### Monotonic Stack 單調堆疊
+- https://leetcode.com/problems/next-greater-element-i/
+- https://leetcode.com/problems/next-greater-element-ii/
+- https://leetcode.com/problems/daily-temperatures/
+```cpp
+// 判斷array中右邊第一個比自己大的數, ex: nums=[2,1,2,4,3], res=[4,2,4,-1,-1]
+vector<int> monotonicStack(vector<int>& nums) {
+    vector<int> res(nums.size());
+    stack<int> st;
+    for (int i = nums.size(); i >= 0; --i) { // 倒著進入
+        while (!st.empty() && st.top() < nums[i]) {
+            st.pop();  // 移除比這個小的, 使st保持遞增
+        }
+        res[i] = st.top();
+        st.push(nums[i]);
+    }
+    return res;
+}
+```
