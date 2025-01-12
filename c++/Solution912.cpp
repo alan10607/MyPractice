@@ -59,11 +59,11 @@ public:
         int l = start + 1;
         int r = end;
         while (l <= r) {// r = mid - 1的版本, 要是<=
-            if (nums[l] <= pivot) {
+            if (nums[l] < pivot) { // 二路快排
                 ++l;
-            } else if (nums[r] >= pivot) {
+            } else if (nums[r] > pivot) {
                 --r;
-            } else { // nums[l] > pivot && pivot > nums[r]
+            } else { // nums[l] >= pivot && pivot >= nums[r]
                 swap(nums[l++], nums[r--]);
             }
         }

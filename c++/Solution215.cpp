@@ -6,18 +6,17 @@ public:
     }
 
     int quickSelect(vector<int>& nums, int start, int end, int k) {
-        int pivit = nums[start]; // 左為pivot, 大排到小
+        int pivot = nums[start];
         int l = start + 1;
         int r = end;
-        while (l <= r) { 
-            if (nums[l] < pivit && pivit < nums[r]) { // 這裡用if-else會TLE
-                swap(nums[l++], nums[r--]);
-            }
-            if (nums[l] >= pivit) {
+        while (l <= r) {
+            // 二路快排, 等於pivot也不跳過, 這樣遇到中間有大量相同數的test case, 左右partition會比較一致
+            if (nums[l] > pivot) {
                 ++l;
-            }
-            if (nums[r] <= pivit) {
+            } else if (nums[r] < pivot){
                 --r;
+            } else {
+                swap(nums[l++], nums[r--]);
             }
         }
         swap(nums[start], nums[r]); // 此時r會較大, 移到左邊

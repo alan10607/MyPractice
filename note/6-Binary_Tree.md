@@ -282,5 +282,99 @@ Merge Sort就是 Binary Tree 的後序遍歷
 - https://leetcode.com/problems/sort-an-array/
 - https://leetcode.com/problems/reverse-pairs/
 
+```cpp
+mergeSort(nums, 0, nums.size() - 1);
+
+void mergeSort(vector<int>& nums, int start, int end) {
+    if (start >= end) return;
+
+    int mid = (end - start) / 2 + start;
+    mergeSort(nums, start, mid); // 拆成 [start, mid] and [mid + 1, end]
+    mergeSort(nums, mid + 1, end);
+    merge(nums, start, mid, mid + 1, end);
+}
+
+void merge(vector<int>& nums, int start1, int end1, int start2, int end2) {
+    vector<int> tmp(end2 - start1 + 1); // 用來放置sorted的資料
+    int i = 0, j = start1, k = start2;
+    while (j <= end1 && k <= end2) { // 把較小的先複製到tmp
+        if (nums[j] < nums[k]) {
+            tmp[i++] = nums[j++];
+        } else { // nums[j] >= nums[k]
+            tmp[i++] = nums[k++];
+        }
+    }
+
+    while (j <= end1) { // 補下剩下的
+        tmp[i++] = nums[j++];
+    }
+
+    while (k <= end2) {
+        tmp[i++] = nums[k++];
+    }
+
+    for (int idx = 0; idx < tmp.size(); ++idx) { // 將tmp複製回原本array
+        nums[start1 + idx] = tmp[idx];
+    }
+}
+```
+
 ## Quick Sort
 - https://leetcode.com/problems/kth-largest-element-in-an-array/
+```cpp
+quickSort(nums, 0, nums.size() - 1);
+
+void quickSort(vector<int>& nums, int start, int end) { // 要用隨機pivot才會pass
+    if (start >= end) return;
+
+    int p = start + (rand() % (end + 1 - start)); // [start, end]範圍的隨機數
+    int pivot = nums[p];
+    swap(nums[start], nums[p]); // 先放到左邊待命, 結束while再換回來
+
+    int l = start + 1;
+    int r = end;
+    while (l <= r) {// r = mid - 1的版本, 要是<=
+        if (nums[l] < pivot) { // // 二路快排, 等於pivot也不跳過, 遇到有大量相同數的case, 左右partition會比較一致
+            ++l;
+        } else if (nums[r] > pivot) {
+            --r;
+        } else { // nums[l] >= pivot && pivot >= nums[r]
+            swap(nums[l++], nums[r--]);
+        }
+    }
+    swap(nums[start], nums[r]);
+
+    quickSort(nums, start, r - 1);
+    quickSort(nums, r + 1, end);
+}
+```
+
+### Quick Select
+```cpp
+quickSelect(nums, 0, nums.size() - 1, index);
+    
+int quickSelect(vector<int>& nums, int start, int end, int index) {
+    int pivot = nums[start]; // 直接用最左當pivot的版本
+    int l = start + 1;
+    int r = end;
+    while (l <= r) {
+        // 二路快排, 等於pivot也不跳過, 這樣遇到中間有大量相同數的test case, 左右partition會比較一致
+        if (nums[l] > pivot) {
+            ++l;
+        } else if (nums[r] < pivot){
+            --r;
+        } else {
+            swap(nums[l++], nums[r--]);
+        }
+    }
+    swap(nums[start], nums[r]); // 此時r會較大, 移到左邊
+
+    if (index == r) {
+        return nums[r];
+    } else if (index < r) {
+        return quickSelect(nums, start, r - 1, index);
+    } else { // index > l
+        return quickSelect(nums, r + 1, end, index);
+    }
+}
+```
