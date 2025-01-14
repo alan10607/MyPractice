@@ -3,7 +3,7 @@ class Solution739 {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         vector<int> res(temperatures.size());
-        stack<int> st; // 放index, 保持遞減
+        stack<int> st; // 放index, 保持遞增
         for (int i = temperatures.size() - 1; i >= 0; --i) {
             while (!st.empty() && temperatures[st.top()] < temperatures[i]) {
                 st.pop();

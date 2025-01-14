@@ -13,7 +13,7 @@
 - https://leetcode.com/problems/reverse-nodes-in-k-group/
 - https://leetcode.com/problems/palindrome-linked-list/
 - https://leetcode.com/problems/rotate-list/
-
+- https://leetcode.com/problems/lru-cache/
 
 
 ## 鏈表合併/分割/修改

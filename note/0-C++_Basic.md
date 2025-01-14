@@ -63,11 +63,13 @@ queue.back()
 queue.empty()
 queue.size()
 ```
+
 ## deque
 ```cpp
 deque.push_back(1)
 deque.push_front(0)
 deque.emplace(deque.begin() + 1, 5)
+deque.emplace(next(deque.begin()), 5)
 deque.pop_front()
 deque.pop_back()
 
@@ -85,6 +87,33 @@ priority_queue.pop()
 priority_queue.top()
 priority_queue.empty()
 priority_queue.size()
+```
+
+## list
+```cpp
+list.push_back(1)
+list.push_front(0)
+list.emplace(next(list.begin()), 5) // 要用next(iterator)或prev(iterator)不能直接+1
+list.pop_front()
+list.pop_back()
+
+list.front()
+list.back()
+list.size()
+list.empty()
+list<int>::iterator it = list.begin(); // 獲取迭代器
+cout << *it; // 得到值
+
+list.splice(list.begin(), list2); // (插入位置, 被傳送的list)
+list.splice(list.begin(), list2, list2.begin()); // (插入位置, 被傳送的list, 被傳送的list的it)
+list.splice(list.begin(), list2, next(list2.begin()), list2.end()); // (插入位置, 被傳送的list, 被傳送的list的it起始, 被傳送的list的it結束)
+```
+
+## pair
+```cpp
+pair<int, int> p = {1,2}
+p.first
+p.second
 ```
 
 

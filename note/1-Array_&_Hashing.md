@@ -108,22 +108,71 @@ nums=   8     2     6     3     1
 - https://leetcode.com/problems/implement-stack-using-queues/
 
 
-### Monotonic Stack 單調堆疊
+### Monotonic Stack / Queue
 - https://leetcode.com/problems/next-greater-element-i/
 - https://leetcode.com/problems/next-greater-element-ii/
 - https://leetcode.com/problems/daily-temperatures/
+- https://leetcode.com/problems/sliding-window-maximum
+
+
+1. Monotonic Stack
+```cpp
+stack: push覆蓋掉比當前value小的
+
+前              後
+                |
+        |       |
+        |   |   |
+    |   |   |   |
+   top      ^
+            remove
+
+```
 ```cpp
 // 判斷array中右邊第一個比自己大的數, ex: nums=[2,1,2,4,3], res=[4,2,4,-1,-1]
-vector<int> monotonicStack(vector<int>& nums) {
-    vector<int> res(nums.size());
+void monotonicStack(vector<int>& nums) {
     stack<int> st;
-    for (int i = nums.size(); i >= 0; --i) { // 倒著進入
-        while (!st.empty() && st.top() < nums[i]) {
+
+    for (int num : nums) {
+        while (!st.empty() && st.top() < num) {
             st.pop();  // 移除比這個小的, 使st保持遞增
         }
-        res[i] = st.top();
-        st.push(nums[i]);
+        st.push(num);
+
+        透過st.top()做處理...
     }
-    return res;
+}
+```
+
+2. Monotonic Queue
+```cpp
+deque: push_back覆蓋掉比當前value小的
+
+前              後
+    |
+    |       |
+    |   |   |
+    |   |   |   |
+front   ^       
+        remove
+
+
+```
+```cpp
+vector<int> monotonicDeque(vector<int>& nums) {
+    deque<int> q;
+
+    for (int num : nums) { // 倒著進入
+        if(...) {
+            q.pop_front();
+        }
+
+        while (!q.empty() && q.back() < num) {
+            q.pop_back();  // 移除比這個小的, 使st保持遞減(從後面移除所以遞減)
+        }
+        q.push_back(num);
+
+        透過q.front()做處理...
+    }
 }
 ```
