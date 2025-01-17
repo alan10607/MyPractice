@@ -3,7 +3,7 @@
 - https://leetcode.com/problems/two-sum/
 - *https://leetcode.com/problems/two-sum-iii-data-structure-design/
 - https://leetcode.com/problems/flatten-nested-list-iterator/
-
+- https://leetcode.com/problems/insert-delete-getrandom-o1/
 
 ## Matrix 矩陣
 - https://leetcode.com/problems/rotate-image

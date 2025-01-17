@@ -14,6 +14,7 @@
 - https://leetcode.com/problems/palindrome-linked-list/
 - https://leetcode.com/problems/rotate-list/
 - https://leetcode.com/problems/lru-cache/
+- https://leetcode.com/problems/lfu-cache/
 
 
 ## 鏈表合併/分割/修改
