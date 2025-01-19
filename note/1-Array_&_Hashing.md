@@ -4,6 +4,8 @@
 - *https://leetcode.com/problems/two-sum-iii-data-structure-design/
 - https://leetcode.com/problems/flatten-nested-list-iterator/
 - https://leetcode.com/problems/insert-delete-getrandom-o1/
+- https://leetcode.com/problems/random-pick-with-blacklist/
+- https://leetcode.com/problems/longest-common-prefix/
 
 ## Matrix 矩陣
 - https://leetcode.com/problems/rotate-image
@@ -176,3 +178,6 @@ vector<int> monotonicDeque(vector<int>& nums) {
     }
 }
 ```
+
+## Heap
+- https://leetcode.com/problems/top-k-frequent-words/

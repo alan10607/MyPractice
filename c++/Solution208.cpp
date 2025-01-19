@@ -2,45 +2,42 @@
 class Trie {//Solution208
 public:
     vector<Trie*> children;
-    bool endFlag;
+    bool end_flag;
 
     Trie() {
         children = vector<Trie*>(26, nullptr);
-        endFlag = false;
+        end_flag = false;
     }
 
     void insert(string word) {
         Trie* root = this;
-        for(char c : word){
-            int index = c - 'a';
-            if(!root->children[index])
-                root->children[index] = new Trie();
-
-            root = root->children[index];
+        for (char ch : word) {
+            if (!root->children[ch - 'a']) {
+                root->children[ch - 'a'] = new Trie();
+            }
+            root = root->children[ch - 'a'];
         }
-        root->endFlag = true;
+        root->end_flag = true;
     }
 
     bool search(string word) {
         Trie* root = this;
-        for(char c : word){
-            int index = c - 'a';
-            if(!root->children[index])
+        for (char ch : word) {
+            if (!root->children[ch - 'a']) {
                 return false;
-
-            root = root->children[index];
+            }
+            root = root->children[ch - 'a'];
         }
-        return root->endFlag;
+        return root->end_flag;
     }
 
     bool startsWith(string prefix) {
-	Trie* root = this;
-        for(char c : prefix){
-            int index = c - 'a';
-            if(!root->children[index])
+        Trie* root = this;
+        for (char ch : prefix) {
+            if (!root->children[ch - 'a']) {
                 return false;
-
-            root = root->children[index];
+            }
+            root = root->children[ch - 'a'];
         }
         return true;
     }

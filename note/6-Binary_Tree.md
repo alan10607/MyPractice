@@ -378,3 +378,50 @@ int quickSelect(vector<int>& nums, int start, int end, int index) {
     }
 }
 ```
+
+## Trie
+- https://leetcode.com/problems/implement-trie-prefix-tree/
+- https://leetcode.com/problems/replace-words/
+
+
+TODO
+648. Replace Words
+68.1%
+Med.
+
+677. Map Sum Pairs
+56.9%
+Med.
+
+208. Implement Trie (Prefix Tree)
+67.1%
+Med.
+
+211. Design Add and Search Words Data Structure
+46.5%
+Med.
+
+1804. Implement Trie II (Prefix Tree)
+63.0%
+Med.
+
+139. Word Break
+47.7%
+Med.
+
+140. Word Break II
+52.6%
+Hard
+
+14. Longest Common Prefix
+44.6%
+Easy
+
+386. Lexicographical Numbers
+72.9%
+Med.
+
+692. Top K Frequent Words
+58.8%
+Med.
+
