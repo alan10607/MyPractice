@@ -382,6 +382,7 @@ int quickSelect(vector<int>& nums, int start, int end, int index) {
 ## Trie
 - https://leetcode.com/problems/implement-trie-prefix-tree/
 - https://leetcode.com/problems/replace-words/
+- https://leetcode.com/problems/design-add-and-search-words-data-structure/
 
 
 TODO

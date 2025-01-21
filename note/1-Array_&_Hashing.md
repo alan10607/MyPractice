@@ -6,6 +6,7 @@
 - https://leetcode.com/problems/insert-delete-getrandom-o1/
 - https://leetcode.com/problems/random-pick-with-blacklist/
 - https://leetcode.com/problems/longest-common-prefix/
+- https://leetcode.com/problems/map-sum-pairs/
 
 ## Matrix 矩陣
 - https://leetcode.com/problems/rotate-image

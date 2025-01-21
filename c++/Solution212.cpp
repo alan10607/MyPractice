@@ -1,26 +1,3 @@
-class Trie {
-public:
-    vector<Trie*> children;
-    string word;
-
-    Trie(){
-        children = vector<Trie*>(26, nullptr);
-        word = "";
-    }
-
-    void addWord(string word) {
-        Trie* root = this;
-        for(char ch : word){
-            int index = ch - 'a';
-            if(!root->children[index])
-                root->children[index] = new Trie();
-
-            root = root->children[index];
-        }
-        root->word = word;
-    }
-};
-
 //DFS + Trie O(mn * 3L) O(kL), L為最長word.length(), 除第一次外每次進入dfs有3種(不含自己)的方向, 需要進mn次dfs, 故為mn3^L
 //k為words.length, 最多需要kL儲存Trie, 即節點數量
 class Solution212 {

@@ -3,44 +3,45 @@
 class WordDictionary {//Solution211
 public:
     vector<WordDictionary*> children;
-    bool endFlag;
+    bool end_flag;
 
     WordDictionary() {
         children = vector<WordDictionary*>(26, nullptr);
-        endFlag = false;
+        end_flag = false;
     }
 
     void addWord(string word) {
-        WordDictionary* wd = this;
-        for(char ch : word){
-            int index = ch - 'a';
-            if(!wd->children[index])
-                wd->children[index] = new WordDictionary();
-
-            wd = wd->children[index];
+        WordDictionary* root = this;
+        for (char ch : word) {
+            if (!root->children[ch - 'a']) {
+                root->children[ch - 'a'] = new WordDictionary();
+            }
+            root = root->children[ch - 'a'];
         }
-        wd->endFlag = true;
+        root->end_flag = true;
     }
 
     bool search(string word) {
-        return search(0, this, word);
+        return search(0, word, this); 
     }
 
-    bool search(int i, WordDictionary* wd, string word){
-        if(i == word.length()) return wd->endFlag;//到底了
+    bool search(int i, string word, WordDictionary* root) {
+        if (i == word.length()) return root->end_flag; // 到底了
 
         char ch = word[i];
-        if(ch == '.'){
-            for(WordDictionary* child : wd->children){
-                if(child && search(i + 1, child, word))
-                    return true;//其中有就true
+        if (ch == '.') {
+            for (WordDictionary* child : root->children) {
+                if (child && search(i + 1, word, child)) {
+                    return true; // 其中有就true
+                }
             }
             return false;
-        }else{
-            if(!wd->children[ch - 'a'])
+        } else {
+            if (!root->children[ch - 'a']) {
                 return false;
-
-            return search(i + 1, wd->children[ch - 'a'], word);
+            } else {
+                return search(i + 1, word, root->children[ch - 'a']);
+            }
         }
     }
 };
