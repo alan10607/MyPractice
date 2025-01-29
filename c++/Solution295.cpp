@@ -1,35 +1,38 @@
 //Heap MedianFinder(), findMedian(): O(1) O(n), addNum(): O(logn) O(n)
 class MedianFinder {//Solution295
 public:
-    priority_queue<int, vector<int>, less<int>> small;//大到小
-    priority_queue<int, vector<int>, greater<int>> big;//小到大
+    priority_queue<int, vector<int>, less<int>> max_heap; // 大到小
+    priority_queue<int, vector<int>, greater<int>> min_heap; // 小到大
 
-    MedianFinder() {
-    }
+    MedianFinder() {}
 
     void addNum(int num) {
-        small.push(num);
-        big.push(small.top());
-        small.pop();//排列之後把比較大的傳到big
-        if(small.size() < big.size()){//但要保持small>=big
-            small.push(big.top());
-            big.pop();
+        max_heap.push(num); // 這裡一定要混合兩個heap, 不然兩個heap不會有中位數在top
+        min_heap.push(max_heap.top());
+        max_heap.pop();
+        if (max_heap.size() < min_heap.size()) { // 保持max > min
+            max_heap.push(min_heap.top());
+            min_heap.pop();
         }
     }
 
     double findMedian() {
-        return small.size() > big.size() ? small.top() : (big.top() + small.top()) / 2.0;
+        if (max_heap.size() > min_heap.size()) {
+            return max_heap.top();
+        } else { // max_heap.size() == min_heap.size()
+            return (max_heap.top() + min_heap.top()) / 2.0;
+        }
     }
 };
 /*
-small     big
+max_heap    min_heap
 
-   ---------
-   |       v
-| 小 |   | 大 |
-| .. |   | .. |
-|    |   |    |
-|最小|    |最大|
-+----+   +----+
+   -----------
+   |         v
+| 小 |     | 大 |
+| .. |     | .. |
+|    |     |    |
+|最小|      |最大|
++----+     +----+
 
 */

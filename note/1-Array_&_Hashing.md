@@ -191,3 +191,4 @@ vector<int> monotonicDeque(vector<int>& nums) {
 ## Heap
 - https://leetcode.com/problems/top-k-frequent-words/
 - https://leetcode.com/problems/design-twitter/
+- https://leetcode.com/problems/find-median-from-data-stream/
