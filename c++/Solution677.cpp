@@ -1,3 +1,4 @@
+// MapSum(), insert(): O(1) O(n), sum(): O(n) O(n), n=m.size()即insert的數量
 class MapSum {//Solution677
 public:
     unordered_map<string, int> m; // <key, val>

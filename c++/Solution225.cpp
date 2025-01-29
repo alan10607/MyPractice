@@ -1,5 +1,4 @@
 //Stack push(): O(n) O(n), pop(), top(), empty(): O(1) O(n), push時需要前移O(n)
-class MyQueue {
 class MyStack {//Solution225
 public:
     queue<int> q;

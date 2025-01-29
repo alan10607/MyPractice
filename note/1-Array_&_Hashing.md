@@ -7,6 +7,8 @@
 - https://leetcode.com/problems/random-pick-with-blacklist/
 - https://leetcode.com/problems/longest-common-prefix/
 - https://leetcode.com/problems/map-sum-pairs/
+- https://leetcode.com/problems/maximize-distance-to-closest-person/
+- https://leetcode.com/problems/exam-room/
 
 ## Matrix 矩陣
 - https://leetcode.com/problems/rotate-image
@@ -179,6 +181,12 @@ vector<int> monotonicDeque(vector<int>& nums) {
     }
 }
 ```
+
+### Calculator
+- https://leetcode.com/problems/basic-calculator/
+- https://leetcode.com/problems/basic-calculator-ii/
+- https://leetcode.com/problems/basic-calculator-iii/
+
 
 ## Heap
 - https://leetcode.com/problems/top-k-frequent-words/
