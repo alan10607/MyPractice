@@ -118,6 +118,8 @@ nums=   8     2     6     3     1
 - https://leetcode.com/problems/next-greater-element-ii/
 - https://leetcode.com/problems/daily-temperatures/
 - https://leetcode.com/problems/sliding-window-maximum
+- https://leetcode.com/problems/remove-duplicate-letters/
+- https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/
 
 
 1. Monotonic Stack
