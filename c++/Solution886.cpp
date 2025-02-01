@@ -29,3 +29,55 @@ public:
         return true;
     }
 };
+
+
+//Union-Find O(ElogE) O(V)
+class Solution886_2 {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        unordered_map<int, vector<int>> edges;
+        for (vector<int> dislike : dislikes) {
+            edges[dislike[0]].push_back(dislike[1]);
+            edges[dislike[1]].push_back(dislike[0]);
+        }
+
+        vector<int> parents(n + 1); // 題目範圍是[1,n], 0不使用
+        for (int i = 1; i <=n ; ++i) { // 初始成-1會有parents[node]=node造成recursive問題
+            parents[i] = i;
+        }
+        for (int i = 1; i <= n; ++i) {
+            if (!edges.count(i)) continue; // 排除不相連的node
+
+            int a = find(i, parents);
+            int tmp;
+            for (int j = 0; j < edges[i].size(); ++j) {
+                int b = find(edges[i][j], parents);
+
+                if (a == b) return false; // 與下一個應該要不同組
+
+                if (j == 0) {
+                    tmp = b; // 先抓一個當作parent
+                } else {
+                    parents[b] = tmp;
+                }
+            }
+        }
+        return true;
+    }
+
+    int find(int node, vector<int>& parents) {
+        if (parents[node] == node) return node;
+        return parents[node] = find(parents[node], parents);
+    }
+};
+/*
+這題也可以用Union Find, 把二向圖分成兩組
+
+
+a----b(tmp)
+|
+|----b'
+|
++----b''
+
+*/

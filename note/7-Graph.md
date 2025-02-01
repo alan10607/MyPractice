@@ -9,3 +9,8 @@
 ## Bipartition 二分圖
 - https://leetcode.com/problems/is-graph-bipartite/
 - https://leetcode.com/problems/possible-bipartition/
+
+
+## Union-Find 併查集
+- https://leetcode.com/problems/redundant-connection/
+- https://leetcode.com/problems/satisfiability-of-equality-equations/
