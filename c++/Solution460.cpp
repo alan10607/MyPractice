@@ -12,7 +12,6 @@ public:
     }
 
     int get(int key) {
-        cout << "get" << key << endl;
         if (!m.count(key)) return -1;
 
         auto it = m[key];

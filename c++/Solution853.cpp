@@ -9,7 +9,6 @@ public:
         int res = 0;
         double cur = 0;//目前位置的速度
         for(auto it=m.rbegin(); it!=m.rend(); ++it){//從右邊開始(大到小)
-        cout<<it->first<<it->second<<endl;
             if(it->second > cur){//後面的車若時間較多, 則追不上
                 ++res;
                 cur = it->second;
