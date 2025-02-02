@@ -3,26 +3,27 @@
 class Solution743 {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        unordered_map<int, vector<pair<int, int>>> edges;//<起點, <目的地, 時間>>
-        for(auto time : times)
-            edges[time[0]].push_back({time[1], time[2]});
+        unordered_map<int, vector<pair<int, int>>> edges; // <起點, <時間, 目的地>>
+        for (vector<int> time : times) {
+            edges[time[0]].push_back({time[2], time[1]});
+        }
 
-        auto comp = [](pair<int, int>& a, pair<int, int>& b){
-                return a.second > b.second;//時間小到大
-            };
-        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> pq(comp);//<目的地, 時間>, O(VlogV)
-        pq.push({k, 0});
+        int res = -1;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; //<時間, 目的地>, 依照時間排序
+        pq.push({0, k}); // 放入起點
         unordered_set<int> visited;
-        int res = 0;
-        while(!pq.empty()){
-            auto node = pq.top(); pq.pop();//<地點, 時間>
-            if(visited.count(node.first)) continue;//在這裡判斷visited, 才可以把順序交給pq
+        while (!pq.empty()) {
+            auto p = pq.top(); pq.pop();
+            int time = p.first;
+            int node = p.second;
+            if (visited.count(node)) continue; // 跳過已到達的
 
-            visited.insert(node.first);
-            res = max(res, node.second);
+            visited.insert(node);
+            res = max(res, time);
 
-            for(auto edge : edges[node.first])
-                pq.push({edge.first, edge.second + node.second});//累積距離
+            for (pair<int, int> edge : edges[node]) {
+                pq.push({time + edge.first, edge.second}); // 記得要累積時間
+            }
         }
 
         return visited.size() == n ? res : -1;
@@ -48,6 +49,35 @@ public:
         for(int i=1; i<=n; ++i)//如果需要檢驗負環則在這裡做(再循環一次是否能減少距離), 本題不用
             res = max(res, dist[i]);
 
+        return res == INT_MAX ? -1 : res;
+    }
+};
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        vector<int> dists(n + 1, INT_MAX); // 範圍[1,n], index0不使用, 預設INT_MAX表示未到達
+        dists[k] = 0;
+        for (int i = 0; i < n - 1; ++i) { // Relaxation V-1次
+            for (vector<int> time : times) {
+                int a = time[0], b = time[1], t = time[2];
+                if (dists[a] != INT_MAX) {
+                    dists[b] = min(dists[b], dists[a] + t); // 更新為較小的
+                    cout << b << "->" << dists[b] << "\n";
+                }
+            }
+        }
+        // 如果需要檢驗負環則在這裡, 再循環一次看是否能減少距離 (本題不用)
+        // for (vector<int> time : times) {
+        //     int a = time[0], b = time[1], t = time[2];
+        //     if (dists[a] != INT_MAX && dists[b] > dists[a] + t) {
+        //         //存在負環
+        //     }
+        // }
+
+        int res = 0;
+        for (int i = 1; i < dists.size(); ++i) { // 去掉index 0
+            res = max(res, dists[i]);
+        }
         return res == INT_MAX ? -1 : res;
     }
 };
