@@ -2,6 +2,11 @@
 - https://leetcode.com/problems/n-queens/
 - https://leetcode.com/problems/n-queens-ii/
 - https://leetcode.com/problems/surrounded-regions/
+- https://leetcode.com/problems/number-of-enclaves/
+- https://leetcode.com/problems/number-of-closed-islands/
+- https://leetcode.com/problems/count-sub-islands/
+- https://leetcode.com/problems/number-of-islands/
+- https://leetcode.com/problems/max-area-of-island/
 
 
 ```cpp
