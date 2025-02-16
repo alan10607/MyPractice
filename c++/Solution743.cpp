@@ -30,29 +30,9 @@ public:
     }
 };
 
+
 //Shortest Path Bellman-Ford Algorithm O(VE) O(V), E = times.size(), V = n
 class Solution743_2 {
-public:
-    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<int> dist(n + 1, INT_MAX);//1<=k<=n, dist[0]不使用
-        dist[k] = 0;
-        for(int i=1; i<=n; ++i){
-            for(auto time: times){//<起點, 目的地, 時間>
-                int x = time[0], y = time[1], z = time[2];
-                if(dist[x] < INT_MAX && dist[y] > dist[x] + z){//更新為較小的
-                    dist[y] = dist[x] + z;
-                }
-            }
-        }
-
-        int res = 0;
-        for(int i=1; i<=n; ++i)//如果需要檢驗負環則在這裡做(再循環一次是否能減少距離), 本題不用
-            res = max(res, dist[i]);
-
-        return res == INT_MAX ? -1 : res;
-    }
-};
-class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         vector<int> dists(n + 1, INT_MAX); // 範圍[1,n], index0不使用, 預設INT_MAX表示未到達
@@ -62,7 +42,6 @@ public:
                 int a = time[0], b = time[1], t = time[2];
                 if (dists[a] != INT_MAX) {
                     dists[b] = min(dists[b], dists[a] + t); // 更新為較小的
-                    cout << b << "->" << dists[b] << "\n";
                 }
             }
         }
@@ -82,39 +61,42 @@ public:
     }
 };
 
+
 //Shortest Path Bellman-Ford Algorithm O(E + V) O(V), E = times.size(), V = n, 進化版的Bellman-Ford
 class Solution743_3 {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        unordered_map<int, vector<pair<int, int>>> edges;//<起點, <目的地, 時間>>
-        for(auto time : times)
+        unordered_map<int, vector<pair<int, int>>> edges; // <起點, <<目的地, 時間>, ...>>
+        for (vector<int> time : times) { // 轉為map方便操作
             edges[time[0]].push_back({time[1], time[2]});
+        }
 
-        vector<int> dist(n + 1, INT_MAX);//1<=k<=n, dist[0]不使用
-        dist[k] = 0;
-        queue<int> q;//用來放之後要跑的點
+
+        vector<int> dists(n + 1, INT_MAX); // 範圍[1,n], index0不使用, 預設INT_MAX表示未到達
+        dists[k] = 0;
+        queue<int> q; // 用來放之後要跑的點
         q.push(k);
-        while(!q.empty()){
-            unordered_set<int> visited;//每次收縮只能跑各個點一次
-            int x = q.front(); q.pop();
+        while (!q.empty()) {
+            unordered_set<int> visited; // 每次收縮只能跑各個點一次
+            int a = q.front(); q.pop();
 
-            for(auto edge : edges[x]){
-                int y = edge.first, z = edge.second;
-                if(dist[x] < INT_MAX && dist[y] > dist[x] + z){
-                    dist[y] = dist[x] + z;
+            for (pair<int, int> edge : edges[a]) {
+                int b = edge.first, time = edge.second;
+                if (dists[a] != INT_MAX && dists[a] + time < dists[b]) {
+                    dists[b] = dists[a] + time;
 
-                    if(visited.count(y)) continue;
+                    if (visited.count(b)) continue;
 
-                    visited.insert(y);
-                    q.push(y);//放入下次更新
+                    visited.insert(b);
+                    q.push(b); // 放入下次更新
                 }
             }
         }
 
         int res = 0;
-        for(int i=1; i<=n; ++i)
-            res = max(res, dist[i]);
-
+        for (int i = 1; i < dists.size(); ++i) { // 去掉index 0
+            res = max(res, dists[i]);
+        }
         return res == INT_MAX ? -1 : res;
     }
 };

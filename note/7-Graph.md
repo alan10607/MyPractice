@@ -34,12 +34,13 @@ Minimum Spanning Tree(無向):
 
 ## Shortest Path Tree 最短路徑樹
 - https://leetcode.com/problems/network-delay-time/
+- https://leetcode.com/problems/swim-in-rising-water/
 
 
 Shortest Path Tree(有向):
 - Dijkstra Algorithm
-    - Greedy
+    - Greedy, pq
     - 從起點開始找能夠到達的最近距離(pq), 不可用負環
 - Bellman-Ford Algorithm
-    - DP
+    - DP, for loop
     - 跑V次收縮dist[], 預設不可到達為INT_MAX, 結束再收縮可以檢測負環
