@@ -7,14 +7,14 @@ public:
         return res;
     }
 
-    void backtracking(int n, int remained_right, string str, vector<string>& res) {
-        if (n == 0 && remained_right == 0) {
+    void backtracking(int n, int balance, string str, vector<string>& res) {
+        if (n == 0 && balance == 0) {
             res.push_back(str);
             return;
         }
-        if (n < 0 || remained_right < 0) return; // remained_right < 0表示左括號太多了
+        if (n < 0 || balance < 0) return; // balance < 0表示左括號太多了
 
-        backtracking(n - 1, remained_right + 1, str + '(', res);
-        backtracking(n, remained_right - 1, str + ')', res);
+        backtracking(n - 1, balance + 1, str + "(", res);
+        backtracking(n, balance - 1, str + ")", res);
     }
 };

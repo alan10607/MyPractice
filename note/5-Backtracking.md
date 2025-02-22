@@ -7,6 +7,7 @@
 - https://leetcode.com/problems/count-sub-islands/
 - https://leetcode.com/problems/number-of-islands/
 - https://leetcode.com/problems/max-area-of-island/
+- https://leetcode.com/problems/generate-parentheses
 
 
 ```cpp
@@ -58,6 +59,8 @@ void dfs(Node root) {
 - https://leetcode.com/problems/permutations-ii/
 - https://leetcode.com/problems/combination-sum/
 - https://leetcode.com/problems/combination-sum-iii/
+
+
 ### 依據選項可以分成
 1. 不重複, 不可複選
 ex: nums=[2,3,6,7], target=7, res=[7]
