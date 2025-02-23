@@ -59,6 +59,7 @@ void dfs(Node root) {
 - https://leetcode.com/problems/permutations-ii/
 - https://leetcode.com/problems/combination-sum/
 - https://leetcode.com/problems/combination-sum-iii/
+- https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 
 
 ### 依據選項可以分成
