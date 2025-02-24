@@ -45,8 +45,35 @@ void dfs(Node root) {
 
 ### BFS
 - https://leetcode.com/problems/open-the-lock/
+- https://leetcode.com/problems/sliding-puzzle/
 ```cpp
-...
+int bfs(vector<vector<int>>& board) {
+    int level = 1; // 在第幾層
+    auto children;
+    unordered_set<int> visited;
+    queue<int> q;
+    q.push(起點);
+    while (!q.empty()) {
+        // 跑一層的node
+        for (int i = q.size(); i > 0; --i) { // 倒過來寫固定i
+            auto node = q.front(); q.pop();
+            if (visited.count(node)) continue; // 排除已經走訪
+
+            ...
+
+            visited.insert(node);
+
+            // 進行下一個選擇
+            for (int child : children[node]) {
+                q.push(child);
+            }
+        }
+
+        ++level;
+    }
+
+    ...
+}
 ```
 
 
