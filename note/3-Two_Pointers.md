@@ -75,7 +75,8 @@ int binarySearch(vector<int>& nums, int target) {
 ```
 
 2. lower_bound, 左側邊界, 找第一個不小於某目標的數
-    - ex:[0,1,1,1,1], target=1, return=1  
+    - ex:[0,1,1,1,1], target=1, 則lower_bound, upper_bound = [1,5)
+    - ex:[0,1,3,4],   target=2, 則lower_bound, upper_bound = [2,2)
     - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
     - 若相同, 則應該往左側尋找
 ```cpp
@@ -96,7 +97,8 @@ int lowerBound(vector<int>& nums, int target) {
 ```
 
 3. upper_bound, 右側邊界, 找第一個大於某目標的數
-    - ex:[0,1,1,1,1], target=1, return=5  
+    - ex:[0,1,1,1,1], target=1, 則lower_bound, upper_bound = [1,5)
+    - ex:[0,1,3,4],   target=2, 則lower_bound, upper_bound = [2,2)
     - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
     - 若相同, 則應該往右側尋找
 ```cpp
