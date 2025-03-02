@@ -1,8 +1,13 @@
 # Dynamic Programming
 - https://leetcode.com/problems/fibonacci-number/
 - https://leetcode.com/problems/coin-change/
-- https://leetcode.com/problems/longest-increasing-subsequence/
 
+## Longest Increasing Subsequence LIS
+- https://leetcode.com/problems/longest-increasing-subsequence/
+- https://leetcode.com/problems/russian-doll-envelopes/
+
+## 2D DP
+- https://leetcode.com/problems/minimum-falling-path-sum/
 
 ## DP三要素
 1. 狀態轉移方程式

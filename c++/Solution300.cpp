@@ -23,23 +23,17 @@ dp      1   2   1   3   3   4
 */
 
 
-//Binary Search O(nlogn) O(n), n = nums.size()
+//DP Binary Search O(nlogn) O(n), n = nums.size()
 class Solution300_2 {
 public:
     int lengthOfLIS(vector<int>& nums) {
         vector<int> piles; // 每堆最上面的牌
         for (int num : nums) {
-            if (piles.empty()) { // 放入第一張牌
-                piles.push_back(num);
-                continue;
-            }
-
-            // 尋找piles中的左側邊界(第一個比num大的)
-            int i = lower_bound(piles.begin(), piles.end(), num) - piles.begin();
-            if (i == piles.size()) {
+            auto it = lower_bound(piles.begin(), piles.end(), num); // 尋找piles中的左側邊界(第一個比num大的)
+            if (it == piles.end()) {
                 piles.push_back(num); // 如果都比這些堆最上面的牌大, 則再建立一堆
             } else {
-                piles[i] = num; // 蓋牌到該堆最上面
+                *it = num; // 蓋牌到該堆最上面
             }
         }
         return piles.size();
