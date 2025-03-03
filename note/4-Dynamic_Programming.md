@@ -9,6 +9,9 @@
 ## 2D DP
 - https://leetcode.com/problems/minimum-falling-path-sum/
 
+## Subsequences 子序列
+- https://leetcode.com/problems/distinct-subsequences/
+
 ## DP三要素
 1. 狀態轉移方程式
 2. 最優子結構 -> 透過子問題推導出答案
