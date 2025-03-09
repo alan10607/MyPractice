@@ -1,19 +1,20 @@
-//DP O(mn) O(n), n = s.length(), m = wordDict.size();
+//DP O(mn) O(n), n = s.length(), m = word_dict.size()
 class Solution139 {
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-        //透過DP減字查驗
-        vector<bool> dp(s.length() + 1);
-        dp[0] = true;
-        for(int i=1; i<= s.length(); ++i){
-            for(auto word : wordDict){//另一種解法是把wordDict變成set, 然後讀取i之前的字串查有無存在
+    bool wordBreak(string s, vector<string>& word_dict) {
+        int n = s.length();
+        vector<bool> dp(n + 1); // dp[i]表示是否可組出s.substr(0,i)
+        dp[0] = true; // 空字串必可組出
+        
+        for (int i = 1; i <= n; ++i) {
+            for (string word : word_dict) {
                 int len = word.length();
-                if(i >= len && dp[i - len] && s.substr(i - len, len) == word){
+                if (i >= len && dp[i - len] && word == s.substr(i - len, len)) {
                     dp[i] = true;
-                    break;
                 }
             }
         }
-        return dp[s.length()];
+        
+        return dp[n];
     }
 };
