@@ -15,6 +15,9 @@
 - https://leetcode.com/problems/word-break/
 - https://leetcode.com/problems/word-break-ii/
 
+## 股票問題
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
 ## DP三要素
 1. 狀態轉移方程式
 2. 最優子結構 -> 透過子問題推導出答案
