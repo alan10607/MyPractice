@@ -1,4 +1,4 @@
-//Slide Window DP O(n) O(1)
+//Slide Window DP O(n) O(1), n = prices.size()
 class Solution121 {
 public:
     int maxProfit(vector<int>& prices) {
