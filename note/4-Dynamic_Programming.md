@@ -6,7 +6,6 @@
 - https://leetcode.com/problems/longest-increasing-subsequence/
 - https://leetcode.com/problems/russian-doll-envelopes/
 
-
 ```cpp
 int lengthOfLIS(vector<int>& nums) {
     vector<int> piles; // 每堆最上面的牌
@@ -44,6 +43,7 @@ num = 5,2,4,9,10,1,8,13,12,6,3,7,11
 
 ## Subsequences 子序列
 - https://leetcode.com/problems/distinct-subsequences/
+- https://leetcode.com/problems/edit-distance/
 
 - https://leetcode.com/problems/word-break/
 - https://leetcode.com/problems/word-break-ii/
@@ -55,7 +55,6 @@ num = 5,2,4,9,10,1,8,13,12,6,3,7,11
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
-
 
 ```cpp
 int maxProfit(int max_k, vector<int>& prices) {
