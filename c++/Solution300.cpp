@@ -1,30 +1,5 @@
-//DP O(n^2) O(n), n = nums.size()
-class Solution300 {
-public:
-    int lengthOfLIS(vector<int>& nums) {
-        vector<int> dp(nums.size(), 1);
-
-        int res = 1;
-        for (int i = 1; i < nums.size(); ++i) {
-            for (int j = 0; j < i; ++j) { // 尋找前一個更小的數
-                if (nums[i] > nums[j]) {
-                    dp[i] = max(dp[i], dp[j] + 1);
-                }
-            }
-            res = max(res, dp[i]);
-        }
-        return res;
-    }
-};
-/* nums = [0,1,0,3,2,3]
-nums    0   1   0   3   2   3
-dp      1   2   1   3   3   4
-
-*/
-
-
 //DP Binary Search O(nlogn) O(n), n = nums.size()
-class Solution300_2 {
+class Solution300 {
 public:
     int lengthOfLIS(vector<int>& nums) {
         vector<int> piles; // 每堆最上面的牌
@@ -55,4 +30,29 @@ num = 5,2,4,9,10,1,8,13,12,6,3,7,11
 1       6       11
 
 此時堆的數量就是LIS, 此例LIS=5
+*/
+
+
+//DP O(n^2) O(n), n = nums.size()
+class Solution300_2 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp(nums.size(), 1);
+
+        int res = 1;
+        for (int i = 1; i < nums.size(); ++i) {
+            for (int j = 0; j < i; ++j) { // 尋找前一個更小的數
+                if (nums[i] > nums[j]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                }
+            }
+            res = max(res, dp[i]);
+        }
+        return res;
+    }
+};
+/* nums = [0,1,0,3,2,3]
+nums    0   1   0   3   2   3
+dp      1   2   1   3   3   4
+
 */
