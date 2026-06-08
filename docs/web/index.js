@@ -5,6 +5,12 @@ const CODE = {
         solutions: new Map(),
         isLoadingComplete: false
     },
+    "python": {
+        solutionUrl: "https://api.github.com/repos/alan10607/MyPractice/contents/python",
+        enabled: true,
+        solutions: new Map(),
+        isLoadingComplete: false
+    },
     "java": {
         solutionUrl: "https://api.github.com/repos/alan10607/MyPractice/contents/java",
         enabled: true,
@@ -104,8 +110,10 @@ function printPages(){
     var codeType = $('<span>', { id: 'combo-checkbox' });
     $("<span>", {text: "顯示: [C++"}).appendTo(codeType);
     $("<input>", { type: "checkbox", value: "c++", "onclick" : "setCodeEnable(this)", checked: CODE["c++"].enabled }).appendTo(codeType);
+    $("<span>", {text: "] / [Python"}).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "python", "onclick" : "setCodeEnable(this)", checked: CODE["python"].enabled }).appendTo(codeType);
     $("<span>", {text: "] / [Java"}).appendTo(codeType);
-    $("<input>", { type: "checkbox", value: "java", "onclick" : "setCodeEnable(this)", checked: CODE["c++"].enabled }).appendTo(codeType);
+    $("<input>", { type: "checkbox", value: "java", "onclick" : "setCodeEnable(this)", checked: CODE["java"].enabled }).appendTo(codeType);
     $("<span>", {text: "]"}).appendTo(codeType);
     codeType.appendTo($('#page-bar'));
 }
