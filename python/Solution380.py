@@ -14,7 +14,7 @@ class RandomizedSet:
         return True
 
     def remove(self, val: int) -> bool:
-        if not val in self.valueToIndex:
+        if val not in self.valueToIndex:
             return False
         
         last = self.values[-1] 
