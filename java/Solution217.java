@@ -6,10 +6,10 @@ import java.util.*;
 class Solution217 {
     public boolean containsDuplicate(int[] nums) {
         Set<Integer> memo = new HashSet<>();
-        for(int num : nums){
-            if(memo.contains(num)){
+        for (int num : nums) {
+            if (memo.contains(num)) {
                 return true;
-            }else{
+            } else {
                 memo.add(num);
             }
         }

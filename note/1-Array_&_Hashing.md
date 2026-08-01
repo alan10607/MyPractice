@@ -1,5 +1,7 @@
 # Array / Hashing
 - https://leetcode.com/problems/two-sum/
+- https://leetcode.com/problems/contains-duplicate/
+- https://leetcode.com/problems/longest-consecutive-sequence/
 - https://leetcode.com/problems/range-addition-ii/
 - *https://leetcode.com/problems/two-sum-iii-data-structure-design/
 - https://leetcode.com/problems/flatten-nested-list-iterator/
@@ -10,10 +12,12 @@
 - https://leetcode.com/problems/maximize-distance-to-closest-person/
 - https://leetcode.com/problems/exam-room/
 
+
 ## Matrix 矩陣
 - https://leetcode.com/problems/rotate-image
 - https://leetcode.com/problems/spiral-matrix/
 - https://leetcode.com/problems/spiral-matrix-ii/
+- https://leetcode.com/problems/valid-sudoku
 
 ```cpp
 void matrixSolution(vector<vector<int>>& matrix) {
@@ -56,6 +60,7 @@ bottom->|[b,r]|     |     |[b,r]|
 
 
 ## Prefix Sum 前綴和
+- https://leetcode.com/problems/product-of-array-except-self/
 - https://leetcode.com/problems/range-sum-query-immutable/
 - https://leetcode.com/problems/range-sum-query-2d-immutable/
 - https://leetcode.com/problems/subarray-sum-equals-k/
@@ -64,7 +69,6 @@ bottom->|[b,r]|     |     |[b,r]|
 //TO-DO
 - https://leetcode.com/problems/contiguous-array/
 - https://leetcode.com/problems/random-pick-with-weight/
-- https://leetcode.com/problems/product-of-array-except-self/
 
 https://leetcode.com/problems/minimum-size-subarray-sum/
 *https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
@@ -94,9 +98,15 @@ sums=   0 --> 1 --> 3 --> 6 --> 10
 - $ https://leetcode.com/problems/range-addition/
 - https://leetcode.com/problems/corporate-flight-bookings/
 - https://leetcode.com/problems/car-pooling/description/
-```cpp
+
 當array在區間內有頻繁的增減, 可以直接計算區間變化來獲得array
-diff代表區間的變化量, 透過計算區間變化量可以得到值(捨棄區間頭尾, 頭尾會是起始的0)
+diff[i] 表示 nums[i] 相對於 nums[i-1] 的變化量。
+透過 diff 的 prefix sum 可以還原原本 array。
+區間 [l, r] 增加 val:
+diff[l] += val;
+diff[r+1] -= val;
+
+```cpp
 
 index   0     1     2     3     4     5
 diff=   8     -6    4    -3    -2    -1
@@ -191,6 +201,12 @@ vector<int> monotonicDeque(vector<int>& nums) {
 
 
 ## Heap
+- https://leetcode.com/problems/top-k-frequent-elements/
 - https://leetcode.com/problems/top-k-frequent-words/
 - https://leetcode.com/problems/design-twitter/
 - https://leetcode.com/problems/find-median-from-data-stream/
+
+
+## Encode /Decode
+- https://leetcode.com/problems/encode-and-decode-strings/
+- https://leetcode.com/problems/group-anagrams/

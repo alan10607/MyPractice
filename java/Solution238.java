@@ -3,28 +3,21 @@ package leetCode.java;
 //O(n) O(1)
 class Solution238 {
     public int[] productExceptSelf(int[] nums) {
-        //must run in O(n)
-        int[] product = new int[nums.length];
+        // must run in O(n), 典型的 prefix product + suffix product (前綴積 + 後綴積)題型
+        int[] res = new int[nums.length];
 
-        int temp = 1;
-        for(int i=0; i<nums.length; i++){
-            product[i] = temp;
-            temp *= nums[i];//過了之後才乘
+        int prefix = 1;
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = prefix;
+            prefix *= nums[i]; // 過了之後才乘
         }
 
-        temp = 1;
-        for(int i = nums.length - 1; i>=0; i--){
-            product[i] *= temp;
-            temp *= nums[i];//過了之後才乘
+        int suffix = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] *= suffix;
+            suffix *= nums[i]; // 過了之後才乘
         }
 
-        return product;
+        return res;
     }
 }
-
-/* 從自己的前一個開始乘
-nums        =  1  2  3  4
-product(->) =  1  1  2  6
-product(<-) = 24 12  4  1
-product     = 24 12  8  6
-*/

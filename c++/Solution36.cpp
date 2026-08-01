@@ -1,4 +1,4 @@
-//36 O(1) O(1), 數獨大小為固定
+//O(1) O(1), 數獨大小為固定
 class Solution36 {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
