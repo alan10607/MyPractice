@@ -18,6 +18,16 @@ public:
     }
 };
 /*
+每個位置能接的雨水量受到左右兩側最短的柱子決定
+
+water = min(leftMax, rightMax) - height[i]
+
+1. L -> R: 預處理每個位置左側最高柱 leftMax[]
+2. R -> L: 預處理每個位置右側最高柱 rightMax[]
+3. 對每個位置計算: 
+    water = min(leftMax[i], rightMax[i]) - height[i]
+4. 透過左右指標同時計算
+
 height  0   1   0   2   1   0   1   3   2   1   2   1
 L -> R  0   1   1   2   2   2   2   3   3   3   3   3
 R -> L  3   3   3   3   3   3   3   3   2   2   2   1

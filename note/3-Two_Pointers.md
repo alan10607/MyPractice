@@ -16,34 +16,9 @@ void fastSlowPointer(vector<int>& nums) {
 ```
 
 
-### Sliding Window
-- https://leetcode.com/problems/minimum-window-substring/
-- https://leetcode.com/problems/permutation-in-string/
-- https://leetcode.com/problems/find-all-anagrams-in-a-string/
-- https://leetcode.com/problems/longest-substring-without-repeating-characters/
-- https://leetcode.com/problems/reverse-words-in-a-string/
-- https://leetcode.com/problems/repeated-dna-sequences/
-```cpp
-string slidingWindow(string s) {
-    auto window;
-    int l = 0, r = 0;
-    while (r < s.length()) { // 以下都是左閉右開[l, r) 方便計算
-        window.add(s[r]); // 加入目前這一個
-        ++r; // 先移動到下一個
-
-        while (滿足某條件情況下, 開始收縮左邊) {
-            // 依照題目要求進行處理
-            int len = r - l; // 左閉右開[l, r)
-
-            window.remove(s[l]); // 移除最左邊這個  
-            ++l; // 繼續看下一個左邊
-        }
-    }
-}
-```
-
-
 ## L-R Pointers
+- https://leetcode.com/problems/container-with-most-water/
+- https://leetcode.com/problems/trapping-rain-water/
 - https://leetcode.com/problems/reverse-string/
 - https://leetcode.com/problems/advantage-shuffle/
 
@@ -118,7 +93,35 @@ int upperBound(vector<int>& nums, int target) {
 ```
 
 
+## Sliding Window
+- https://leetcode.com/problems/minimum-window-substring/
+- https://leetcode.com/problems/permutation-in-string/
+- https://leetcode.com/problems/find-all-anagrams-in-a-string/
+- https://leetcode.com/problems/longest-substring-without-repeating-characters/
+- https://leetcode.com/problems/reverse-words-in-a-string/
+- https://leetcode.com/problems/repeated-dna-sequences/
+```cpp
+string slidingWindow(string s) {
+    auto window;
+    int l = 0, r = 0;
+    while (r < s.length()) { // 以下都是左閉右開[l, r) 方便計算
+        window.add(s[r]); // 加入目前這一個
+        ++r; // 先移動到下一個
+
+        while (滿足某條件情況下, 開始收縮左邊) {
+            // 依照題目要求進行處理
+            int len = r - l; // 左閉右開[l, r)
+
+            window.remove(s[l]); // 移除最左邊這個  
+            ++l; // 繼續看下一個左邊
+        }
+    }
+}
+```
+
+
 ### Palindrome 迴文
+- https://leetcode.com/problems/valid-palindrome/
 - https://leetcode.com/problems/longest-palindromic-substring/
 ```cpp
 string palindrome(int l, int r, string s) {
@@ -131,6 +134,8 @@ string palindrome(int l, int r, string s) {
     return s.substr(l, r - l + 1);
 }
 ```
+
+
 ### N-Sum
 - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 - https://leetcode.com/problems/3sum/
