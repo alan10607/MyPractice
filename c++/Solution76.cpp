@@ -8,8 +8,7 @@ public:
 
         int l = 0, r = 0, check = 0, start = 0, min_len = INT_MAX;
         while (r < s.length()) {
-            if (cnt.count(s[r]) &&
-                --cnt[s[r]] == 0) // 先用count確定是否為要找的字母
+            if (cnt.count(s[r]) && --cnt[s[r]] == 0) // 先用count確定是否為要找的字母
                 ++check;
 
             while (check == cnt.size()) {

@@ -2,27 +2,32 @@ package leetCode.java;
 
 import java.util.*;
 
-//Slide Window Stack O(n) O(k), n = nums.length
+//Slide Window Queue O(n) O(k), n = nums.length
 class Solution239 {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int[] res = new int[nums.length - k + 1];
-        Deque<Integer> deque = new LinkedList<>();//<位置1, ...>
-        int l = 0;
-        int r = 0;
-        while(r < nums.length){
-            while(!deque.isEmpty() && nums[deque.peekLast()] < nums[r])
-                deque.pollLast();//移除較小的
+        // Monotonic deque單調列隊, 放index, 保持nums[index]大到小
+        // Deque 的順序同時代表兩件事:
+        // 1. 數值大小順序 (大 -> 小)
+        // 2. index 新舊順序 (舊 -> 新)
 
-            deque.offer(r);//放入佇列
-
-            if(l > deque.peek())
-                deque.poll();//移除超出範圍的
-
-            if(r + 1 >= k){//開始記錄
-                res[l] = nums[deque.peek()];
-                l++;
+        Deque<Integer> dq = new ArrayDeque<>(); // 放index
+        int l = 0, r = 0, n = nums.length;
+        int[] res = new int[n - k + 1];
+        while (r < n) {
+            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[r]) { // 從後面把比較小的抓走
+                dq.pollLast();
             }
-            r++;
+            dq.offerLast(r);
+
+            if (l > dq.peekFirst()) {
+                dq.pollFirst();
+            }
+
+            if (r + 1 >= k) {
+                res[l] = nums[dq.peekFirst()];
+                ++l;
+            }
+            ++r;
         }
         return res;
     }

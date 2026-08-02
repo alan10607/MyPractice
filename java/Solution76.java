@@ -5,42 +5,40 @@ import java.util.*;
 //Slide Window O((s + t) * Z) O(Z), s = s.length(), t = t.length(), Z = 26
 class Solution76 {
     public String minWindow(String s, String t) {
-        if(s.length() < t.length()) return "";
+        Map<Character, Integer> cnt = new HashMap<>();
+        for (char ch : t.toCharArray()) {
+            cnt.put(ch, cnt.getOrDefault(ch, 0) + 1);
+        }
 
-        //1 建立counts HashMap
-        Map<Character, Integer> counts = new HashMap<>();
-        for(char ch : t.toCharArray())
-            counts.put(ch, counts.getOrDefault(ch, 0) + 1);
-
-        //2 slide window
-        int match = 0;
-        int l = 0;
-        int r = 0;
-        String res = "";//如果都沒符合就回default空白
-        while(r < s.length()){
+        int l = 0, r = 0, check = cnt.size(), start = 0, minLen = Integer.MAX_VALUE;
+        while (r < s.length()) {
             char rCh = s.charAt(r);
-            if(counts.containsKey(rCh)){
-                counts.put(rCh, counts.get(rCh) - 1);
-                if(counts.get(rCh) == 0)
-                    match++;
+            if (cnt.containsKey(rCh)) {
+                cnt.put(rCh, cnt.get(rCh) - 1);
+                if (cnt.get(rCh) == 0) {
+                    --check;
+                }
             }
 
-            while(match == counts.size()){
-                //符合條件後, 開始更新最短可能
-                if("".equals(res) || (r - l + 1) < res.length())
-                    res = s.substring(l, r + 1);
+            while (check == 0) {
+                int len = r - l + 1;
+                if (len < minLen) {
+                    start = l; // 記錄位子就好, 直接string... 有機會Memory Limit Exceeded
+                    minLen = len;
+                }
 
                 char lCh = s.charAt(l);
-                if(counts.containsKey(lCh)){
-                    if(counts.get(lCh) == 0)
-                        match--;
-                    counts.put(lCh, counts.get(lCh) + 1);
+                if (cnt.containsKey(lCh)) {
+                    if (cnt.get(lCh) == 0) {
+                        ++check;
+                    }
+                    cnt.put(lCh, cnt.get(lCh) + 1);
                 }
-                l++;
+                ++l;
             }
-            r++;
+            ++r;
         }
-        return res;
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
     }
 }
 /* s = "ADOBECODEBANC", t = "ABC"

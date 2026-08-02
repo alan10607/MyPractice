@@ -19,6 +19,7 @@ void fastSlowPointer(vector<int>& nums) {
 ## L-R Pointers
 - https://leetcode.com/problems/container-with-most-water/
 - https://leetcode.com/problems/trapping-rain-water/
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 - https://leetcode.com/problems/reverse-string/
 - https://leetcode.com/problems/advantage-shuffle/
 
@@ -94,10 +95,11 @@ int upperBound(vector<int>& nums, int target) {
 
 
 ## Sliding Window
+- https://leetcode.com/problems/longest-substring-without-repeating-characters/
+- https://leetcode.com/problems/longest-repeating-character-replacemen/
 - https://leetcode.com/problems/minimum-window-substring/
 - https://leetcode.com/problems/permutation-in-string/
 - https://leetcode.com/problems/find-all-anagrams-in-a-string/
-- https://leetcode.com/problems/longest-substring-without-repeating-characters/
 - https://leetcode.com/problems/reverse-words-in-a-string/
 - https://leetcode.com/problems/repeated-dna-sequences/
 ```cpp

@@ -1,3 +1,5 @@
+# Java Basic
+
 ## Array & String 初始化與轉換
 ```java
 int[] arr = new int[n]; // 定長陣列
@@ -6,7 +8,7 @@ return new int[]{1, 2, 3, 4, 5}; // 回傳
 Arrays.fill(arr, 0); // 填入預設值
 Arrays.sort(arr); // 陣列排序
 
-// String 與 char  轉換
+// String 與 char 轉換
 String s = "hello";
 char[] chars = s.toCharArray(); // 字串轉字元陣列
 String newStr = new String(chars); // 字元陣列轉字串
@@ -88,7 +90,19 @@ stack.push(1); // 壓入元素
 stack.pop(); // 彈出頂端元素
 stack.peek(); // 取得頂端元素 (top)
 stack.isEmpty(); // 是否為空
+
+
+Stack (LIFO)
+
+Top
+ ↓
+[3, 2, 1]
+
+push(4) -> [4, 3, 2, 1]
+pop()   -> [2, 1]      (回傳 3)
+peek()  -> 3
 ```
+
 
 ## Queue (佇列，推薦使用 ArrayDeque)
 ```Java
@@ -97,6 +111,17 @@ queue.offer(1); // 加入隊尾 (push)
 queue.poll(); // 移除隊首 (pop)
 queue.peek(); // 取得隊首 (front)
 queue.isEmpty(); // 是否為空
+
+
+Queue (FIFO)
+
+Front            Back
+  ↓                ↓
+[1, 2, 3]
+
+offer(4) -> [1, 2, 3, 4]
+poll()   -> [2, 3]      (回傳 1)
+peek()   -> 1
 ```
 
 ## Deque (雙端佇列)
@@ -108,6 +133,20 @@ deque.pollFirst(); // 隊首移除
 deque.pollLast(); // 隊尾移除
 deque.peekFirst(); // 取得隊首
 deque.peekLast(); // 取得隊尾
+
+
+Deque
+
+Front            Back
+  ↓                ↓
+[1, 2, 3]
+
+offerFirst(0) -> [0, 1, 2, 3]
+offerLast(4)  -> [1, 2, 3, 4]
+pollFirst()   -> [2, 3]      (回傳 1)
+pollLast()    -> [1, 2]      (回傳 3)
+peekFirst()   -> 1
+peekLast()    -> 3
 ```
 
 ## PriorityQueue (優先佇列 / Heap)

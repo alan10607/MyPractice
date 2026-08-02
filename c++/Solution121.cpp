@@ -1,4 +1,4 @@
-//Slide Window DP O(n) O(1), n = prices.size()
+//Slide Window Greedy O(n) O(1), n = prices.size()
 class Solution121 {
 public:
     int maxProfit(vector<int>& prices) {
@@ -14,10 +14,16 @@ public:
     }
 };
 /*
-所有可能 = {第x天買,第y天賣}
-0 <= x < y, x < y < price.size()
+看起來要窮舉需要O(n^2)時間, 但可以透過Slide Window/Greedy的思維降為O(n)
 
-res = max(所有可能)
+l: 目前最低買入價格
+r: 目前賣出價格
 
-看起來要窮舉需要O(n^2)時間, 但可以透過滑動窗口的思維降為O(n)
+若 prices[r] < prices[l]，
+則更新買入點: l = r
+
+否則假設今天賣出, 更新最大獲利:
+profit = prices[r] - prices[l]
+
+每個元素只遍歷一次。
 */

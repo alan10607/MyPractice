@@ -5,31 +5,30 @@ import java.util.*;
 //Slide Window O(m + n) O(Z), m = s1.length(), n = s2.length(), Z=26
 class Solution567 {
     public boolean checkInclusion(String s1, String s2) {
-        //permutation表示要黏在一起的交換字
-        Map<Character, Integer> counts = new HashMap<>();//<字母, 出現次數>
-        for(char ch : s1.toCharArray())
-            counts.put(ch, counts.getOrDefault(ch, 0) + 1);
+        //permutation排列, 表示要黏在一起的交換字
+        int[] cnt = new int[26]; // 這題用map or array都行, 但array更快
+        for (char ch : s1.toCharArray()) {
+            ++cnt[ch - 'a'];
+        }
 
-        int check = 0;
-        int gap = s1.length();//window的區間
-        for(int i=0; i<s2.length(); i++){
-            char rCh = s2.charAt(i);
-            if(counts.containsKey(rCh)){//加入右側
-                counts.put(rCh, counts.get(rCh) - 1);
-                if(counts.get(rCh) == 0) check++;
+        int check = s1.length(); // 代表還要滿足多少s1
+        for (int r = 0; r < s2.length(); ++r) {
+            // 若cnt[ch]>0, 代表ch是s1裡面需要的, 若cnt[ch] <= 0, 代表是不需要的, 忽略即可
+            if (cnt[s2.charAt(r) - 'a']-- > 0) {
+                --check;
             }
 
-            if(i - gap >= 0){//超出視窗, 刪除左側
-                char lCh = s2.charAt(i - gap);
-                if(counts.containsKey(lCh)){
-                    if(counts.get(lCh) == 0) check--;
-                    counts.put(lCh, counts.get(lCh) + 1);
+            int l = r - s1.length();
+            if (l >= 0) {
+                if (++cnt[s2.charAt(l) - 'a'] > 0) {
+                    ++check;
                 }
             }
 
-            if(check == counts.size()) return true;
+            if (check == 0) {
+                return true;
+            }
         }
-
         return false;
     }
 }
