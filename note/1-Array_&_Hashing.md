@@ -119,6 +119,9 @@ nums=   8     2     6     3     1
 ```
 
 ## Stack & Queue
+- https://leetcode.com/problems/valid-parentheses/
+- https://leetcode.com/problems/min-stack/
+- https://leetcode.com/problems/evaluate-reverse-polish-notation/
 - https://leetcode.com/problems/implement-queue-using-stacks/
 - https://leetcode.com/problems/implement-stack-using-queues/
 
@@ -127,10 +130,11 @@ nums=   8     2     6     3     1
 - https://leetcode.com/problems/next-greater-element-i/
 - https://leetcode.com/problems/next-greater-element-ii/
 - https://leetcode.com/problems/daily-temperatures/
+- https://leetcode.com/problems/car-fleet/
+- https://leetcode.com/problems/largest-rectangle-in-histogram/
 - https://leetcode.com/problems/sliding-window-maximum
 - https://leetcode.com/problems/remove-duplicate-letters/
 - https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/
-
 
 1. Monotonic Stack
 ```cpp

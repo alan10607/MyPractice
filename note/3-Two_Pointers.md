@@ -97,8 +97,9 @@ int upperBound(vector<int>& nums, int target) {
 ## Sliding Window
 - https://leetcode.com/problems/longest-substring-without-repeating-characters/
 - https://leetcode.com/problems/longest-repeating-character-replacemen/
-- https://leetcode.com/problems/minimum-window-substring/
 - https://leetcode.com/problems/permutation-in-string/
+- https://leetcode.com/problems/minimum-window-substring/
+- https://leetcode.com/problems/sliding-window-maximum/
 - https://leetcode.com/problems/find-all-anagrams-in-a-string/
 - https://leetcode.com/problems/reverse-words-in-a-string/
 - https://leetcode.com/problems/repeated-dna-sequences/
