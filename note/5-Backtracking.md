@@ -1,4 +1,7 @@
 # Backtracking
+- https://leetcode.com/problems/word-search/
+- https://leetcode.com/problems/palindrome-partitioning/
+- https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 - https://leetcode.com/problems/n-queens/
 - https://leetcode.com/problems/n-queens-ii/
 - https://leetcode.com/problems/surrounded-regions/
@@ -43,6 +46,33 @@ void dfs(Node root) {
 }
 ```
 
+棋盤的情況:
+```cpp
+bool dfs(int i, int j, vector<vector<bool>>& visited, vector<vector<char>>& board, ...){
+    if (完成需要條件) {
+        ...
+        return;
+    }
+    // 判定是否越界
+    int m = board.size(), n = board[0].size();
+    if (i < 0 || i >= m || j < 0 || j >= n || visited[i][j]) return false;
+
+
+    visited[i][j] = true;
+
+    // 往四個方向dfs
+    vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    for (auto dir : dirs) {
+        if(dfs(i + dir.first, j + dir.second, visited, board, ...))
+            return true;
+    }
+
+    visited[i][j] = false;
+    
+    return false;
+}
+```
+
 ### BFS
 - https://leetcode.com/problems/open-the-lock/
 - https://leetcode.com/problems/sliding-puzzle/
@@ -77,7 +107,7 @@ int bfs(vector<vector<int>>& board) {
 ```
 
 
-## Permutation / Subset / Combination
+## Permutation (排列) / Subset (子集) / Combination (組合)
 - https://leetcode.com/problems/subsets/
 - https://leetcode.com/problems/combinations/
 - https://leetcode.com/problems/permutations/
@@ -87,6 +117,7 @@ int bfs(vector<vector<int>>& board) {
 - https://leetcode.com/problems/combination-sum/
 - https://leetcode.com/problems/combination-sum-iii/
 - https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+- https://leetcode.com/problems/generate-parentheses/
 
 
 ### 依據選項可以分成
@@ -94,7 +125,7 @@ int bfs(vector<vector<int>>& board) {
 ex: nums=[2,3,6,7], target=7, res=[7]
 
 2. 有重複, 不可複選
-ex: nums=[2,3,2,5]
+ex: nums=[2,3,2,5], target=2, res=[2,2]
 
 3. 不重複, 可複選
 ex: nums=[2,3,6,7], target=7, res=[2,2,3],[7]
@@ -102,8 +133,9 @@ ex: nums=[2,3,6,7], target=7, res=[2,2,3],[7]
 
 ### 依據題型可以分成以下樹
 A. Subset, Combination(子集, 組合)
-- 子集數 2^n 個, 每個選項可以選擇選或不選
 - 不考慮排序, 不同排序也視為同一種, ex:[1,2]=[2,1]
+- Subset: 每個元素選或不選, 子集數 2^n 個
+- Combination: 選固定數量 k 個, 子集數 C(n,k)
 ```cpp
                         []
         1               2               3
@@ -112,8 +144,8 @@ A. Subset, Combination(子集, 組合)
 ```
 
 B. Permutation(排列)
-- 子集數 n! 個, 每個選項可以選擇選或不選
 - 考慮排序, 不同排序視為不同種, ex:[1,2]!=[2,1]
+- 子集數 n! 個, 每個位置選哪個元素
 ```cpp
                         []
         1               2               3
@@ -122,7 +154,10 @@ B. Permutation(排列)
 ```
 
 ex:  
-- 1A: (不重複, 不可複選) + (Subset, Combination)
+- 1A: (不重複, 不可複選) + (不考慮排序: Subset, Combination)
+    - https://leetcode.com/problems/subsets/
+    - https://leetcode.com/problems/combinations/
+    - https://leetcode.com/problems/combination-sum-iii/   
 ```cpp
 void backtracking(起點, 已選擇, 所有選項) {
     if (完成需要條件) { // Subset時直接加入, Combinations依條件加入
@@ -138,7 +173,8 @@ void backtracking(起點, 已選擇, 所有選項) {
 }
 ```
 
-- 1B: (不重複, 不可複選) + (Permutation)
+- 1B: (不重複, 不可複選) + (考慮排序: Permutation)
+    - https://leetcode.com/problems/permutations/
 ```cpp
 void backtracking(已拜訪, 已選擇, 所有選項) {
     if (完成需要條件) { // 通常是排序完時
@@ -156,7 +192,9 @@ void backtracking(已拜訪, 已選擇, 所有選項) {
 }
 ```
 
-- 2A: (有重複, 不可複選) + (Subset, Combination)
+- 2A: (有重複, 不可複選) + (不考慮排序: Subset, Combination)
+    - https://leetcode.com/problems/subsets-ii/
+    - https://leetcode.com/problems/combination-sum-ii/
 ```cpp
 sort(所有選項.begin(), 所有選項.end()); // 若有重複, 就要透過排序處理
 
@@ -167,7 +205,8 @@ void backtracking(起點, 已選擇, 所有選項) {
     }
 
     for (選項 : 自起點開始的所有選項) {
-        if (選項index>起點 && 與上一個選項相同) continue;
+        if (選項index>起點 && 與上一個選項相同) continue; // 不可複選所以跳過同樣的
+        // if (i > start && nums[i] == nums[i - 1]) continue; 
 
         // 選擇
         backtracking(起點 + 1, 已選擇, 所有選項);
@@ -176,7 +215,8 @@ void backtracking(起點, 已選擇, 所有選項) {
 }
 ```
 
-- 2B: (有重複, 不可複選) + (Permutation)
+- 2B: (有重複, 不可複選) + (考慮排序: Permutation)
+    - https://leetcode.com/problems/permutations-ii/
 ```cpp
 sort(所有選項.begin(), 所有選項.end()); // 若有重複, 就要透過排序處理
 
@@ -191,7 +231,7 @@ void backtracking(已拜訪, 已選擇, 所有選項) {
 
         // 跳過一樣的, 但只跳過不合順階規則的重複數字, ex: selected=[2], 遇到2''就跳過, 遇到2'可以繼續
         if (選項index>0 && 與上一個選項相同 && 前一個選項沒被選擇) continue;
-        if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
+        // if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
 
 
         // 選擇, 設為已拜訪
@@ -201,7 +241,8 @@ void backtracking(已拜訪, 已選擇, 所有選項) {
 }
 ```
 
-- 3A: (不重複, 可複選) + (Subset, Combination)
+- 3A: (不重複, 可複選) + (不考慮排序: Subset, Combination)
+    - https://leetcode.com/problems/combination-sum/
 ```cpp
 void backtracking(起點, 已選擇, 所有選項) {
     if (完成需要條件) {

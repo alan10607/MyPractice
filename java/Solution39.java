@@ -2,8 +2,35 @@ package leetCode.java;
 
 import java.util.*;
 
-//Backtracking O(n * n^2) O(target), n = candidates.length
+//Backtracking Knapsack O(n^(target / min(candidates))) O(target), n = candidates.length
 class Solution39 {
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        backtracking(0, new ArrayList<>(), candidates, target);
+        return res;
+    }
+
+    public void backtracking(int start, List<Integer> selected, int[] nums, int target) {
+        if (target == 0) {
+            res.add(new ArrayList<>(selected));
+            return;
+        }
+        if (target < 0) {
+            return;
+        }
+
+        for (int i = start; i < nums.length; ++i) {
+            selected.add(nums[i]);
+            backtracking(i, selected, nums, target - nums[i]); // 從i繼續試探, 不是i+1
+            selected.remove(selected.size() - 1);
+        }
+    }
+}
+
+
+class Solution39_2 {
     public List<List<Integer>> res = new ArrayList<>();
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {

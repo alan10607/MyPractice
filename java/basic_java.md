@@ -43,6 +43,7 @@ double c = Math.floor(-8.1); // -9.0
 ```Java
 StringBuilder sb = new StringBuilder();
 sb.append("abc"); // 拼接字串/字元/數字
+sb.setLength(sb.length() - 1);  // 刪除最後一個字元（較常用）
 sb.deleteCharAt(sb.length() - 1); // 刪除最後一個字元
 sb.setLength(0); // 清空
 sb.reverse(); // 反轉字串
@@ -289,16 +290,16 @@ hashSet.size();
 
 ## ArrayList
 ```java
-ArrayList<Integer> listVec = new ArrayList<>();
-listVec.add(1); // push_back
-listVec.add(0, 0); // insert at begin
-listVec.remove(1); // erase at index 1
-listVec.remove(listVec.size() - 1); // pop_back
+ArrayList<Integer> arrayList = new ArrayList<>();
+arrayList.add(1); // push_back
+arrayList.add(0, 0); // insert at begin
+arrayList.remove(1); // erase at index 1
+arrayList.remove(arrayList.size() - 1); // pop_back
 
-listVec.get(1);
-listVec.get(listVec.size() - 1); // back()
-listVec.isEmpty();
-listVec.size();
+arrayList.get(1);
+arrayList.get(arrayList.size() - 1); // back()
+arrayList.isEmpty();
+arrayList.size();
 ```
 
 ## LinkedList (對應 list)

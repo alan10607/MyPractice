@@ -4,21 +4,26 @@ import java.util.*;
 
 //Backtracking O((4^n)/(n^(1/2))) O((4^n)/(n^(1/2))), Catalan number 卡塔蘭數, Cn = (2n)!/((n+1)!n!) = (4^n)/(n^(1/2))
 class Solution22 {
+    List<String> res = new ArrayList<>();
+
     public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList<>();
-        backtracking(n, n, "", res);
+        backtracking("", 0, n);
         return res;
     }
 
-    public void backtracking(int start, int end, String str, List<String> res){
-        if(start > end || start < 0 || end < 0) return;
-        if(start == 0 && end == 0){
+    public void backtracking(String str, int balance, int n) {
+        System.out.println(str);
+        if (n == 0 && balance == 0) {
             res.add(str);
             return;
         }
 
-        backtracking(start - 1, end, str + "(", res);
-        backtracking(start, end - 1, str + ")", res);
+        if (n < 0 || balance < 0) {
+            return;
+        }
+
+        backtracking(str + "(", balance + 1, n - 1);
+        backtracking(str + ")", balance - 1, n);
     }
 }
 /*

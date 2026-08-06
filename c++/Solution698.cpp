@@ -27,7 +27,6 @@ public:
             visited |= (1 << i); // 第i位數表示nums[i]是否已經visited
 
             if (backtracking(i, visited, sum + nums[i], target, k, nums)) {
-                cout << visited << "!!!!!!!!!";
                 return true;
             }
 

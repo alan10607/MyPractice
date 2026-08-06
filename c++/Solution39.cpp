@@ -1,4 +1,4 @@
-//Backtracking Knapsack O(n * 2^n) O(target), n = candidates.size()
+//Backtracking Knapsack O(n^(target / min(candidates))) O(target), n = candidates.length
 class Solution39 {
 public:
     vector<vector<int>> res;

@@ -18,7 +18,8 @@ public:
             return;
         }
 
-        for (int j = 0; j < board.size(); ++j) { // 迴圈跑一行, 遞迴在跑所有行
+        // for loop 處理當前row的皇后要放在哪個 col, backtracking 處理下一個 row
+        for (int j = 0; j < board.size(); ++j) {
             if (col.count(j) || sum.count(i + j) || sub.count(i - j)) continue;
 
             col.insert(j);

@@ -1,4 +1,4 @@
-//Backtracking O(n * n!) O(n), 時間複雜度要進行(n!)次backtracking, 每次要跑一次for(n)
+//Backtracking O(n * n!) O(n), 時間複雜度要進行(n!)次backtracking, 複製selected要O(n)
 class Solution46 {
 public:
     vector<vector<int>> res;

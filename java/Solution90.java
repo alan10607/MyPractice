@@ -2,6 +2,43 @@ package leetCode.java;
 
 import java.util.*;
 
+//Backtracking O(n * 2^n) O(n)
+class Solution90 {
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums); // 排序後相同元素會相鄰，方便跳過重複組合
+        backtracking(0, new ArrayList<>(), nums);
+        return res;
+    }
+
+    public void backtracking(int start, List<Integer> selected, int[] nums) {
+        res.add(new ArrayList<>(selected));
+
+        for (int i = start; i < nums.length; ++i) {
+            if (i > start && nums[i] == nums[i - 1]) { // 剪枝重複相, 留給底下backtracking處理就好
+                continue;
+            }
+
+            selected.add(nums[i]);
+            backtracking(i + 1, selected, nums);
+            selected.remove(selected.size() - 1);
+        }
+    }
+}
+/*
+nums = [1,2,2]
+
+                        []
+        1               2               2'
+    12     12'          22'             (x)
+    122'   (x)
+
+
+(x)表示應該要被剪掉, 即重複的set
+*/
+
+
 //Backtracking O(n * 2^n) O(n), 漸進意義上遞迴所需時間複雜度會大於排序所需
 class Solution90 {
     public List<List<Integer>> res = new ArrayList<>();
