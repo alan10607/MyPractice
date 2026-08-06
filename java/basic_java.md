@@ -26,6 +26,17 @@ Character.toUpperCase(ch); // 大寫 char
 Character.isDigit(ch); // 數字（Unicode 數字）
 Character.isLetter(ch); // 字母（包含英文與非英文，例如日文、中文等文字系統的字母類字元）
 Character.isLetterOrDigit(ch); // 數字 + 字母（英文與非英文）
+
+
+// 無條件進位
+double a = Math.ceil(8.1);  // 9.0
+double b = Math.ceil(8.0);  // 8.0
+double c = Math.ceil(-8.1); // -8.0
+
+// 無條件捨去
+double a = Math.floor(8.9);  // 8.0
+double b = Math.floor(8.0);  // 8.0
+double c = Math.floor(-8.1); // -9.0
 ```
 
 ## StringBuilder (高效處理字串拼接)
@@ -71,6 +82,40 @@ Map<String, Integer> map = new HashMap<>(Map.of(
     "C", 3
 ));
 ```
+
+## TreeMap (紅黑樹，有序 Map，對應 C++ map)
+```java
+TreeMap<Integer, Integer> map = new TreeMap<>();
+
+map.put(key, value); // 插入或更新 (自動依 key 排序)
+map.get(key); // 取得值，若無返回 null
+map.getOrDefault(key, 0); // 若無該 key 則返回預設值 0
+map.put(key, map.getOrDefault(key, 0) + 1); // 計數
+map.containsKey(key); // 檢查是否存在 key
+map.remove(key); // 刪除 key
+map.putIfAbsent(key, value); // 若 key 不存在則放入
+map.computeIfAbsent(key, k -> new ArrayList<>()); // 若 key 不存在時執行 Lambda 並放入
+map.keySet(); // 取得所有 key (已排序)
+map.values(); // 取得所有 value
+map.entrySet(); // 取得所有 key-value pair
+
+map.firstKey(); // 取得最小 key
+map.lastKey(); // 取得最大 key
+map.firstEntry(); // 取得最小 key-value pair
+map.lastEntry(); // 取得最大 key-value pair
+
+map.floorKey(x);    // <= x 最大值
+map.ceilingKey(x);  // >= x 最小值
+map.lowerKey(x);    // < x 最大值
+map.higherKey(x);   // > x 最小值
+
+TreeMap<Integer, Integer> map = new TreeMap<>(); // 預設：小 -> 大
+TreeMap<Integer, Integer> map = new TreeMap<>((a, b) -> a - b); // 小 -> 大
+
+TreeMap<Integer, Integer> map = new TreeMap<>(Comparator.reverseOrder()); // 大 -> 小
+TreeMap<Integer, Integer> map = new TreeMap<>((a, b) -> b - a); // 大 -> 小
+```
+
 
 ## HashSet (雜湊集合，對應 C++ unordered_set)
 ```Java

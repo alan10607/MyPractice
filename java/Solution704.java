@@ -4,14 +4,14 @@ package leetCode.java;
 class Solution704 {
     public int search(int[] nums, int target) {
         //nums sorted in ascending order
-        int l = 0;
-        int r = nums.length - 1;
-        while(l <= r){
-            int mid = (l + r) / 2;
-            if(nums[mid] == target) return mid;
-            if(nums[mid] < target){
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
                 l = mid + 1;
-            }else{//target < num[mid]
+            } else { // num[mid] > target
                 r = mid - 1;
             }
         }

@@ -24,15 +24,77 @@ void fastSlowPointer(vector<int>& nums) {
 - https://leetcode.com/problems/advantage-shuffle/
 
 ### Binary Search
-- https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 - https://leetcode.com/problems/binary-search/
+- https://leetcode.com/problems/search-a-2d-matrix/
 - https://leetcode.com/problems/koko-eating-bananas/
+- https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+- https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+- https://leetcode.com/problems/time-based-key-value-store/
+- https://leetcode.com/problems/median-of-two-sorted-arrays/
 - https://leetcode.com/problems/split-array-largest-sum/
 - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
 - https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 
-1. 找某目標index, 不存在則返回-1  
-    - 搜索區間是[l, r], mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]
+
+- 關於lower, upper bound
+    - lower_bound(下界): 找第一個 >= target 的位置 / 找第一個不小於某目標的數
+    - upper_bound(上界): 找第一個 > target 的位置 / 找第一個大於某目標的數
+
+- 關於 floor, ceiling
+    - floor(地板): 找最大 <= target 的數
+        - max(x <= target)
+        - index 對應: upper_bound - 1
+
+    - ceiling(天花板): 找最小 >= target 的數
+        - min(x >= target)
+        - index 對應: lower_bound
+
+
+    - ex:[0,1,1,1,1], target=1
+        - lower_bound, upper_bound = [1,5)
+        - floor(value), ceiling(value) = [1,1]
+        - floor(index), ceiling(index) = [4,1]
+
+
+    - ex:[0,1,3,4], target=2
+        - lower_bound, upper_bound = [2,2)
+        - floor(value), ceiling(value) = [1,3]
+        - floor(index), ceiling(index) = [1,2]
+
+
+    - ex:[0,1,3,4], target=5
+        - lower_bound, upper_bound = [4,4)
+        - floor(value), ceiling(value) = [4,null]
+        - floor(index), ceiling(index) = [3,null]
+
+
+    - ex:[0,1,3,4], target=2
+        - lower_bound = 2 (value=3)
+        - upper_bound = 2 (value=3)
+        - floor = 1
+        - ceiling = 3
+
+
+    - ex:[0,1,3,4], target=5
+        - lower_bound = 4 (不存在)
+        - upper_bound = 4 (不存在)
+        - floor = 4
+        - ceiling = 不存在
+
+- 關於while 
+    - 找目標值: 通常 while (l <= r)
+    - 找極值, 最大, 最小值: 通常 while (l < r)
+
+- 關於mid
+    - mid = l + (r - l) / 2;
+    - 原因: 避免 (l + r) 相加 overflow
+
+
+
+1. 找某目標index, 不存在則返回-1
+    - 搜索區間是 [l, r]
+    - mid不為target時, 應該尋找[l, mid - 1]或[mid + 1, r]
+    - 因為是精確搜尋, 所以mid沒命中時, 要排除mid本身, 沒命中時: l = mid + 1或r = mid - 1
 ```cpp
 int binarySearch(vector<int>& nums, int target) {
     int l = 0, r = nums.size() - 1;
@@ -50,42 +112,43 @@ int binarySearch(vector<int>& nums, int target) {
 }
 ```
 
-2. lower_bound, 左側邊界, 找第一個不小於某目標的數
-    - ex:[0,1,1,1,1], target=1, 則lower_bound, upper_bound = [1,5)
-    - ex:[0,1,3,4],   target=2, 則lower_bound, upper_bound = [2,2)
-    - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
-    - 若相同, 則應該往左側尋找
+2. lower_bound, 左側邊界, 找第一個不小於某目標的數, 第一個 >= target的數
+    - 搜索區間是 [l, r)
+    - 當 nums[mid] >= target 時:
+        mid 可能是答案, 不能丟棄, 所以 r = mid
+    - 當 nums[mid] < target 時:
+        mid 一定不是答案, 所以 l = mid + 1
+    - 記憶方法: 往左慢慢逼近
 ```cpp
 int lowerBound(vector<int>& nums, int target) {
     int l = 0, r = nums.size();
     while (l < r) {
         int mid = l + (r - l) / 2;
-        if (nums[mid] == target) {
-            r = mid
-        } else if (nums[mid] < target) {
-            l = mid + 1;
-        } else if (nums[mid] > target) {
+        if (nums[mid] >= target) {
             r = mid;
+        } else { // nums[mid] < target
+            l = mid + 1;
         }
     }
     return l; // 或r也可以, 因為l == r
 }
 ```
 
-3. upper_bound, 右側邊界, 找第一個大於某目標的數
-    - ex:[0,1,1,1,1], target=1, 則lower_bound, upper_bound = [1,5)
-    - ex:[0,1,3,4],   target=2, 則lower_bound, upper_bound = [2,2)
-    - 搜索區間是[l, r), mid不為target時, 應該尋找[l, mid)或[mid + 1, r)
-    - 若相同, 則應該往右側尋找
+3. upper_bound, 右側邊界, 找第一個大於某目標的數, 第一個 > target的數
+    - 搜索區間是 [l, r)
+    - 當 nums[mid] <= target 時:
+        mid 一定不是答案, 所以 l = mid + 1
+    - 當 nums[mid] > target 時:
+        mid 可能是答案, 不能丟棄, 所以 r = mid
+    - 記憶方法: 往右快速逼近
 ```cpp
 int upperBound(vector<int>& nums, int target) {
     int l = 0, r = nums.size();
     while (l < r) {
-        if (nums[mid] == target) {
-            l = mid + 1
-        } else if (nums[mid] < target) {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] <= target) {
             l = mid + 1;
-        } else if (nums[mid] > target) {
+        } else { // nums[mid] > target
             r = mid;
         }
     }
