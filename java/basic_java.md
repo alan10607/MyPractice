@@ -10,6 +10,7 @@ Arrays.sort(arr); // 陣列排序
 
 // String 與 char 轉換
 String s = "hello";
+s.equals(s2); // 相同
 char[] chars = s.toCharArray(); // 字串轉字元陣列
 String newStr = new String(chars); // 字元陣列轉字串
 char c = s.charAt(0); // 取得特定字元

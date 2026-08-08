@@ -5,6 +5,24 @@ import java.util.*;
 //DP O(n^2) O(n), n = s.length()
 class Solution139 {
     public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+        for (int i = 0; i <= n; ++i) {
+            for (String word : wordDict) {
+                int len = word.length();
+                if (i >= len && dp[i - len] && word.equals(s.substring(i - len, i))) {
+                    dp[i] = true;
+                }
+            }
+        }
+        return dp[n];
+    }
+}
+
+
+class Solution139_2 {
+    public boolean wordBreak(String s, List<String> wordDict) {
         Set<String> words = new HashSet<>(wordDict);
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;

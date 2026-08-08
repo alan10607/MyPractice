@@ -3,14 +3,14 @@ package leetCode.java;
 //DP O(n) O(1)
 class Solution746 {
     public int minCostClimbingStairs(int[] cost) {
-        int one = 0;
-        int two = 0;
-        for(int i=2; i<=cost.length; i++){//跨過n個要包含到n
-            int temp = one;
-            one = Math.min(one + cost[i - 1], two + cost[i - 2]);
-            two = temp;
+        int cur = 0, pre = 0;
+        // i<2可以直接走到, 最多要計算到cost.length, 計算範圍是[2, n]
+        for (int i = 2; i <= cost.length; ++i) {
+            int temp = cur;
+            cur = Math.min(cur + cost[i - 1], pre + cost[i - 2]);
+            pre = temp;
         }
-        return one;
+        return cur;
     }
 }
 /*       0  1  2

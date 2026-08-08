@@ -3,20 +3,36 @@ package leetCode.java;
 //Greedy Kadane's Algorithm O(n) O(1)
 class Solution152 {
     public int maxProduct(int[] nums) {
-        int max = 1;
-        int min = 1;
-        int res = Integer.MIN_VALUE;
-        for(int i=0; i<nums.length; i++){
-            int temp = max;
-            //不能連續故該點的最大或最小值, 可能是這個數本身或是乘上之前帶過來的
-            max = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
-            min = Math.min(nums[i], Math.min(temp * nums[i], min * nums[i]));
-            res = Math.max(res, max);
+        int maxPro = 1, minPro = 1, res = Integer.MIN_VALUE;
+        for (int num : nums) {
+            int temp = maxPro;
+            maxPro = Math.max(num, Math.max(num * maxPro, num * minPro));
+            minPro = Math.min(num, Math.min(num * temp, num * minPro));
+            res = Math.max(res, maxPro);
         }
         return res;
     }
 }
 /*
-max = max(num, max*num, min*num)
-min = min(num, max*num, min*num)
- */
+nums = [2,3,-2,4]
+
+
+/*
+考慮有可能負負得正
+
+maxPro = 以目前位置結尾的最大 subarray product 
+    = max(nums[i], nums[i]＊maxPro, nums[i]＊minPro)
+
+minPro = 以目前位置結尾的最小 subarray product
+    = min(nums[i], nums[i]＊maxPro, nums[i]＊minPro)
+
+res = 到目前為止最大的答案
+
+nums=   2,  3,  -2, 4
+maxPro= 2   6   -2  4
+minPro= 2   3   -6  -24
+
+
+res=6
+
+*/

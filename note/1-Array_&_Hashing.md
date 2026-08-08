@@ -214,3 +214,8 @@ vector<int> monotonicDeque(vector<int>& nums) {
 ## Encode /Decode
 - https://leetcode.com/problems/encode-and-decode-strings/
 - https://leetcode.com/problems/group-anagrams/
+
+## Kadane's Algorithm 卡單算法
+- https://leetcode.com/problems/maximum-subarray/
+- https://neetcode.io/problems/maximum-product-subarray/
+解決最大子陣列總和 (Maximum Subarray)

@@ -1,4 +1,4 @@
-//DP NP-Complete O(n^2) O(n), O(n^2) = O(n * (target * 2)), 其實target就是n的一半
+//DP Knapsack O(n^2) O(n), O(n^2) = O(n * (target * 2)), 其實target就是n的一半
 class Solution416 {
 public:
     bool canPartition(vector<int>& nums) {

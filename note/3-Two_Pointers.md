@@ -189,6 +189,7 @@ string slidingWindow(string s) {
 ### Palindrome 迴文
 - https://leetcode.com/problems/valid-palindrome/
 - https://leetcode.com/problems/longest-palindromic-substring/
+- https://leetcode.com/problems/palindromic-substrings/
 ```cpp
 string palindrome(int l, int r, string s) {
     while (0 <= l && r < s.length() && s[l] == s[r]) {
@@ -200,6 +201,86 @@ string palindrome(int l, int r, string s) {
     return s.substr(l, r - l + 1);
 }
 ```
+
+#### Manacher's Algorithm 拉馬車算法
+```cpp
+string longestPalindrome(string s) {
+    // 1. 插入#與頭尾 ex: "abba" -> "^#a#b#b#a#$"
+    string t = "^";
+    for (char c : s) {
+        t += "#";
+        t += c;
+    }
+    t += "#$";
+
+    // 2. Manacher, find p[]
+    vector<int> p(t.size(), 0); // p[i]代表t[i]可以向左右展開多少, 或說是s[i]為中心的迴文長度
+    int c = 0, r = 0; // c=展開中心, r=展開最右界(包含)
+    int maxLen, maxCenter = 0;
+    for (int i = 1; i < n - 1; i++) { // 頭尾不判斷
+        if (i < r) { // 在範圍內可以透過鏡像快速找到可行的下限
+            int mirror = 2 * c - i; // = c - ( i - c)
+            p[i] = min(r - i, p[mirror]);
+        }
+
+        while (t[i + p[i] + 1] == t[i - p[i] - 1]) { // 展開
+            p[i]++;
+        }
+
+        if (i + p[i] > r) { // 更新最靠右的邊界
+            c = i;
+            r = i + p[i];
+        }
+
+        if (p[i] > maxLen) { // 記錄最長迴文
+            maxLen = p[i];
+            maxCenter = i;
+        }
+    }
+
+    // 3. 轉回原始字串
+    int start = (maxCenter - maxLen) / 2;
+    return s.substr(start, maxLen);
+}
+```
+ex:
+s = "bcbabcc"
+
+1. 插入#與頭尾
+t = "^#b#c#b#a#b#c#c#$"
+此時不管從哪個字符看, 左右擴展長度=回文串長度
+ex1: #b# -> b為中心左右擴展1, 回文長度1(b)
+ex2: #b#c#b# -> c為中心左右擴展3, 回文長度3(bcb)
+ex3: #c#c# -> #為中心左右擴展2, 回文長度2(cc)
+
+
+2. 透過對稱性, 可以鏡像判斷回文長度
+可以想成回文都是一朵朵香菇
+P[i]表對於t[i]左右可以擴展多少
+C表示蘑菇中心位置
+R表示蘑菇右側邊界
+```cpp
+
+                _________________________________________
+        _________________________   |           _________
+        _________   |               |           ____|____________
+            |       |               |               |   |________
+    _   _   |   _   |               |               |   |   |
+    ^   #   b   #   c   #   b   #   a   #   b   #   c   #   c   #   $
+P[] 0   0   1   0   3   0   1   0   5   0   1   0   1   0   1   0   0
+                ^       ^-------^       ^-------^   ^   ^   ^---^
+                        透過鏡像得到      透過鏡像得到  |   |
+                                                    |   |
+                                                    c的鏡像香菇超過a大菇的範圍,不能照抄
+                                                    只能假設他最大可以碰到R
+                                                    i距離R=R-i
+                                                    距離中心i-C, 鏡像位置是 C-(i-C)=2*C-i
+                                                    P[i]=min(R-i, P[2*C-i])
+
+                                                    #也是同理
+```
+
+3. 求出所有P[]後, 最長回文字串=P[]中的最大值
 
 
 ### N-Sum

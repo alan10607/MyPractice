@@ -8,6 +8,6 @@ public:
             one = max(one, nums[i] + two);
             two = temp;
         }
-        return max(one, two);
+        return one;
     }
 };
