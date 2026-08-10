@@ -1,4 +1,4 @@
-//2D-DP O(n) O(n), n = prices.size()
+//DP Stock O(n) O(n), n = prices.size()
 class Solution309 {
 public:
     int maxProfit(vector<int>& prices) {
@@ -9,13 +9,12 @@ public:
         for (int i = 1; i < n; ++i) {
             dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
             if (i == 1) { // base case2
-                // 還沒隔兩天, 維持前一天狀態已做buy, 或昨天cool今天才buy
+                // 還沒隔兩天, 維持前一天狀態已做buy, 或昨天cool今天才buy(dp[i - 2][0]不存在)
                 dp[i][1] = max(dp[i - 1][1], -prices[1]);
             } else { // i > 1
                 // 賣出後要隔一天才能買, 賣出後的狀態是無股票的dp[i][0], 在這裡要用前天的i-2
                 dp[i][1] = max(dp[i - 1][1], dp[i - 2][0] - prices[i]);
             }
-            cout << dp[i][0] << dp[i][1] << "\n";
         }
         return dp[n - 1][0];
     }

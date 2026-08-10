@@ -1,4 +1,4 @@
-//Slide Window Greedy O(n) O(1), n = prices.size()
+//Slide Window Greedy Stock O(n) O(1), n = prices.size()
 class Solution121 {
 public:
     int maxProfit(vector<int>& prices) {

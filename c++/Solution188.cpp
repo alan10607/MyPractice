@@ -1,4 +1,4 @@
-//DP O(nk) O(1), n = prices.size()
+//DP Stock O(nk) O(1), n = prices.size()
 class Solution188 {
 public:
     int maxProfit(int k, vector<int>& prices) { // Solution123的完全體

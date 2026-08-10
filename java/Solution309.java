@@ -1,7 +1,30 @@
 package leetCode.java;
 
-//2D-DP O(n) O(1)
+//DP Stock O(n) O(n), n = prices.size()
 class Solution309 {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2]; // //[第i+1天][0/1=是/否持有股票]
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; ++i) {
+            // 賣出
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+
+            // 買入
+            if (i == 1) {
+                dp[i][1] = Math.max(dp[i - 1][1], -prices[i]); // i==1時dp[i - 2][0]不存在, 即不存在兩天前不持有股票的狀態
+            } else {
+                dp[i][1] = Math.max(dp[i - 1][1], dp[i - 2][0] - prices[i]); // 有cool要拿前天的資料買入
+            }
+        }
+        return dp[n - 1][0];
+    }
+}
+
+
+//DP Stock O(n) O(n), n = prices.size()
+class Solution309_2 {
     public int maxProfit(int[] prices) {
         //After selling the stock need cooldown one day
         int free = 0;

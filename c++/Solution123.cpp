@@ -1,4 +1,4 @@
-//DP O(n) O(1), n = prices.size()
+//DP Stock O(n) O(1), n = prices.size()
 class Solution123 {
 public:
     int maxProfit(vector<int>& prices) {

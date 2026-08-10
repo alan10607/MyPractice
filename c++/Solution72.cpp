@@ -25,6 +25,13 @@ public:
     }
 };
 /*
+dp[i][j] = 把 word1 前 i 個字元
+           轉換成 word2 前 j 個字元
+           所需要的最少操作次數
+
+dp[i][0] = i, 全部 delete
+dp[0][j] = j, 全部 insert
+
 if 字母一樣:
     i,j往前一個不增加動作次數
 else:

@@ -1,4 +1,4 @@
-//Backtracking O(n) O(n), n = p.length
+//Backtracking DP O(n) O(n), n = p.length
 class Solution10 {
 public:
     bool isMatch(string s, string p) {
@@ -10,20 +10,23 @@ public:
         if(i == s.length()) return j + 1 < p.length() && p[j + 1] == '*' && isMatch(i, j + 2, s, p);//濾掉p=".*"的情況
         if(j == p.length()) return false;
 
-        if(j + 1 < p.length() && p[j + 1] == '*'){
+        if(j + 1 < p.length() && p[j + 1] == '*'){//a* or .*的情況
             return ((s[i] == p[j] || p[j] == '.') && isMatch(i + 1, j, s, p)) 
-                    || isMatch(i, j + 2, s, p); //跳過 a*這種preceding element
+                    || isMatch(i, j + 2, s, p); //跳過 a*這種情況
         }else{
             return (s[i] == p[j] || p[j] == '.') && isMatch(i + 1, j + 1, s, p);
         }
     }
 };
-/* _代表空白, s跟p剩下甚麼會是甚麼結果:
+/* 
+_代表空白, s跟p剩下甚麼會是甚麼結果:
+
 s   p   res
 _   _   T
 _   a*  T
 _   .*  T
 _   a   F
+b   .   T
 b   _   F
 b   a   F
 
