@@ -55,6 +55,7 @@ String res = sb.toString(); // 轉回 String
 ```Java
 ArrayList<Integer> list = new ArrayList<>();
 list.add(1); // push_back
+list.addAll(collection); 
 list.get(0); // 取得元素
 list.set(0, 10); // 修改元素
 list.remove(list.size() - 1); // 移除尾端
@@ -63,6 +64,7 @@ list.isEmpty(); // 是否為空
 list.clear(); // 清空
 List.of(1, 2, 3, 4, 5); // 不可變
 List<Integer> list = new ArrayList<>(List.of(1, 2, 3, 4, 5));
+Collections.reverse(list); // 倒轉list
 ```
 
 ## HashMap (雜湊表，對應 C++ unordered_map)
@@ -77,7 +79,8 @@ map.remove(key); // 刪除 key
 map.putIfAbsent(key, new ArrayList<>()); // 傳入現成物件，若 key 不存在則放入
 map.computeIfAbsent(key, k -> new ArrayList<>()); // 傳入 Lambda，若 key 不存在時才執行並放入
 map.keySet(); // 取得所有 key 的集合
-map.values(); // 取得所有value
+map.values(); // 取得所有 value
+map.entrySet(); //取得entrySet, 使用: for (Map.Entry<Integer, Integer> entry : map.entrySet())
 Map<String, Integer> map = new HashMap<>(Map.of(
     "A", 1,
     "B", 2,
@@ -396,7 +399,10 @@ String.valueOf(123); // to_string
 Integer.parseInt("123"); // stoi
 Math.max(a, b);
 Math.min(a, b);
-(int)(Math.random() * (b - a)) + a; // 獲得 [a, b) 隨機整數
+double x = Math.pow(a, b); // a^b, 注意: 回傳固定是double
+double x = Math.random(); // 獲得[0.0, 1.0), 注意: 回傳固定是double
+a + (int)(Math.random() * (b - a)); // 獲得 [a, b) 隨機整數
+a + (int)(Math.random() * (b - a + 1)); // 獲得 [a, b] 隨機整數
 
 // Java 的 Collections 二分查找 (需先排序)
 import java.util.Collections;

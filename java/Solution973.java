@@ -5,19 +5,19 @@ import java.util.*;
 //Heap O(nlogk) O(k)
 class Solution973 {
     public int[][] kClosest(int[][] points, int k) {
-        //<x,y,距離>, 距離遠到近排列
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[2] - a[2]);
-        for(int[] point : points){
-            pq.offer(new int[]{point[0], point[1], point[0] * point[0] + point[1] * point[1]});
-            if(pq.size() > k)
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+            (a, b) -> (b[0] * b[0] + b[1] * b[1]) - (a[0] * a[0] + a[1] * a[1]) 
+        ); // max heap, 依照距離大到小
+        for (int[] point : points) {
+            pq.offer(point);
+            if (pq.size() > k) { // 拿掉大的
                 pq.poll();
+            }
         }
 
         int[][] res = new int[pq.size()][2];
-        for(int i=0; i<res.length; i++){
-            int[] point = pq.poll();
-            res[i][0] = point[0];
-            res[i][1] = point[1];
+        for (int i = 0; i < res.length; ++i) {
+            res[i] = pq.poll();
         }
         return res;
     }

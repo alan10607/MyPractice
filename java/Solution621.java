@@ -6,30 +6,33 @@ import java.util.*;
 class Solution621 {
     public int leastInterval(char[] tasks, int n) {
         Map<Character, Integer> counts = new HashMap<>();
-        for(char ch : tasks)
-            counts.put(ch, counts.getOrDefault(ch, 0) + 1);
+        for (char task : tasks) {
+            counts.put(task, counts.getOrDefault(task, 0) + 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a); // max heap
+        for (int count : counts.values()) {
+            pq.offer(count);
+        }
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);//多排到少
-        for(Map.Entry<Character, Integer> entry : counts.entrySet())
-            pq.offer(entry.getValue());
-
-        int period = n + 1;//A要冷卻2次的話, 週期為3
         int res = 0;
-        while(!pq.isEmpty()){
-            List<Integer> remain = new ArrayList<>();
+        int period = n + 1; // 任務之間間隔n的話, 實際上週期是n+1, ex: A要冷卻2次的話, 週期為3[A,B,C,A...]
+        while (!pq.isEmpty()) {
+            List<Integer> standBy = new ArrayList<>();
             int time = 0;
-            while(!pq.isEmpty() && time < period){
-                time++;
-                int count = pq.poll() - 1;
-                if(count > 0)
-                    remain.add(count);
+            while (time < period && !pq.isEmpty()) {
+                int remain = pq.poll() - 1;
+                if (remain > 0) {
+                    standBy.add(remain);
+                }
+                ++time;
             }
 
-            //remain為空則表示是最後一次
-            res += remain.isEmpty() ? time : period;
+            // standBy為空則表示是最後一次
+            res += standBy.isEmpty() ? time : period;
 
-            for(int count : remain)
-                pq.offer(count);//沒做完的task放回
+            for (int remain : standBy) {
+                pq.offer(remain); // 沒做完的task放回
+            }
         }
         return res;
     }

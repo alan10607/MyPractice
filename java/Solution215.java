@@ -3,37 +3,38 @@ package leetCode.java;
 //Binary Search O(n) O(logn), 快排時間複雜度為nlogn, 此處只排單邊, 空間複雜度為遞迴期望值
 class Solution215 {
     public int findKthLargest(int[] nums, int k) {
-        //must solve it in O(n) time complexity
-        return quickFind(0, nums.length - 1, k - 1, nums);//記得k要-1, 原k是第幾個
+        // Can you solve it without sorting? -> quickSelect
+        return quickSelect(0, nums.length - 1, nums, k - 1); // 記得轉index, 原k是第幾個
     }
 
-    public int quickFind(int i, int j, int k, int[] nums){
-        int p = i;//左側為pivot
-        int l = i + 1;
-        int r = j;
-        //大排到小
-        while(l <= r){
-            if(nums[l] >= nums[p]){
-                l++;
-            }else if(nums[r] <= nums[p]){
-                r--;
-            }else{
-                swap(l, r, nums);
+    public int quickSelect(int start, int end, int[] nums, int index) {
+        int pivot = nums[start];
+        int l = start + 1;
+        int r = end;
+
+        // 由大到小排列
+        while (l <= r) {
+            if (nums[l] > pivot) {
+                ++l;
+            } else if (nums[r] < pivot) {
+                --r;
+            } else {
+                swap(l++, r--, nums); // 記得要移動
             }
         }
 
-        swap(p, r, nums);
+        swap(start, r, nums);
 
-        if(k == r){//此時r為pivot
+        if (index == r) {
             return nums[r];
-        }else if(k < r){
-            return quickFind(i, r - 1, k, nums);
-        }else{//r > k
-            return quickFind(r + 1, j, k, nums);
+        } else if (index < r) {
+            return quickSelect(start, r - 1, nums, index);
+        } else { // index > r
+            return quickSelect(r + 1, end, nums, index);
         }
     }
 
-    public void swap(int a, int b, int[] nums){
+    public void swap(int a, int b, int[] nums) {
         int temp = nums[a];
         nums[a] = nums[b];
         nums[b] = temp;
@@ -67,3 +68,18 @@ r   r交換pivot
 4
 -   return 4
 */
+
+
+//Heap O(nlogn) O(k), n = nums.size()
+class Solution215_2 {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(); // min heap, 小排到大
+        for (int num : nums) {
+            pq.offer(num);
+            if (pq.size() > k) { // 拿掉最小的
+                pq.poll();
+            }
+        }
+        return pq.peek();
+    }
+}

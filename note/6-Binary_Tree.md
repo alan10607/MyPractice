@@ -324,17 +324,19 @@ void merge(vector<int>& nums, int start1, int end1, int start2, int end2) {
 ```cpp
 quickSort(nums, 0, nums.size() - 1);
 
-void quickSort(vector<int>& nums, int start, int end) { // 要用隨機pivot才會pass
+void quickSort(vector<int>& nums, int start, int end) {
     if (start >= end) return;
 
-    int p = start + (rand() % (end + 1 - start)); // [start, end]範圍的隨機數
+    int p = start + (rand() % (end + 1 - start)); // [start, end]範圍的隨機數, 避免已排序數列之類的極端情況
     int pivot = nums[p];
     swap(nums[start], nums[p]); // 先放到左邊待命, 結束while再換回來
 
     int l = start + 1;
     int r = end;
     while (l <= r) {// r = mid - 1的版本, 要是<=
-        if (nums[l] < pivot) { // // 二路快排, 等於pivot也不跳過, 遇到有大量相同數的case, 左右partition會比較一致
+        // 二路快排, nums[l]==pivot 或 nums[r]==pivot時不跳過, 直接交換,
+        // l,r同時往中間移動, 讓大量相同數字可以分散到左右兩區, 避免左右partition不平衡使Quick Sort退化
+        if (nums[l] < pivot) {
             ++l;
         } else if (nums[r] > pivot) {
             --r;
@@ -342,6 +344,9 @@ void quickSort(vector<int>& nums, int start, int end) { // 要用隨機pivot才�
             swap(nums[l++], nums[r--]);
         }
     }
+
+    // l>r時, [start ... r][l ... end], r正好是在左半部分的最後一個位置, 
+    // 跟l換的話會把nums[l](應該放在右側的)換到左側去了
     swap(nums[start], nums[r]);
 
     quickSort(nums, start, r - 1);
@@ -350,15 +355,18 @@ void quickSort(vector<int>& nums, int start, int end) { // 要用隨機pivot才�
 ```
 
 ### Quick Select
+- https://leetcode.com/problems/kth-largest-element-in-an-array/
 ```cpp
 quickSelect(nums, 0, nums.size() - 1, index);
     
 int quickSelect(vector<int>& nums, int start, int end, int index) {
     int pivot = nums[start]; // 直接用最左當pivot的版本
+    //or int pivot = start + (rand() % (end + 1 - start)); 避免極端情況
     int l = start + 1;
     int r = end;
     while (l <= r) {
-        // 二路快排, 等於pivot也不跳過, 這樣遇到中間有大量相同數的test case, 左右partition會比較一致
+        // 二路快排, nums[l]==pivot 或 nums[r]==pivot時不跳過, 直接交換,
+        // l,r同時往中間移動, 讓大量相同數字可以分散到左右兩區, 避免左右partition不平衡使Quick Sort退化
         if (nums[l] > pivot) {
             ++l;
         } else if (nums[r] < pivot){
@@ -367,7 +375,10 @@ int quickSelect(vector<int>& nums, int start, int end, int index) {
             swap(nums[l++], nums[r--]);
         }
     }
-    swap(nums[start], nums[r]); // 此時r會較大, 移到左邊
+
+    // l>r時, [start ... r][l ... end], r正好是在左半部分的最後一個位置, 
+    // 跟l換的話會把nums[l](應該放在右側的)換到左側去了
+    swap(nums[start], nums[r]);
 
     if (index == r) {
         return nums[r];

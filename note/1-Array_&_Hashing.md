@@ -205,17 +205,33 @@ vector<int> monotonicDeque(vector<int>& nums) {
 
 
 ## Heap
-- https://leetcode.com/problems/top-k-frequent-elements/
-- https://leetcode.com/problems/top-k-frequent-words/
+- https://leetcode.com/problems/kth-largest-element-in-a-stream//
+- https://leetcode.com/problems/last-stone-weight/
+- https://leetcode.com/problems/k-closest-points-to-origin/
+- https://leetcode.com/problems/kth-largest-element-in-an-array/
 - https://leetcode.com/problems/design-twitter/
 - https://leetcode.com/problems/find-median-from-data-stream/
+- https://leetcode.com/problems/task-scheduler/
+- https://leetcode.com/problems/design-twitter/
+- https://leetcode.com/problems/top-k-frequent-elements/
+- https://leetcode.com/problems/top-k-frequent-words/
 
 
 ## Encode /Decode
 - https://leetcode.com/problems/encode-and-decode-strings/
 - https://leetcode.com/problems/group-anagrams/
 
+# Greedy
+- https://leetcode.com/problems/jump-game/
+- https://leetcode.com/problems/jump-game-ii/
+- https://leetcode.com/problems/gas-station/
+- https://leetcode.com/problems/hand-of-straights/
+- https://leetcode.com/problems/merge-triplets-to-form-target-triplet/
+- https://leetcode.com/problems/partition-labels/
+- https://leetcode.com/problems/valid-parenthesis-string/
+
 ## Kadane's Algorithm 卡單算法
 - https://leetcode.com/problems/maximum-subarray/
 - https://neetcode.io/problems/maximum-product-subarray/
 解決最大子陣列總和 (Maximum Subarray)
+

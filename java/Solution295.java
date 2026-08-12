@@ -4,33 +4,37 @@ import java.util.*;
 
 //Heap MedianFinder(), findMedian(): O(1) O(n), addNum(): O(logn) O(n)
 class MedianFinder {//Solution295
-    PriorityQueue<Integer> smallHeap;
-    PriorityQueue<Integer> bigHeap;
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
 
     public MedianFinder() {
-        smallHeap = new PriorityQueue<>((a, b) -> b - a);//大到小
-        bigHeap = new PriorityQueue<>((a, b) -> a - b);//小到大
     }
-
+    
     public void addNum(int num) {
-        if(smallHeap.isEmpty() || num < smallHeap.peek()){//比基準直小
-            smallHeap.offer(num);
-        }else{
-            bigHeap.offer(num);
-        }
+        // 先丟到min, 然後從min再選一個到max, 混合
+        minHeap.offer(num);
+        maxHeap.offer(minHeap.poll());
 
-        if(smallHeap.size() > bigHeap.size() + 1){
-            bigHeap.offer(smallHeap.poll());
-        }else if(smallHeap.size() < bigHeap.size()){
-            smallHeap.offer(bigHeap.poll());
+        if (minHeap.size() < maxHeap.size()) { // 保持minHeap較多
+            minHeap.offer(maxHeap.poll());
         }
     }
-
+    
     public double findMedian() {
-        if(smallHeap.size() > bigHeap.size()){//奇數
-            return smallHeap.peek();
-        }else{//偶數
-            return (smallHeap.peek() + bigHeap.peek()) / 2.0;
+        if (minHeap.size() == maxHeap.size()) {
+            return (minHeap.peek() + maxHeap.peek()) / 2.0;
+        } else {
+            return minHeap.peek(); // 保持minHeap較多
         }
     }
 }
+
+/*
+
+      min heap      max heap
+        ____           ___    
+      ________          _
+    ____________        
+
+
+*/
