@@ -3,27 +3,35 @@ package leetCode.java;
 //Greedy O(n) O(1)
 class Solution134 {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        //1 所有gas > cost, 則存在解
-        int all = 0;
-        for(int i=0; i<gas.length; i++)
-            all += (gas[i] - cost[i]);
+        // If there exists a solution, it is guaranteed to be unique -> 題目保證唯一解
+        int sum = 0;
+        for (int i = 0; i < gas.length; ++i) {
+            sum += (gas[i] - cost[i]);
+        }
+        if (sum < 0) { // sum >= 0 表存在解
+            return -1;
+        }
 
-        if(all < 0) return -1;
-
-        //2 若透支則跳下一個
-        int res = 0;
-        int tank = 0;
-        for(int i=0; i<gas.length; i++){
-            tank += (gas[i] - cost[i]);
-            if(tank < 0){
-                res = i + 1;
-                tank = 0;
+        int remain = 0, res = 0;
+        for (int i = 0; i < gas.length; ++i) {
+            remain += (gas[i] - cost[i]);
+            if (remain < 0) {
+                res = i + 1; // 嘗試下一個
+                remain = 0; // 捨棄這次當起點, 結餘歸0
             }
         }
         return res;
     }
 }
-/* 已知sum(gas)>sum(cost), 走到底若有餘數, 則代表走回頭也會>=0
+/* 
+已知sum(gas - cost) = total >= 0
+若找到答案 res, 從 res 走到 n-1 時, remain >= 0
+
+又因為整體總和 >= 0
+[res, n-1]的remain + [0, res-1]的remain = total >= 0
+因此走回頭時, 剩餘油量足以補足 [0, res-1], 可以完整走回 res
+
+
 gas =  [ 1, 2, 3, 4, 5]
 cost = [ 3, 4, 5, 1, 2]
         -2 -2 -2  3  3

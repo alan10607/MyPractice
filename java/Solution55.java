@@ -3,13 +3,16 @@ package leetCode.java;
 //Greedy O(n) O(1)
 class Solution55 {
     public boolean canJump(int[] nums) {
-        int rightMost = 0;
-        for(int i=0; i<nums.length; i++){
-            if(i > rightMost) break;//代表這個位子無法到達
-
+        int n = nums.length;
+        int rightMost = 0; // 可以到達的右index 
+        for (int i = 0; i < n; ++i) {
+            if (i > rightMost) {
+                return false;
+            }
             rightMost = Math.max(rightMost, i + nums[i]);
-            if(rightMost >= nums.length - 1)
+            if (rightMost >= n - 1) {
                 return true;
+            }
         }
         return false;
     }

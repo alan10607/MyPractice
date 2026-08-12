@@ -3,30 +3,17 @@ package leetCode.java;
 //Greedy O(n) O(1)
 class Solution45 {
     public int jump(int[] nums) {
-        int rightMost = 0;
-        int move = 0;//BFS每層的最大步數
+        int rightMost = 0; // 目前最遠可以到哪
+        int jumpEnd = 0; // 這一跳的右邊界
         int res = 0;
-
-        //走到nums.length - 1就可以break
-        for(int i=0; i < nums.length - 1; i++){
-            move = Math.max(move, i + nums[i]);
-            if(i == rightMost){
-                res++;
-                rightMost = move;//更新下一次BFS範圍
-                if(rightMost >= nums.length - 1)
-                    return res;
+        //只需要到n-2, 因為i == n-1時代表已經到達終點
+        for (int i = 0; i < nums.length - 1; ++i) {
+            rightMost = Math.max(rightMost, i + nums[i]);
+            if (i == jumpEnd) {
+                ++res;
+                jumpEnd = rightMost;
             }
         }
         return res;
     }
 }
-/*  BFS會比DP快
-
-        0 1 2 3 4
-nums = [2,3,0,1,4]
-                  n[0]
-         n[1]              n[2]
-    n[2] n[3] n[4]          x
-     x   n[4]
-
-*/

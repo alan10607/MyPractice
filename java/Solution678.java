@@ -3,32 +3,31 @@ package leetCode.java;
 //Greedy O(n) O(1)
 class Solution678 {
     public boolean checkValidString(String s) {
-        int maxLeft = 0;//判斷過程是否足夠匹配')'
-        int minLeft = 0;//不會小於0, 用來判斷最後是否有剩餘的'('
-
-        for(char ch : s.toCharArray()){
-            if(ch == '('){
-                maxLeft++;
-                minLeft++;
-            }else if(ch == ')'){
-                maxLeft--;
-                minLeft = Math.max(0, minLeft - 1);
-                if(maxLeft < 0) return false;
-            }else{
-                maxLeft++;
-                minLeft = Math.max(0, minLeft - 1);
+        int maxBalance = 0; // 嘗試留下最多的'(', 用來判斷數量是否足夠匹配')'
+        int minBalance = 0; // 嘗試留下最少的'(', 此值不會小於0, 用來判斷最後是否有剩餘的'('
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                ++maxBalance;
+                ++minBalance;
+            } else if (ch == ')') {
+                --maxBalance;
+                minBalance = Math.max(0, minBalance - 1);
+                if (maxBalance < 0) { // ')'太多
+                    return false;
+                }
+            } else { // ch == '*'
+                ++maxBalance;
+                minBalance = Math.max(0, minBalance - 1); 
             }
         }
-        return minLeft == 0;
+
+        return minBalance == 0; //minBalance>0, 則表示'(‘有多餘沒被配對到的
     }
 }
 /*
-(**))
-maxLeft	minLeft
-1		1
-2		0
-3		-1->0
-2		-1->0
-1		-1->0
-minLeft=0, true
+    (   *   *   )   )
+max 1   2   3   2   1   判斷(是否過少
+min 1   0   0   0   0   判斷(是否過多
+
+*/
 */

@@ -1,4 +1,4 @@
-//O(nlogn) O(n), n = hand.size(), 時間複雜度為排序所需
+//Greedy O(nlogn) O(n), n = hand.size(), 時間複雜度為排序所需
 class Solution846 {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
