@@ -2,6 +2,7 @@
 class Solution435 {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        // 本題也可以按照interval.end排列, 這樣會最緊湊, 依序抓出重複的
         sort(intervals.begin(), intervals.end());
         int right = INT_MIN, res = 0;
         for(auto interval : intervals){
