@@ -4,41 +4,44 @@ package leetCode.java;
 class Solution43 {
     public String multiply(String num1, String num2) {
         //must not use any built-in BigInteger library or convert the inputs to integer directly
-        if("0".equals(num1) || "0".equals(num2)) return "0";
-
-        int m = num1.length();
-        int n = num2.length();
-        int[] resArr = new int[m + n];//最多剛好為兩數字位數相加
-        for(int i = m - 1; i>=0; i--){
-            for(int j = n - 1; j>=0; j--){
-                int a = num1.charAt(i) - '0';
-                int b = num2.charAt(j) - '0';
-                int mult = a * b + resArr[i + j + 1];//要記得加上之前的數
-                resArr[i + j] += mult / 10;
-                resArr[i + j + 1] = mult % 10;
+        int m = num1.length(), n = num2.length();
+        int[] mul = new int[m + n]; // 位數最多剛好為兩數長度相加(m+n), ex: 99*99=9801
+        for (int i = m - 1; i >= 0 ; --i) {
+            for (int j = n - 1; j >= 0 ; --j) {
+                mul[i + j + 1] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+                mul[i + j] += mul[i + j + 1] / 10; // 進位
+                mul[i + j + 1] %= 10;
             }
         }
 
-        StringBuffer res = new StringBuffer();
-        boolean startFlag = false;
-        for(int num : resArr){
-            if(!startFlag && num != 0)
-                startFlag = true;
-
-            if(startFlag)
-                res.append(num);//底層會int轉char
+        StringBuilder res = new StringBuilder();
+        for (int num : mul) {
+            if (res.isEmpty() && num == 0) { // 去掉開頭0
+                continue;
+            }
+            res.append(Integer.toString(num));
         }
-
-        return res.toString();
+        return res.isEmpty() ? "0" : res.toString(); // 可能會有0*0
     }
 }
 /*
-			9	9
-x			9	9
-------------------
-		8	9	1
-	8	9	1
--------------------
-	9	8	0	1
+num1 = "123"
+num2 = "456"
+mul=int[6], 共六位數
+mul index 開始= i + j + 1
+
+index               0   1   2
+
+                    1   2   3
+        x           4   5   6
+        ----------------------
+                    7   3   8
+                6   1   5
+        +   4   9   2
+        ----------------------
+        0   5   6   0   8   8
+
+index   0   1   2   3   4   5
+
 
 */

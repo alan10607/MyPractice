@@ -1,4 +1,4 @@
-//Matrix O(mn) O(1)
+//Matrix O(n^2) O(1)
 class Solution48 {
 public:
     void rotate(vector<vector<int>>& matrix) {
@@ -21,6 +21,7 @@ public:
 /* 畫圖會更好理解
 matrix[i][j], 則i代表從上到下, j代表從左到右
 t/b是上下, l/r是左右, matrix[t/b, l/r]
+一層一層往內縮
 
 [t,l]       [t,r]
 
@@ -31,12 +32,13 @@ t/b是上下, l/r是左右, matrix[t/b, l/r]
 
 各方向分別代表:
 
-    ---> [t][l+i]
-                    |
-    ^   1   2   3   v
-    |   4   5   6   [t+i][r]
-[b-i][l]7   8   9
-        <--- [b][r-i]
+            ---> [t][l+i]
 
+                            |   
+    ^       1   2   3       v
+    |       4   5   6       [t+i][r]
+[b-i][l]    7   8   9
+
+            <--- [b][r-i]
 
 */

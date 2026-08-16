@@ -3,28 +3,28 @@ package leetCode.java;
 //Fast & Slow Pointer O(logn) O(1)
 class Solution202 {
     public boolean isHappy(int n) {
-        int fast = n;
-        int slow = n;
-        while(true){
-            fast = calc(calc(fast));
+        int slow = n, fast = n;
+        while (true) {
             slow = calc(slow);
-            if(fast == 1) break;
-            if(slow == fast) return false;
+            fast = calc(calc(fast));
+            if (slow == fast) { // 判斷有無成環
+                break;
+            }
         }
-        return true;
+        return slow == 1; // 判斷結果
     }
 
-    public int calc(int n){
+    public int calc(int num) {
         int sum = 0;
-        while(n != 0){
-            int last = n % 10;
+        while (num > 0) {
+            int last = num % 10;
             sum += last * last;
-            n /= 10;
+            num /= 10;
         }
         return sum;
     }
 }
-/*
+/* 有可能會成環:
 2 -> 4 -> 16 -> 37 -> 58 -> 89 -> 145 -> 42 -> 20
 	 ^------------------------------------------|
 

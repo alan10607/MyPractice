@@ -20,7 +20,7 @@ public:
             int count = it.second;
             if(x != x0 && y != y0 && abs(x - x0) == abs(y - y0) //不可為同一點
                 && cnt.count(hash(x, y0)) && cnt.count(hash(x0, y))){
-                res += cnt[hash(x0, y0)] * cnt[hash(x, y0)] * cnt[hash(x0, y)];
+                res += cnt[hash(x0, y0)] * cnt[hash(x, y0)] * cnt[hash(x0, y)]; // 只找對角點計算, 所以不會重複計算另外兩個點
             }
         }
         return res;
