@@ -23,7 +23,6 @@ class Solution673 {
                     cnt[i] = cnt[j];
                 }
             }
-            System.out.println(len[i] + "=>" + cnt[i]);
             maxLen = Math.max(maxLen, len[i]);
         }
 

@@ -12,7 +12,6 @@ class Solution22 {
     }
 
     public void backtracking(String str, int balance, int n) {
-        System.out.println(str);
         if (n == 0 && balance == 0) {
             res.add(str);
             return;

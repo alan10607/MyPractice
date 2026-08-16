@@ -114,7 +114,7 @@ map.ceilingKey(x);  // >= x 最小值
 map.lowerKey(x);    // < x 最大值
 map.higherKey(x);   // > x 最小值
 
-TreeMap<Integer, Integer> map = new TreeMap<>(); // 預設：小 -> 大
+TreeMap<Integer, Integer> map = new TreeMap<>(); // 預設: 小 -> 大
 TreeMap<Integer, Integer> map = new TreeMap<>((a, b) -> a - b); // 小 -> 大
 
 TreeMap<Integer, Integer> map = new TreeMap<>(Comparator.reverseOrder()); // 大 -> 小
@@ -242,6 +242,36 @@ Collections.sort(list); // 集合由小到大排序
 Collections.sort(list, Collections.reverseOrder()); // 集合由大到小排序
 ```
 
+## Bit
+```java
+a & b;        // AND: 兩個 bit 都是 1 → 1
+a | b;        // OR: 任一 bit 是 1 → 1
+a ^ b;        // XOR: 兩個 bit 不同 → 1
+~a;           // NOT: bit 全部反轉
+a << n;       // 左移: 相當於 乘 2^n
+a >> n;       // 右移: 正數相當於 除 2^n, 保留正負, 左側補 sign bit
+a >>> n;      // 無號右移: 左側補 0
+
+a &= b;       // a = a & b
+a |= b;       // a = a | b
+a ^= b;       // a = a ^ b
+a <<= n;      // a = a << n
+a >>= n;      // a = a >> n
+a >>>= n;     // a = a >>> n
+
+(n & 1) == 1; // 判斷奇數, bit運算(bitwise operators)優先於比較運算(comparison operators), 要先括號bit
+(n & 1) == 0; // 判斷偶數
+n >> 1;       // 正數相當於 n / 2
+n << 1;       // 相當於 n * 2
+
+(1 << k) - 1;           // Bit Mask: 取得 k 個 1
+n & ((1 << k) - 1);     // 取最後 k 個 bits
+
+int key = (x << 10) | y; // Bit Packing: 將 x、y 放進同一個 int
+int x = key >> 10;       // 解碼 x
+int y = key & ((1 << 10) - 1); // 解碼 y
+```
+
 ## 二分搜尋模板 (Binary Search)
 ```Java
 // 1. 標準尋找目標值
@@ -267,6 +297,9 @@ int lowerBound(int[] nums, int target) {
     return r;
 }
 ```
+
+
+
 
 ===========================below old
 ## HashMap

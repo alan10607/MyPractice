@@ -19,7 +19,6 @@ class Solution5 {
         for (int i = 1; i < t.length() - 1; ++i) { // 頭尾不判斷
             if (i < r) { // 在範圍內可以透過鏡像快速找到最小值
                 p[i] = Math.min(r - i, p[2 * c - i]); // mirror position = c-(i-c)
-                System.out.printf("faster %d (%s)is %d now %d %d\n", i, t.charAt(i), p[i], i, r);
             }
 
             // expand

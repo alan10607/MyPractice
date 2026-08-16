@@ -4,13 +4,13 @@ package leetCode.java;
 class Solution268 {
     public int missingNumber(int[] nums) {
         //using only O(1) extra space complexity and O(n)
-        int xor = 0;
-        for(int i=0; i < nums.length + 1; i++)
-            xor ^= i;
-
-        for(int num : nums)
-            xor ^= num;
-
-        return xor;
+        int res = 0;
+        for (int i = 0; i <= nums.length; ++i) {
+            res ^= i;
+        }
+        for (int num : nums) {
+            res ^= num;
+        }
+        return res;
     }
 }
