@@ -209,8 +209,8 @@ void traverse(TreeNode* root) {
 
 1. 序列化後內容不含null:
     - 只有獲得兩種order才有辦法還原tree
-    1. preorder + inorder 或 postorder + inorder -> 可還原成唯一 binary tree
-    2. preorder + posorder -> 有多個可能
+        1. preorder + inorder 或 postorder + inorder -> 可還原成唯一 binary tree
+        2. preorder + posorder -> 有多個可能
 ```cpp
 ex: preorder = [1,2,3], postorder = [3,2,1], 可以長得是
     1         1

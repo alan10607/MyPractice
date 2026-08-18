@@ -3,23 +3,30 @@ package leetCode.java;
 //Fast & Slow Pointer Floyd Cycle Detection Algorithm O(n) O(1)
 class Solution287 {
     public int findDuplicate(int[] nums) {
-        //must solve without modifying the array nums and uses only constant extra space
-        int fast = 0;
-        int slow = 0;
-        do{//至少先做一次避免一開始就出去
-            fast = nums[nums[fast]];
+        // Without modifying nums and using only O(1) space
+        int fast = 0, slow = 0;
+        while (true) {
             slow = nums[slow];
-        }while(fast != slow);
+            fast = nums[nums[fast]];
+            if (fast == slow) {
+                break;
+            }
+        }
 
         int start = 0;
-        while(start != slow){
+        while (start != slow) {
             start = nums[start];
             slow = nums[slow];
         }
         return start;
     }
 }
-/* nums = [3,1,3,4,2]
+
+/* 
+題目說所有數字都在區間[1,n], 但長度是n + 1
+即所有num皆<nums.length, 所以可以用環概念
+
+ex: nums = [3,1,3,4,2]
 
 index 	num
 0		3

@@ -3,33 +3,87 @@ package leetCode.java;
 //LinkedList O(n) O(1)
 class Solution19 {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode fast = head;
         ListNode dummy = new ListNode(-1, head);
-        ListNode slow = dummy;//slow從dummy開始
-
-        //先讓fast走n步
-        for(int i=0; i<n ;i++)
+        ListNode fast = head; // 提早從head開始, 剛好可以在後面讓slow在目標前一個
+        ListNode slow = dummy; // slow從dummy開始
+        for (int i = 0; i < n; ++i) { // 先讓fast走n步
             fast = fast.next;
+        }
 
-        while(fast != null){
+        while (fast != null) {
             fast = fast.next;
             slow = slow.next;
         }
-
-        //因為slow從dummy開始, 剛好會是要跳過的node的前一個
         slow.next = slow.next.next;
 
-        return dummy.next;//改變鏈表不要直接用head, 避免head是被換掉的那個
+        return dummy.next;
     }
 }
-/* n = 2
+/*
+ex: head = [1,2,3,4,5], n = 2
 
-先讓fast走n步:
--1 -> 1 -> 2 -> 3 -> N
- ^s             ^f
+                        target
+                        v
+dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+  s                f
+         s              f
+              s              f
+                   s               f
 
--1 -> 1 -> 2 -> 3 -> N    此時break while
-      ^s             ^f
 
-slow.next = slow.next.next 剛好會跳過倒數第n個
+
+
+ex: head = [1,2,3,4,5], n = 5
+
+         target
+         v
+dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+  s                                f
+
+
+*/
+
+
+class Solution19_2 {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast = head;
+        ListNode slow = head;
+        for (int i = 0; i < n; ++i) {
+            fast = fast.next;
+        }
+
+        if (fast == null) { // 代表移除第一個
+            return head.next;
+        }
+
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+
+        return head;
+    }
+}
+/*
+ex: head = [1,2,3,4,5], n = 2
+
+              target
+               v
+1 -> 2 -> 3 -> 4 -> 5 -> null
+s         f
+     s         f
+          s         f
+直接判斷fast.next==null, 讓slow剛好在要刪除之前一個位子上
+
+
+
+ex: head = [1,2,3,4,5], n = 5
+
+target
+v
+1 -> 2 -> 3 -> 4 -> 5 -> null
+s                        f
+f==null時, 刪除倒數第五個=第一個, 直接回head.next
+
 */
