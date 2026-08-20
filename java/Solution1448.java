@@ -2,21 +2,46 @@ package leetCode.java;
 
 //DFS O(V) O(H)
 class Solution1448 {
+    int res = 0;
+
     public int goodNodes(TreeNode root) {
-        return dfs(Integer.MIN_VALUE, root);
+        dfs(root, Integer.MIN_VALUE); // 透過遍歷思維
+        return res;
     }
 
-    public int dfs(int max, TreeNode root){
-        if(root == null) return 0;
-
-        //named good if there are no nodes greater than this
-        int good = 0;
-        if(root.val >= max){//等於也算good
-            good++;
-            max = root.val;
+    public void dfs(TreeNode root, int maxVal) {
+        if (root == null) {
+            return;
         }
-        good += dfs(max, root.left);
-        good += dfs(max, root.right);
-        return good;
+        if (root.val >= maxVal) { // 等於也算
+            ++res;
+            maxVal = root.val;
+        }
+        dfs(root.left, maxVal);
+        dfs(root.right, maxVal);
+    }
+}
+
+
+
+//DFS O(V) O(H)
+class Solution1448_2 {
+    public int goodNodes(TreeNode root) {
+        return dfs(root, Integer.MIN_VALUE); // 透過分解問題
+    }
+
+    public int dfs(TreeNode root, int maxVal) {
+        if (root == null) {
+            return 0;
+        }
+
+        int count = 0;
+        if (root.val >= maxVal) {{ // 等於也算
+            ++count;
+            maxVal = root.val;
+        }
+        count += dfs(root.left, maxVal);
+        count += dfs(root.right, maxVal);
+        return count;
     }
 }

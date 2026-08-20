@@ -4,25 +4,26 @@ import java.util.*;
 
 //Backtracking O(V) O(V)
 class Solution105 {
-    public int preIndex = 0;//dfs剛好是pre-order順序
+    int preIndex = 0;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        Map<Integer, Integer> inMap = new HashMap<>();//紀錄inorder的值與位置, <數字, 位置>
-        for(int i=0; i<inorder.length; i++)
-            inMap.put(inorder[i], i);
-
-        return build(0, preorder.length - 1, preorder, inMap);
+        Map<Integer, Integer> inorderPos = new HashMap<>(); // <inorder val, index>
+        for (int i = 0; i < inorder.length; ++i) {
+            inorderPos.put(inorder[i], i);
+        }
+        return dfs(preorder, inorderPos, 0, inorder.length - 1);
     }
 
-    public TreeNode build(int start, int end, int[] preorder, Map<Integer, Integer> inMap){
-        if(start > end) return null;
-
-        int num = preorder[preIndex++];
-        int inIndex = inMap.get(num);
-        TreeNode root = new TreeNode(num);
-        root.left = build(start, inIndex - 1, preorder, inMap);
-        root.right = build(inIndex + 1, end, preorder, inMap);
-        return root;
+    public TreeNode dfs(int[] preorder, Map<Integer, Integer> inorderPos, int inStart, int inEnd) {
+        if (inStart > inEnd) { // inStart == inEnd 代表還有一個node, 不能return
+            return null;
+        }
+        int val = preorder[preIndex++];
+        TreeNode node = new TreeNode(val);
+        int mid = inorderPos.get(val);
+        node.left = dfs(preorder, inorderPos, inStart, mid - 1);
+        node.right = dfs(preorder, inorderPos, mid + 1, inEnd);
+        return node;
     }
 }
 /*

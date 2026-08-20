@@ -6,18 +6,23 @@ import java.util.*;
 class Solution102 {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
-        if(root == null) return res;
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()){
+        if (root == null) {
+            return res;
+        }
+        
+        Queue<TreeNode> q = new ArrayDeque<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
             List<Integer> level = new ArrayList<>();
-            int size = queue.size();
-            for(int i=0; i<size; i++){
-                TreeNode node = queue.poll();
+            for (int i = q.size(); i > 0; --i) {
+                TreeNode node = q.poll();
                 level.add(node.val);
-                if(node.left != null) queue.offer(node.left);
-                if(node.right != null) queue.offer(node.right);
+                if (node.left != null) {
+                    q.offer(node.left);
+                }
+                if (node.right != null) {
+                    q.offer(node.right);
+                }
             }
             res.add(level);
         }

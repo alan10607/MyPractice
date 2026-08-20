@@ -69,23 +69,18 @@ public:
     }
 
     int find(BstNode* root, int k) {
-        if (root->left) {
-            int cnt = root->left->count; // 左側的全部數量
-            int rank = cnt + 1; // 當前node是第幾大的
-            if (k == rank) {
-                return root->val;
-            } else if (k < rank) {
-                return find(root->left, k);
-            } else { // k > rank
-                return find(root->right, k - rank);
-            }
-        } else {
-            if (k == 1) { // 沒有左側, 第一小就是自己
-                return root->val;
-            } else {
-                return find(root->right, k - 1); // 繼續往右找
-            }
+        int leftCount = root->left ? root->left->count : 0; // 左側的全部數量
+
+        if (k == leftCount + 1) {  // 左側+1就是自己
+            return root->val;
         }
+
+        if (k < leftCount + 1) { // 第k小在左邊
+            return find(root->left, k);
+        }
+
+        // k > leftCount + 1
+        return find(root->right, k - leftCount - 1); // 第k小在右邊
     }
 };
 /*

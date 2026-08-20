@@ -16,6 +16,7 @@ String newStr = new String(chars); // 字元陣列轉字串
 char c = s.charAt(0); // 取得特定字元
 int len = s.length(); // 字串長度
 s.substring(start, end); // 切割字串 [start, end)
+String[] strs = s.split(","); // 分割字串
 
 Integer.parseInt("123"); // String → int
 String.valueOf(123); // int → String 

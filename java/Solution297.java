@@ -4,31 +4,33 @@ import java.util.*;
 
 //DFS serialize(), deserialize(): O(V) O(V)
 class Codec {//Solution297
+
+    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         //Pre-order前序遍歷, root, left, right
-        return seDFS(root);
+        if (root == null) {
+            return "N";
+        }
+        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
     }
 
-    public String seDFS(TreeNode root){
-        if(root == null) return "N";
-        return root.val + "," + seDFS(root.left) + "," + seDFS(root.right);
-    }
-
+    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String[] arr = data.split(",");
-        Queue<String> queue = new LinkedList<>(Arrays.asList(arr));
-        return deDFS(queue);
+        String[] vals = data.split(",");
+        Deque<String> q = new ArrayDeque<>(Arrays.asList(vals));
+        return dfs(q); 
     }
 
-    public TreeNode deDFS(Queue<String> queue){
-        String str = queue.poll();
-        if("N".equals(str)) return null;
+    public TreeNode dfs(Deque<String> q) {
+        String val = q.poll();
+        if ("N".equals(val)) {
+            return null;
+        }
 
-        int num = Integer.parseInt(str);
-        TreeNode root = new TreeNode(num);
-        root.left = deDFS(queue);
-        root.right = deDFS(queue);
-        return root;
+        TreeNode node = new TreeNode(Integer.parseInt(val));
+        node.left = dfs(q);
+        node.right = dfs(q);
+        return node;
     }
 }
 /*

@@ -2,6 +2,9 @@
 - https://leetcode.com/problems/maximum-depth-of-binary-tree/
 - https://leetcode.com/problems/binary-tree-preorder-traversal/
 - https://leetcode.com/problems/diameter-of-binary-tree/
+- https://leetcode.com/problems/balanced-binary-tree/
+- https://leetcode.com/problems/same-tree/
+- https://leetcode.com/problems/count-good-nodes-in-binary-tree/
 - https://leetcode.com/problems/invert-binary-tree/
 - https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 - https://leetcode.com/problems/flatten-binary-tree-to-linked-list
@@ -42,6 +45,15 @@ x       x       x       x
 
 ```
 
+4. Height Balanced Binary Tree: 每一個node, 它的left, right高度差都不能>1
+```cpp
+            x
+    x               x
+x       x
+
+```
+
+
 
 ## 解題思路
 如何解題? 通常有兩種solution:
@@ -49,7 +61,7 @@ x       x       x       x
 1. 遍歷: 是否可以通過一次遍歷binary tree解決? 可以的話建立traverse函式與外部變量解決
 ```cpp
 void traverse(TreeNode* root) {
-    if (!root) return nullptr;
+    if (!root) return;
 
     ...
     traverse(root->left); // 透過遍歷思維
@@ -199,7 +211,7 @@ void traverse(TreeNode* root) {
 ```
 
 
-## 關於序列化
+## Tree 序列化
 - https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 - https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 - https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
@@ -207,25 +219,147 @@ void traverse(TreeNode* root) {
 - https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 
 
-1. 序列化後內容不含null:
-    - 只有獲得兩種order才有辦法還原tree
-        1. preorder + inorder 或 postorder + inorder -> 可還原成唯一 binary tree
-        2. preorder + posorder -> 有多個可能
+### 序列化後內容不含null (直接跳過null node)
+- 不包含 null 時, 單獨一種 traversal 無法唯一還原tree
+- 需要兩種traversal, 且其中必須包含inorder
+
+1. preorder + inorder 或 postorder + inorder -> 可還原成唯一 binary tree
+這類型解的法都是透過pre or post是固定順序, 然後可以透過recursion的方式依序把inorder分段處理
+
+- A. preorder + inorder
+```cpp
+preorder  前序 [root][...left...][...right...]
+inorder   中序 [...left...][root][...right...]
+
+pre_index   v
+preorder =  3   9   20   15   7
+
+           [l]  v   [    r     ]
+inorder  =  9   3   15   20   7
+
+依序依照preorder index移動的順序 (依序建立 left, right) 進入recursion, 並利用inorder切割左右subtree
+```
+```cpp
+unordered_map<int, int> in_map; //<val, 位置index>, 建立map減少重複找查
+int pre_index = 0; // preorder index
+
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    for (int i = 0; i < inorder.size(); ++i) {
+        in_map[inorder[i]] = i;
+    }
+
+    return build(preorder, inorder, 0, inorder.size() - 1);
+}
+
+TreeNode* dfs(vector<int>& preorder, vector<int>& inorder, int in_start, int in_end) {
+    if (in_start > in_end) return nullptr;
+
+    int val = preorder[pre_index++]; // pre_index剛好是dfs順序, 記得+1
+    TreeNode* node = new TreeNode(val);
+    int in_index = in_map[val];
+    node->left = build(preorder, inorder, in_start, in_index - 1); // 左邊先開始
+    node->right = build(preorder, inorder, in_index + 1, in_end);
+    return node;
+}
+```
+
+
+- B. postorder + inorder
+```cpp
+postorder 後序 [...left...][...right...][root]
+inorder   中序 [...left...][root][...right...]
+
+
+post_index                    v
+postorder = 9   15  7    20   3
+
+           [l]  v   [    r     ]
+inorder  =  9   3   15   20   7
+
+依序依照preorder index移動的順序 (依序建立 right, left) 進入recursion, 並利用inorder切割左右subtree
+```
+```cpp
+unordered_map<int, int> in_map; //<val, 位置index>, 建立map減少重複找查
+int post_index; // postorder index
+TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+    post_index = postorder.size() - 1;
+    for (int i = 0; i < inorder.size(); ++i) {
+        in_map[inorder[i]] = i;
+    }
+    return build(inorder, postorder, 0, inorder.size() - 1);
+}
+
+TreeNode* build(vector<int>& inorder, vector<int>& postorder, int in_start, int in_end) {
+    if (in_start > in_end) return nullptr;
+
+    int val = postorder[post_index--]; // postorder, 從最後開始往前退
+    TreeNode* node = new TreeNode(val);
+    int in_index = in_map[val];
+    node->right = build(inorder, postorder, in_index + 1, in_end); // 改成先從right進去以符合postorder順序
+    node->left = build(inorder, postorder, in_start, in_index - 1);
+    return node;
+}
+```
+
+2. preorder + posorder -> 有多個可能, 沒有inorder無法確定
 ```cpp
 ex: preorder = [1,2,3], postorder = [3,2,1], 可以長得是
-    1         1
-  2     or      2
-3                 3
+    1         1                    1
+  2     or      2       or       2
+3                 3                3
 ```
-2. 序列化後內容包含null:
-    1. preorder 或 postorder -> 可還原成唯一 binary tree
-    2. inorder -> 有多個可能
+
+
+### 序列化後內容包含null:
+1. preorder 或 postorder -> 可還原成唯一 binary tree
+ex: preorder
+```cpp
+    1
+2       3
+       4
+Serialize: 依照preorder順序 backtracking得到: "1,2,N,N,3,4,N,N,N"
+Deserialize: 透過preorder順序 backtracking還原
+```
+```cpp
+string serialize(TreeNode* root) {
+    // Pre-order 前序遍歷: root, left, right
+    if (root == nullptr) {
+        return "N";
+    }
+    return to_string(root->val) + "," + serialize(root->left) + ","  + serialize(root->right);
+}
+
+TreeNode* deserialize(string data) {
+    stringstream ss(data);
+    queue<string> q;
+    string val;
+    while (ss >> val) {
+        q.push(val);
+    }
+    return dfs(q);
+}
+
+TreeNode* dfs(queue<string>& q) {
+    string val = q.front(); q.pop();
+    if (val == "N") {
+        return nullptr;
+    }
+
+    TreeNode* node = new TreeNode(stoi(val));
+    node->left = dfs(q);
+    node->right = dfs(q);
+    return node;
+}
+```
+
+2. inorder -> 有多個可能
 ```cpp
 ex: inorder = [N,1,N,1,N]可以長得是
     1          1
   1   N  or  N   1
 N   N          N   N
 ```
+
 
 ## Binary Search Tree
 - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
@@ -257,6 +391,8 @@ ex:
 ```
 
 ## BFS
+- https://leetcode.com/problems/binary-tree-level-order-traversal/
+- https://leetcode.com/problems/binary-tree-right-side-view/
 - https://leetcode.com/problems/minimum-depth-of-binary-tree/
 ```cpp
 void bfs(TreeNode* root) {
