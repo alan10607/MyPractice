@@ -2,6 +2,29 @@
 //k為words.length, 最多需要kL儲存Trie, 即節點數量
 class Solution212 {
 public:
+    class Trie {
+    public:
+        vector<Trie*> children;
+        string word;
+
+        Trie(){
+            children = vector<Trie*>(26, nullptr);
+            word = "";
+        }
+
+        void addWord(string word) {
+            Trie* root = this;
+            for(char ch : word){
+                int index = ch - 'a';
+                if(!root->children[index])
+                    root->children[index] = new Trie();
+
+                root = root->children[index];
+            }
+            root->word = word;
+        }
+    };
+
     vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};//這題若dirs宣告在dfs, 會TLE
     vector<string> res;
     

@@ -529,8 +529,40 @@ int quickSelect(vector<int>& nums, int start, int end, int index) {
 ## Trie
 - https://leetcode.com/problems/implement-trie-prefix-tree/
 - https://leetcode.com/problems/replace-words/
+- https://leetcode.com/problems/word-search-ii/
 - https://leetcode.com/problems/design-add-and-search-words-data-structure/
+```cpp
+從root開始每條有26個分支, 分別印為下一個字母
+ex: 存入apple, app, ape, bat
 
+Trie會長這樣:
+
+root
+├── a
+│   └── p
+│       ├── p ✓
+│       │   └── l
+│       │       └── e ✓
+│       └── e ✓
+│
+└── b
+    └── a
+        └── t ✓
+
+每個Trie會有:
+class Trie {
+public:
+    vector<Trie*> children; // 用來記錄下一個字母是否存在, null表示不存在
+    bool end_flag; // 是否是單字結尾
+    
+    Trie() {
+        children = vector<Trie*>(26, nullptr);
+        end_flag = false;
+    }
+    ...
+
+}
+```
 
 TODO
 648. Replace Words
