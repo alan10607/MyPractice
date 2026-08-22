@@ -1,4 +1,4 @@
-//Backtracking O(mn) O(mn)
+//DFS O(mn) O(mn)
 class Solution695 {
 public:
     int maxAreaOfIsland(vector<vector<int>>& grid) {

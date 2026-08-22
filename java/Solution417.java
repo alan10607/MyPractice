@@ -4,50 +4,45 @@ import java.util.*;
 
 //DFS O(mn) O(mn)
 class Solution417 {
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        int m = heights.length, n = heights[0].length;
+        boolean[][] pac = new boolean[m][n];
+        boolean[][] atl = new boolean[m][n];
+        for (int i = 0; i < m; ++i) {
+            dfs(heights, pac, i, 0, -1);
+        }
+        for (int j = 0; j < n; ++j) {
+            dfs(heights, pac, 0, j, -1);
+        }
+        for (int i = 0; i < m; ++i) {
+            dfs(heights, atl, i, n - 1, -1);
+        }
+        for (int j = 0; j < n; ++j) {
+            dfs(heights, atl, m - 1, j, -1);
+        }
+
         List<List<Integer>> res = new ArrayList<>();
-        int m = heights.length;
-        int n = heights[0].length;
-        boolean[][] pacific = new boolean[m][n];
-        boolean[][] atlantic = new boolean[m][n];
-        for(int i=0; i<m; i++)
-            dfs(i, 0, pacific, -1, heights);
-
-        for(int j=0; j<n; j++)
-            dfs(0, j, pacific, -1, heights);
-
-        for(int i=0; i<m; i++)
-            dfs(i, n - 1, atlantic, -1, heights);
-
-        for(int j=0; j<n; j++)
-            dfs(m - 1, j, atlantic, -1, heights);
-
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(pacific[i][j] && atlantic[i][j]){
-                    List<Integer> temp = new ArrayList<>();
-                    temp.add(i);
-                    temp.add(j);
-                    res.add(temp);
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (pac[i][j] && atl[i][j]) {
+                    res.add(List.of(i, j));
                 }
             }
         }
         return res;
     }
 
-    public void dfs(int i, int j, boolean[][] ocean, int last, int[][] heights){
-        if(ocean[i][j]) return;//已經visited
-        if(last > heights[i][j]) return;//水只往低處流, 可以相等
-
+    public void dfs(int[][] heights, boolean[][] ocean, int i, int j, int lastHeight) {
+        int m = heights.length, n = heights[0].length;
+        if (i < 0 || i >= m || j < 0 || j >= n || heights[i][j] < lastHeight || ocean[i][j]) {
+            return; // 出界, 低於上一個, 已經visited
+        }
         ocean[i][j] = true;
-
-        int m = heights.length;
-        int n = heights[0].length;
-        if(i + 1 <  m) dfs(i + 1, j, ocean, heights[i][j], heights);
-        if(i - 1 >= 0) dfs(i - 1, j, ocean, heights[i][j], heights);
-        if(j + 1 <  n) dfs(i, j + 1, ocean, heights[i][j], heights);
-        if(j - 1 >= 0) dfs(i, j - 1, ocean, heights[i][j], heights);
-        return;
+        for (int[] dir : dirs) {
+            dfs(heights, ocean, i + dir[0], j + dir[1], heights[i][j]);
+        }
     }
 }
 /*

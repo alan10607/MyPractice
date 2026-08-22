@@ -2,31 +2,30 @@ package leetCode.java;
 
 //DFS O(mn) O(mn)
 class Solution695 {
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
     public int maxAreaOfIsland(int[][] grid) {
-        //Return the maximum area of an island in grid
-        int m = grid.length;
-        int n = grid[0].length;
         int res = 0;
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                res = Math.max(res, dfs(i, j, grid));
+        int m = grid.length, n = grid[0].length;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                res = Math.max(res, dfs(grid, i, j));
             }
         }
         return res;
     }
 
-    public int dfs(int i, int j, int[][] grid){
-        if(grid[i][j] != 1) return 0;
+    public int dfs(int[][] grid, int i, int j) {
+        int m = grid.length, n = grid[0].length;
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) {
+            return 0;
+        }
 
-        grid[i][j] = -1;//visited
-
-        int m = grid.length;
-        int n = grid[0].length;
-        int count = 1;
-        if(i + 1 <  m) count += dfs(i + 1, j, grid);
-        if(i - 1 >= 0) count += dfs(i - 1, j, grid);
-        if(j + 1 <  n) count += dfs(i, j + 1, grid);
-        if(j - 1 >= 0) count += dfs(i, j - 1, grid);
-        return count;
+        grid[i][j] = 0;
+        int area = 1;
+        for (int[] dir : dirs) {
+            area += dfs(grid, i + dir[0], j + dir[1]);
+        }
+        return area;
     }
 }

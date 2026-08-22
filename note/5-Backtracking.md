@@ -4,6 +4,7 @@
 - https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 - https://leetcode.com/problems/n-queens/
 - https://leetcode.com/problems/n-queens-ii/
+- https://leetcode.com/problems/pacific-atlantic-water-flow/
 - https://leetcode.com/problems/surrounded-regions/
 - https://leetcode.com/problems/number-of-enclaves/
 - https://leetcode.com/problems/number-of-closed-islands/
@@ -74,6 +75,8 @@ bool dfs(int i, int j, vector<vector<bool>>& visited, vector<vector<char>>& boar
 ```
 
 ### BFS
+- https://leetcode.com/problems/walls-and-gates/
+- https://leetcode.com/problems/rotting-oranges/
 - https://leetcode.com/problems/open-the-lock/
 - https://leetcode.com/problems/sliding-puzzle/
 ```cpp

@@ -13,7 +13,7 @@ public:
 
         vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int num = 1;
-        while(!q.empty()){
+        while(!q.empty()){ //從所有 Gate 同時往外 BFS
             for(int k=q.size(); k>0; --k){
                 auto node = q.front(); q.pop();
                 for(auto dir : dirs){
