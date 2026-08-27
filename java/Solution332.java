@@ -2,32 +2,35 @@ package leetCode.java;
 
 import java.util.*;
 
-//Hierholzer's Algorithm O(ElogE) O(E), 時間複雜度為演算法本身O(E)乘上PriorityQueue所需O(logE)
+//Hierholzer's Algorithm, Eulerian Path O(ElogE) O(E), 時間複雜度為演算法本身O(E)乘上PriorityQueue所需O(logE)
 class Solution332 {
-    public List<String> findItinerary(List<List<String>> tickets) {
-        //1 edges
-        //PriorityQueue因為return the itinerary that has the smallest lexical order
-        Map<String, PriorityQueue<String>> edges = new HashMap<>();//<from, <to1, ...>>
-        for(List<String> ticket : tickets){
-            if(!edges.containsKey(ticket.get(0)))
-                edges.put(ticket.get(0), new PriorityQueue<String>());
+    List<String> res = new ArrayList<>();
 
+    public List<String> findItinerary(List<List<String>> tickets) {
+        //Hierholzer Algorithm: 一路走到沒有edge 可以走, 再把路徑從後面組回來, 所以dfs時是透過postorder, 給答案時要reverse
+        //return the itinerary lexical order, 透過pq, 文字從小到大
+        Map<String, PriorityQueue<String>> edges = new HashMap<>(); // <from, <to1, ...按照字母排列>>
+        for (List<String> ticket : tickets) {
+            edges.putIfAbsent(ticket.get(0), new PriorityQueue()); // 預設是String依序按照字母大小
             edges.get(ticket.get(0)).offer(ticket.get(1));
         }
 
-        //2 DFS
-        List<String> res = new ArrayList<>();
-        dfs("JFK", edges, res);
-
+        dfs("JFK", edges);
+        Collections.reverse(res); // 回傳前要reverse post-order
         return res;
     }
 
-    public void dfs(String node, Map<String, PriorityQueue<String>> edges, List<String> res){
-        while(edges.containsKey(node) && !edges.get(node).isEmpty()){
-            String child = edges.get(node).poll();//O(logn)
-            dfs(child, edges, res);
+    public void dfs(String cur, Map<String, PriorityQueue<String>> edges) {
+        while (edges.containsKey(cur)) { // 回到此層後若pq還有會繼續while, 遍歷所有可能
+            PriorityQueue<String> pq = edges.get(cur);
+            if (pq.isEmpty()) {
+                break;
+            }
+            String next = pq.poll();
+            dfs(next, edges);
         }
-        res.add(0, node);//沒有路走了, 開始逆序入棧
+
+        res.add(cur); // 在這裡加入, post-order
     }
 }
 /*
@@ -37,7 +40,11 @@ A -> B --> C -> D
 	 v
  	 E
 
-初次走到D後回溯並加入 => BCD
-回到B繼續DFS, 加入 => BEB BCD
-回到A => A BEB BCD
+     BE互通
+
+初次走到D後回溯並加入 => res=[D,C,B]
+回到B繼續DFS, 加入 => res=[D,C,B,E,B]
+回到A => res=[D,C,B,E,B,A]
+
+reverse => res=[A,B,E,B,C,D]
 */

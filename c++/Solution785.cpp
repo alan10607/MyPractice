@@ -1,4 +1,4 @@
-//DFS O(V + E) O(V)
+//Bipartition DFS O(V + E) O(V)
 class Solution785 {
 public:
     bool isBipartite(vector<vector<int>>& graph) {

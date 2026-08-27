@@ -1,4 +1,4 @@
-//DFS O(V + E) O(V + E), V = n, E = dislikes.size()
+//Bipartition DFS O(V + E) O(V + E), V = n, E = dislikes.size()
 class Solution886 {
 public:
     bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
@@ -42,7 +42,7 @@ public:
         }
 
         vector<int> parents(n + 1); // 題目範圍是[1,n], 0不使用
-        for (int i = 1; i <=n ; ++i) { // 初始成-1會有parents[node]=node造成recursive問題
+        for (int i = 1; i <=n ; ++i) { // 初始成-1, 就要判斷b!=tmp時才要union b group, 否則find()會有parents[node]=node造成recursive問題
             parents[i] = i;
         }
         for (int i = 1; i <= n; ++i) {
@@ -56,9 +56,9 @@ public:
                 if (a == b) return false; // 與下一個應該要不同組
 
                 if (j == 0) {
-                    tmp = b; // 先抓一個當作parent
+                    tmp = b; // 先抓一個當作b的parent
                 } else {
-                    parents[b] = tmp;
+                    parents[b] = tmp; // 接下來每個抓的b都設為同一組
                 }
             }
         }

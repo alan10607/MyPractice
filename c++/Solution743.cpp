@@ -1,5 +1,5 @@
-//Shortest Path Dijkstra Algorithm O(E + VlogV) O(E + V), E = times.size(), V = n
-//收集edges需要O(E) O(E), 跑pq while要O(VlogV) O(V)
+//Shortest Path Dijkstra Algorithm O(E + ElogV) O(V + E), V = n, E = times.length
+//收集edges需要O(E) O(E), 跑pq while要O(ElogV) O(V)
 class Solution743 {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
@@ -39,7 +39,7 @@ public:
         dists[k] = 0;
         for (int i = 0; i < n - 1; ++i) { // Relaxation V-1次
             for (vector<int> time : times) {
-                int a = time[0], b = time[1], t = time[2];
+                int a = time[0], b = time[1], t = time[2]; // 如果有限制收縮次數, 要建立temp避免污染, 本題不用
                 if (dists[a] != INT_MAX) {
                     dists[b] = min(dists[b], dists[a] + t); // 更新為較小的
                 }
@@ -62,7 +62,7 @@ public:
 };
 
 
-//Shortest Path Bellman-Ford Algorithm O(E + V) O(V), E = times.size(), V = n, 進化版的Bellman-Ford
+//Shortest Path Bellman-Ford Algorithm (SPFA Algorithm) O(VE) O(V + E), E = times.size(), V = n, 進化版的Bellman-Ford
 class Solution743_3 {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
@@ -71,24 +71,27 @@ public:
             edges[time[0]].push_back({time[1], time[2]});
         }
 
-
         vector<int> dists(n + 1, INT_MAX); // 範圍[1,n], index0不使用, 預設INT_MAX表示未到達
         dists[k] = 0;
         queue<int> q; // 用來放之後要跑的點
         q.push(k);
+        vector<bool> inQueue(n + 1, false); // 該點是否已經在queue裡面
+        inQueue[k] = true;
         while (!q.empty()) {
-            unordered_set<int> visited; // 每次收縮只能跑各個點一次
             int a = q.front(); q.pop();
+            inQueue[a] = false; // 離開queue
+
+            if (dists[a] == INT_MAX) continue; // 還無法到達
 
             for (pair<int, int> edge : edges[a]) {
                 int b = edge.first, time = edge.second;
-                if (dists[a] != INT_MAX && dists[a] + time < dists[b]) {
+                if (dists[a] + time < dists[b]) {
                     dists[b] = dists[a] + time;
 
-                    if (visited.count(b)) continue;
+                    if (inQueue[b]) continue; // 不用再重新加入queue
 
-                    visited.insert(b);
                     q.push(b); // 放入下次更新
+                    inQueue[b] = true; // 已放入queue
                 }
             }
         }
@@ -108,5 +111,12 @@ public:
 最小生成樹 Minimum spanning tree
 -   Prim Algorithm          Greedy  任意起點, 選擇連距離這個union最近的點
 -   Kruskal Algorithm       Sort    排序所有邊長, 從最小開始連
+
+
+| Algorithm        |                              Time |      Space | 負權重 edge | 負環     |
+| ---------------- | --------------------------------: | ---------: | ---------- | ------- |
+| **Dijkstra**     |                      `O(E log V)` | `O(V + E)` |  不行       | 不可     |
+| **Bellman-Ford** |                           `O(VE)` |     `O(V)` |  可以       | 可檢測   |
+| **SPFA**         | Average 通常 `O(E)`，Worst `O(VE)` | `O(V + E)` |  可以       | 可檢測   |
 
 */

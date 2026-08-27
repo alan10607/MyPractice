@@ -5,46 +5,41 @@ import java.util.*;
 //Topological Sort O(V + E) O(V + E), V = numCourses, E = prerequisites.length
 class Solution210 {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        //1 edges & counts
-        int[] counts = new int[numCourses];
-        Map<Integer, List<Integer>> edges = new HashMap<>();//<先修課程,<後修課程1, ...>>
-        for(int[] pre : prerequisites){
-            if(!edges.containsKey(pre[1]))
-                edges.put(pre[1], new ArrayList<Integer>());
-
+        Map<Integer, List<Integer>> edges = new HashMap<>(); // <先修課程, <後修課程1, ...>>
+        int[] counts = new int[numCourses]; // 後修課程i需要先完成多少先修
+        for (int[] pre : prerequisites) {
+            edges.putIfAbsent(pre[1], new ArrayList<>());
             edges.get(pre[1]).add(pre[0]);
-            counts[pre[0]]++;
+            ++counts[pre[0]];
         }
 
-        //2 find start
-        Queue<Integer> queue = new LinkedList<>();
-        for(int i=0; i<counts.length; i++){
-            if(counts[i] == 0)
-                queue.offer(i);
+        Queue<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; ++i) {
+            if (counts[i] == 0) {
+                q.offer(i);
+            }
         }
 
-        //3 run
-        List<Integer> visited = new ArrayList<>();//用來檢查是否都以遍歷
-        while(!queue.isEmpty()){
-            int root = queue.poll();
-            visited.add(root);
-
-            if(edges.containsKey(root)){
-                for(int child : edges.get(root)){
-                    counts[child]--;
-                    if(counts[child] == 0)
-                        queue.offer(child);
+        List<Integer> visited = new ArrayList<>();
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            visited.add(node);
+            if (edges.containsKey(node)) {
+                for (int next : edges.get(node)) {
+                    if (--counts[next] == 0) {
+                        q.offer(next);
+                    }
                 }
             }
         }
 
-        //return an empty array if it is impossible
-        if(visited.size() != numCourses) return new int[]{};
-
+        if (visited.size() != numCourses) { // return empty array if is impossible
+            return new int[]{};
+        }
         int[] res = new int[numCourses];
-        for(int i=0; i<visited.size(); i++)
+        for (int i = 0; i < numCourses; ++i) {
             res[i] = visited.get(i);
-
+        }
         return res;
     }
 }

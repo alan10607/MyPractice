@@ -1,7 +1,68 @@
-//MST Kruskal's Algorithm Union-Find O(n^2 * logn) O(n^2), Union-Find時間複雜度為O(ElogE), 但此處E=n^2, 建立edges的空間複雜度O(E)要大於parents的O(V)
+//MST Prim's Algorithm O(n^2) O(n), 這題的prim不用建立edge, 因為任何一個點都存在雙向路線(直接用for loop + continue去除連上的)
 class Solution1584 {
 public:
     int minCostConnectPoints(vector<vector<int>>& points) {
+        int n = points.size(), res = 0;
+        vector<int> mst(n, INT_MAX); // 離start的最短距離, INT_MAX表示未連上
+        mst[0] = 0; // 隨機起點
+        vector<bool> visited(n);
+        for (int i = 0; i < n; ++i) {
+            int node = -1;
+            for (int j = 0; j < n; ++j) { // 找到未拜訪且最小的mst
+                if (visited[j]) continue; // 如果是已經連上群集的點, 就跳過
+                if (node == -1 || mst[j] < mst[node]) {
+                    node = j;
+                }
+            }
+            visited[node] = true;
+            res += mst[node];
+
+            for (int j = 0; j < n; ++j) { // 更新mst
+                if (visited[j]) continue; // 同樣跳過已連上的
+                int distance = abs(points[j][0] - points[node][0]) + abs(points[j][1] - points[node][1]);
+                mst[j] = min(mst[j], distance);
+            }
+        }
+        return res;
+    }
+};
+
+
+//MST Prim's Algorithm O(n^2 * logn) O(n), 這題的prim不用建立edge, 因為任何一個點都存在雙向路線(直接用for loop + continue去除連上的)
+class Solution1584_2 {
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        // Prim也可以用PQ找mst, 但會比較慢
+        int n = points.size(), res = 0;
+        vector<int> mst(n, -1); // 離start的最短距離, -1表示未連上
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // <到群集的距離, 某點>, 依照距離小排到大
+        pq.push({0, 0}); // 設定0為start, 距離0
+        while (!pq.empty()) {
+            auto p = pq.top(); pq.pop();
+            int dist = p.first;
+            int node = p.second;
+            if (mst[node] != -1) continue; // 如果是已經連上群集的點, 就跳過
+
+            mst[node] = dist; // 設定最短距離
+            res += dist;
+
+            // 尋找群集與其他點的距離
+            for (int i = 0; i < n; ++i) {
+                if (mst[i] != -1) continue; // 同樣跳過已連上的
+                int distance = abs(points[i][0] - points[node][0]) + abs(points[i][1] - points[node][1]);
+                pq.push({distance, i});
+            }
+        }
+        return res;
+    }
+};
+
+
+//MST Kruskal's Algorithm Union-Find O(n^2 * logn) O(n^2), Union-Find時間複雜度為O(ElogV), 但此處E=n^2, 建立edges的空間複雜度O(E)要大於parents的O(V)
+class Solution1584_3 {
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        // 本題較不適合用Kruskal, 因為要自己建立所有edges
         int n = points.size();
         vector<vector<int>> edges; // <<距離, i點, j點>, ...>
         for (int i = 0; i < n; ++i) {
@@ -34,30 +95,3 @@ public:
 };
 
 
-//MST Prim's Algorithm O(nlogn) O(n), 這題的prim不用建立edge, 因為任何一個點都存在雙向路線(直接用for loop + continue去除連上的)
-class Solution1584_2 {
-public:
-    int minCostConnectPoints(vector<vector<int>>& points) {
-        int n = points.size(), res = 0;
-        vector<int> mst(n, -1); // 離start的最短距離, -1表示未連上
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // <到群集的距離, 某點>, 依照距離小排到大
-        pq.push({0, 0}); // 設定0為start, 距離0
-        while (!pq.empty()) {
-            auto p = pq.top(); pq.pop();
-            int dist = p.first;
-            int node = p.second;
-            if (mst[node] != -1) continue; // 如果是已經連上群集的點, 就跳過
-
-            mst[node] = dist; // 設定最短距離
-            res += dist;
-
-            // 尋找群集與其他點的距離
-            for (int i = 0; i < n; ++i) {
-                if (mst[i] != -1) continue; // 同樣跳過已連上的
-                int distance = abs(points[i][0] - points[node][0]) + abs(points[i][1] - points[node][1]);
-                pq.push({distance, i});
-            }
-        }
-        return res;
-    }
-};

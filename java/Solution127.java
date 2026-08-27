@@ -2,58 +2,65 @@ package leetCode.java;
 
 import java.util.*;
 
-//BFS O(n * m * n) O(n * m * n), n = wordList.length, m = wordList[0].length()
+//BFS O(n * m^2) O(n * m^2), n = wordList.length, m = wordList[0].length()
+//n個word, 每個建立m個pattern, 每個pattern需要substr O(n), 總共 n * m * m
 class Solution127 {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        //1 edges
-        Map<String, List<String>> edges = new HashMap<>();//<*bc, <abc, bbc, ...>>
-        for(String word : wordList){
-            for(int i=0; i<word.length(); i++){
-                String star = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
-                if(!edges.containsKey(star))
-                    edges.put(star, new ArrayList<String>());
-
-                edges.get(star).add(word);
+        Map<String, List<String>> edges = new HashMap<>(); // <*ot, <hot, cot, ...>>
+        for (String word : wordList) {
+            for (int i = 0; i < word.length(); ++i) {
+                String key = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
+                edges.putIfAbsent(key, new ArrayList<>());
+                edges.get(key).add(word);
             }
         }
 
-        //2 BFS
-        Set<String> visited = new HashSet<>();//記得要有visited
-        Queue<String> queue = new LinkedList<>();
-        queue.offer(beginWord);
-        int level = 1;//原地踏步也要回1
-        while(!queue.isEmpty()){//O(n)
-            int size = queue.size();
-            for(int i=0; i<size; i++){
-                String word = queue.poll();
-                if(visited.contains(word))
-                    continue;
+        // BFS
+        int res = 0;
+        Set<String> visited = new HashSet<>(); // 記得要有visited
+        Queue<String> q = new ArrayDeque<>();
+        q.offer(beginWord);
+        while (!q.isEmpty()) {
+            ++res;
+
+            for (int k = q.size(); k > 0; --k) {
+                String word = q.poll();
 
                 visited.add(word);
-                if(word.equals(endWord))
-                    return level;
+                if (word.equals(endWord)) {
+                    return res;
+                }
 
-                for(int j=0; j<word.length(); j++){//O(m)
-                    String star = word.substring(0, j) + "*" + word.substring(j + 1, word.length());
-                    if(edges.containsKey(star)){
-                        for(String child : edges.get(star)){//O(n)
-                            queue.offer(child);
+                for (int i = 0; i < word.length(); ++i) {
+                    String key = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
+                    if (edges.containsKey(key)) {
+                        for (String next : edges.get(key)) {
+                            if (!visited.contains(next)) {
+                                q.offer(next);
+                            }
                         }
                     }
                 }
             }
-            level++;
         }
-
         return 0;
     }
 }
 /* beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
-edges用來記錄如何到下一個node:
-*ot -> hot
-h*t
-ho*
-v      v
-O(m)   O(n)
-空間複雜度為HashMap共n個每個m*n
+
+edges用來記錄如何到下一個node, 建立edges:
+edges={d*g=[dog], c*g=[cog], ho*=[hot], *og=[dog, log, cog], h*t=[hot], 
+    lo*=[lot, log], l*t=[lot], l*g=[log], do*=[dot, dog], *ot=[hot, dot, lot], 
+    d*t=[dot], co*=[cog]}
+
+while依序BFS, queue變化:
+q=[hit]
+q=[hot]
+q=[dot, lot]
+q=[lot, dog, log]
+q=[log, log, cog, cog]
+
+"hit" -> "hot" -> "dot" -> "dog" -> cog", res = 5 
+
+
 */

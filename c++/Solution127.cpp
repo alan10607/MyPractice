@@ -1,4 +1,5 @@
-//BFS O(n * m * n) O(n * m * n), n = wordList.size(), m = wordList[0].length()
+//BFS O(n * m^2) O(n * m^2), n = wordList.length, m = wordList[0].length()
+//n個word, 每個建立m個pattern, 每個pattern需要substr O(n), 總共 n * m * m
 class Solution127 {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
@@ -16,7 +17,7 @@ public:
         int res = 0;
         while(!q.empty()){
             ++res;
-            for(int i=q.size(); i>0; --i){
+            for(int k=q.size(); k>0; --k){
                 auto word = q.front(); q.pop();
                 if(visited.count(word)) continue;
                 visited.insert(word);

@@ -1,7 +1,8 @@
-//Hierholzer's Algorithm O(ElogE) O(E), 時間複雜度為演算法本身O(E)乘上PriorityQueue所需O(logE)
+//Hierholzer's Algorithm, Eulerian Path O(ElogE) O(E), 時間複雜度為演算法本身O(E)乘上PriorityQueue所需O(logE)
 class Solution332 {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
+        //Hierholzer Algorithm: 一路走到沒有edge 可以走, 再把路徑從後面組回來, 所以dfs時是透過postorder, 給答案時要reverse
         //return the itinerary lexical order, 透過pq, 文字從小到大
         unordered_map<string, priority_queue<string, vector<string>, greater<string>>> edges;//<起點, <目的地1, ...>>
         for(auto ticket : tickets)
