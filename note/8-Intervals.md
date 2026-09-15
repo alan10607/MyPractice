@@ -5,6 +5,9 @@
 - *https://leetcode.com/problems/meeting-rooms/
 - *https://leetcode.com/problems/meeting-rooms-ii/
 - https://leetcode.com/problems/minimum-interval-to-include-each-query/
+- https://leetcode.com/problems/maximize-distance-to-closest-person/
+- https://leetcode.com/problems/exam-room/
+
 
 1. 排序interval
 - 依照start排序:

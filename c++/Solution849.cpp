@@ -1,4 +1,4 @@
-// O(n) O(1), n = seats.size()
+//Interval O(n) O(1), n = seats.size()
 class Solution849 {
 public:
     int maxDistToClosest(vector<int>& seats) {

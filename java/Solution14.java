@@ -3,12 +3,15 @@ package leetCode.java;
 //O(mn) O(1), m = strs.length, n = strs[0].length()
 class Solution14 {
     public String longestCommonPrefix(String[] strs) {
-        for(int i=0; i<strs[0].length(); i++){
+        int len = 0;
+        for (int i = 0; i < strs[0].length(); ++i) {
             char ch = strs[0].charAt(i);
-            for(String str : strs){
-                if(i >= str.length() || ch != str.charAt(i))
-                    return str.substring(0, i);
+            for (int j = 1; j < strs.length; ++j) {
+                if (i >= strs[j].length() || ch != strs[j].charAt(i)) {
+                    return strs[0].substring(0, len);
+                }
             }
+            ++len;
         }
         return strs[0];
     }

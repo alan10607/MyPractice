@@ -4,35 +4,36 @@ import java.util.*;
 
 //RandomizedSet(), insert(), remove(), getRandom(): O(1) O(n), n為儲存的set數量
 class RandomizedSet {//Solution380
-    List<Integer> nums;
-    Map<Integer, Integer> m;//<值, nums中的位置>
+    List<Integer> values = new ArrayList<>(); // <val>
+    Map<Integer, Integer> valueToIndex = new HashMap<>(); // <val, val在vals的位置>
 
     public RandomizedSet() {
-        nums = new ArrayList<>();
-        m = new HashMap<>();
     }
-
+    
     public boolean insert(int val) {
-        if(m.containsKey(val)) return false;
-
-        nums.add(val);
-        m.put(val, nums.size() - 1);
+        if (valueToIndex.containsKey(val)) {
+            return false;
+        }
+        values.add(val);
+        valueToIndex.put(val, values.size() - 1);
         return true;
     }
-
+    
     public boolean remove(int val) {
-        if(!m.containsKey(val)) return false;
-
-        int last = nums.get(nums.size() - 1);
-        nums.set(m.get(val), last);
-        nums.remove(nums.size() - 1);
-        m.put(last, m.get(val));
-        m.remove(val);
+        if (!valueToIndex.containsKey(val)) {
+            return false;
+        }
+        int last = values.get(values.size() - 1);
+        int index = valueToIndex.get(val);
+        values.set(index, last); // 用最後一個替換現在這個的位置
+        values.remove(values.size() - 1);
+        valueToIndex.put(last, index); // 這裡也要更新
+        valueToIndex.remove(val);
         return true;
     }
-
+    
     public int getRandom() {
-        int r = (int) (Math.random() * nums.size());
-        return nums.get(r);
+        int index = (int) (Math.random() * values.size());
+        return values.get(index);
     }
 }

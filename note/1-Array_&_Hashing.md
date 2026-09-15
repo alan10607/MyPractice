@@ -4,13 +4,10 @@
 - https://leetcode.com/problems/longest-consecutive-sequence/
 - https://leetcode.com/problems/range-addition-ii/
 - *https://leetcode.com/problems/two-sum-iii-data-structure-design/
-- https://leetcode.com/problems/flatten-nested-list-iterator/
 - https://leetcode.com/problems/insert-delete-getrandom-o1/
 - https://leetcode.com/problems/random-pick-with-blacklist/
 - https://leetcode.com/problems/longest-common-prefix/
 - https://leetcode.com/problems/map-sum-pairs/
-- https://leetcode.com/problems/maximize-distance-to-closest-person/
-- https://leetcode.com/problems/exam-room/
 
 
 ## Matrix 矩陣
@@ -64,6 +61,8 @@ bottom->|[b,r]|     |     |[b,r]|
 - https://leetcode.com/problems/product-of-array-except-self/
 - https://leetcode.com/problems/range-sum-query-immutable/
 - https://leetcode.com/problems/range-sum-query-2d-immutable/
+
+//below TO-DO:
 - https://leetcode.com/problems/subarray-sum-equals-k/
 - https://leetcode.com/problems/random-pick-with-weight/
 
@@ -125,6 +124,7 @@ nums=   8     2     6     3     1
 - https://leetcode.com/problems/evaluate-reverse-polish-notation/
 - https://leetcode.com/problems/implement-queue-using-stacks/
 - https://leetcode.com/problems/implement-stack-using-queues/
+- https://leetcode.com/problems/flatten-nested-list-iterator/
 
 
 ### Monotonic Stack / Queue

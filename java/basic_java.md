@@ -132,6 +132,10 @@ set.remove(1); // 刪除
 set.size(); // 大小
 Set.of(1, 2, 3, 4, 5); // 不可變
 Set<Integer> set = new HashSet<>(Set.of(1, 2, 3, 4, 5));
+set.first(); // 查看
+set.last();  // 查看
+set.pollFirst(); // 取出 + 刪除
+set.pollLast();  // 取出 + 刪除
 ```
 
 ## Stack (堆疊，推薦使用 ArrayDeque)

@@ -167,6 +167,7 @@ int upperBound(vector<int>& nums, int target) {
 - https://leetcode.com/problems/find-all-anagrams-in-a-string/
 - https://leetcode.com/problems/reverse-words-in-a-string/
 - https://leetcode.com/problems/repeated-dna-sequences/
+- https://leetcode.com/problems/alternating-groups-ii/
 ```cpp
 string slidingWindow(string s) {
     auto window;
